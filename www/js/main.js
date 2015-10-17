@@ -2,7 +2,8 @@ $(function(){
 
     tinyMCE.init({
     selector: ".mceEditor",
-    plugins: "code,image"
+    entity_encoding: "raw",
+    plugins: "code,image,link,media,table,imagetools,visualchars" 
 })
 
     $(".box_skitter_large").skitter();

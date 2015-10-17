@@ -60,6 +60,7 @@ class ContentPresenter extends BasePresenter {
         $form = new Form();
         $form->addHidden("id");
         $form->addHidden("userId")->setDefaultValue($this->getUser()->id);
+        $form->addText("sectionId", "Sekce")->setDefaultValue(0);
         $form->addText("title", "Název")->setRequired();
         $form->addText("author", "Autor");
         $form->addText("pageTitle", "Název stránky");
