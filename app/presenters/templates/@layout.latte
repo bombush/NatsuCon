@@ -10,6 +10,7 @@
 
 	<title>{ifset title}{include title|striptags} | {/ifset}NatsuCon</title>
 
+	<link rel="stylesheet" href="{$basePath}/assets/css/_style.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/styles.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/magnific-popup.css">
     <link rel="stylesheet" href="{$basePath}/assets/css/skitter.styles.min.css">
@@ -22,17 +23,19 @@
 </head>
 
 <body>
-	<div class="header">
+	<a href="/">
+		<div class="header">
 			<div class="container">
-
-                                <div class="header-logo"><h1 class="header-heading">NatsuCon</h1></div>
-                                <div class="header-image"></div>
+				<div class="header-logo"><h1 class="header-heading">NatsuCon</h1></div>
+				<div class="header-image"></div>
 			</div>
 
-        </div>
+		</div>
+	</a>
         {control mainMenu}
         <div class="content">
 			<div class="container">
+				<!-- Flash messages -->
                                     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
                                         <div class="main">
                                         {include content}

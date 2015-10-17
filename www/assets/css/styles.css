@@ -82,9 +82,7 @@ Layout styles
 
 .header
 {
-	color: #fff;
-	background: transparent url("../img/hdr-line.png") repeat-x scroll 0% 0%;
-	padding: 1em 0.25em;
+	padding: 0.5em 0em 0em 0em;
 }
 
 .header-heading { float:left; visibility:hidden;}
@@ -153,8 +151,6 @@ Nav
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	height
-
 }
 
 .nav li
@@ -170,6 +166,7 @@ Nav
 	color: #4284B0;
 	text-decoration: none;
 	border-bottom: 1px solid gray;
+    font-size: 0.98em;
 }
 
 .nav a:link { color: white; }
@@ -318,7 +315,6 @@ Wide styles
 
 @media (min-width: 55em)
 {
-	.header { padding: 0.20em 0.5em; }
 	.nav-bar { padding: 0.5em 3em; }
 	.content { padding: 2em 3em; }
 
@@ -349,7 +345,7 @@ Wide styles
 	.nav a
 	{
 		display: inline;
-		padding: 1em 0.15em 1em;
+        padding: 0.7em 0.5em 0.6em 0.5em;
 		margin-top: 0.5em;
 		text-decoration:none;
 		border-bottom: 0;
