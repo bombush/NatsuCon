@@ -87,9 +87,9 @@ Layout styles
 
 .header-heading { float:left; visibility:hidden;}
 
-.header-logo {float:left; margin: 0; background: transparent url("../img/logo.png") no-repeat; height: 100px;width:300px; overflow:hidden;}
+.header-logo {float:none; margin: 0; background: transparent url("../img/logo.png") no-repeat; height: 100px;width:300px; overflow:hidden;}
 
-.header-image {  width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat; overflow:hidden;height: 100px;margin-left:300px;}
+.header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat; overflow:hidden;height: 100px;margin-left:300px;}
 
 .nav-bar
 {
@@ -297,26 +297,32 @@ Single styles
     color: #2087d9;
 }
 
-.fb-page{
-  display:block;
-}
-
 
 /* -----------------------
 Wide styles
 ------------------------*/
 
-@media (max-width: 100em)
+@media (max-width: 55em)
 {
-  .fb-page{
-  display:none!;
+    .fb-page{
+        display: none !important;
     }
 }
 
 @media (min-width: 55em)
 {
+
 	.nav-bar { padding: 0.5em 3em; }
 	.content { padding: 2em 3em; }
+
+    .header-image {
+        display: block;
+        width: auto;
+    }
+
+    .header-logo {
+        float: left;
+    }
 
 	.main
 	{
@@ -342,18 +348,16 @@ Wide styles
 		padding:1em 0.05em 0em 0em;
 	}
 	
-	.nav a
-	{
-		display: inline;
+    .nav a
+    {
+        display: inline;
         padding: 0.7em 0.5em 0.6em 0.5em;
-		margin-top: 0.5em;
-		text-decoration:none;
-		border-bottom: 0;
-	}
-	
+        margin-top: 0.5em;
+        text-decoration:none;
+        border-bottom: 0;
+    }
+
 	.fb-page{
       display:block;
-  }
-  
-  .header-image {  width:auto; }
+    }
 }
