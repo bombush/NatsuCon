@@ -75,6 +75,12 @@ class ContentPresenter extends BasePresenter {
         return $form;
     }
 
+     public function createComponentBreadCrumbs(){
+        $bc = new \Natsu\Control\BreadcrumbControl();
+        $bc->setContent($this->toRender['content']);
+        return $bc;
+    }
+
     public function contentFormSucceeded($form){
        $values = $form->getValues();
       // print_r($values); exit;

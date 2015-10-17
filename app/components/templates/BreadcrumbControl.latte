@@ -1,0 +1,10 @@
+{block content}
+    <ul class="breadcrumbs">
+        <li><a href="{$basePath}">NatsuCon</a></li>
+        {if $content->sectionId > 1}
+            <li>{$content->sectionId}</li>
+        {/if}
+        <li class="active">{$content->title}</li>
+
+    </ul>
+{/block}

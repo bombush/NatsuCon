@@ -24,6 +24,8 @@ class ContentControl extends \Nette\Application\UI\Control {
         $this->template->render();
     }
 
+   
+
 
     public function createComponentMagic(){
         $controls = $this->controls;

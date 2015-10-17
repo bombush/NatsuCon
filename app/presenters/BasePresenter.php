@@ -35,4 +35,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->$key = $var;
         }
     }
+
+    public function createComponentMainMenu(){
+        $menu = new \Natsu\Control\MainMenuControl();
+        return $menu;
+    }
 }

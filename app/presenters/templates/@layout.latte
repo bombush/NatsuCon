@@ -30,24 +30,7 @@
 			</div>
 
         </div>
-        <div class="nav-bar">
-			<div class="container">
-				<ul class="nav">
-					<li><a href="#">DOMŮ</a></li>
-                                        <li><a href="#">INFORMACE</a></li>
-                                        <li><a href="#">PROGRAM</a></li>
-                                        <li><a href="#">VSTUPNÉ</a></li>
-					<li><a href="#">HISTORIE</a></li>
-                                        <li><a href="#">KONTAKT</a></li>
-                                        <li><a href="#">PARTNERI</a></li>
-
-
-
-
-
-				</ul>
-			</div>
-	</div>
+        {control mainMenu}
         <div class="content">
 			<div class="container">
                                     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
