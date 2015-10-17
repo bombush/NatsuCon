@@ -1,0 +1,7 @@
+temp/*
+log/*
+www/images/*
+app/config/config.local
+
+www/__adminer/*
+
