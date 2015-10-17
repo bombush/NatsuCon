@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="{$basePath}/assets/css/magnific-popup.css">
     <link rel="stylesheet" href="{$basePath}/assets/css/skitter.styles.min.css">
     <link rel="stylesheet" href="{$basePath}/assets/css/font-awesome.css">
+	<link rel="stylesheet" href="{$basePath}/assets/css/phoca-flags.css">
+	<link rel="stylesheet" href="{$basePath}/assets/css/phoca-style.css">
 	<!-- <link rel="shortcut icon" href="{$basePath}/favicon.ico"> -->
 	<meta name="viewport" content="width=device-width">
         <meta name="robots" content="noindex,nofollow">
@@ -48,17 +50,7 @@
 										<a target="__blank" href="https://vimeo.com/user31566058"><span class="fa fa-vimeo"></span></a>
 										<a target="__blank" href="javascript: void(0);"><span class="fa fa-rss-square"></span></a>
 									</div>
-                                    <div class="fb-page" data-href="https://www.facebook.com/natsucon.cz" data-width="300" data-height="1300" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/natsucon.cz"><a href="https://www.facebook.com/natsucon.cz">NatsuCon</a></blockquote></div></div>
-                                    
-                                    <script>
-										(function(d, s, id) {
-										  var js, fjs = d.getElementsByTagName(s)[0];
-										  if (d.getElementById(id)) return;
-										  js = d.createElement(s); js.id = id;
-										  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
-										  fjs.parentNode.insertBefore(js, fjs);
-										}(document, 'script', 'facebook-jssdk'));
-                                    </script>
+                                    <div class="fb-page" data-href="https://www.facebook.com/natsucon.cz" data-width="300" data-height="1300" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/natsucon.cz"><a href="https://www.facebook.com/natsucon.cz"></a></blockquote></div></div>
                                </div>
 			</div>
                         </div>
@@ -82,4 +74,14 @@
         <script src="{$basePath}/js/main.js"></script>
 	{/block}
 </body>
+<script>
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
 </html>

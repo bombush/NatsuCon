@@ -7,15 +7,16 @@
 
     {control breadCrumbs}
 
-    <h2>{$content->title} {if $access && $content->isDraft} [TOTO JE DRAFT!] {/if}</h2>
-    {if $content->isNews}<span style="color:gray">{$content->activeFrom|date:'%d.%m.%Y'} [{$content->author}]</span>{/if}
+    <h2 class="content-title">{$content->title} {if $access && $content->isDraft} [TOTO JE DRAFT!] {/if}</h2>
+    {if $content->isNews}<span style="color:gray" class="content-author">{$content->activeFrom|date:'%d.%m.%Y'} [{$content->author}]</span>{/if}
+	<br>
     
     {if !$access}
     <div>
         Obsah ještě není dostupný
     </div>
     {else}
-    <cite>{$content->anotation}</cite>
+    <cite class="content-annotation">{$content->anotation}</cite>
     <div>
       {$content->text|noescape}
     </div>
