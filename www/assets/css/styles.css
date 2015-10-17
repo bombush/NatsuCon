@@ -82,14 +82,15 @@ Layout styles
 
 .header
 {
-	padding: 0.5em 0em 0em 0em;
+	padding: 0em 0em 0em 0em;
 }
 
 .header-heading { float:left; visibility:hidden;}
 
-.header-logo {float:none; margin: 0; background: transparent url("../img/logo.png") no-repeat; height: 100px;width:300px; overflow:hidden;}
+.header-logo {float:none; margin: 0;
+    background: transparent url("../img/logo.png") no-repeat scroll 2em 0.3em / 80% auto; height: 100px;width:300px; overflow:hidden;}
 
-.header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat; overflow:hidden;height: 100px;margin-left:300px;}
+.header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat scroll 0 -0.8em; overflow:hidden;height: 100px;margin-left:300px;}
 
 .nav-bar
 {
