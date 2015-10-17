@@ -1,7 +1,7 @@
 temp/*
 log/*
 www/images/*
-app/config/config.local
+app/config/config.local.neon
 
 www/__adminer/*
 
