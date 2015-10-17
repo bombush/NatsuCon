@@ -141,7 +141,18 @@ Layout styles
     width: auto;
     
 }
- 
+
+/**
+* Link picture
+*/
+a>img {
+    border: 2px solid #4284b0;
+}
+
+a>img:hover {
+    border-color: #003366;
+}
+
 
 /* -----------------------
 Nav
