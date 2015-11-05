@@ -1,5 +1,8 @@
 {
     "require": {
         "dibi/dibi": "~2.3"
+    },
+    "require-dev": {
+        "nette/tester": "~1.6"
     }
 }
