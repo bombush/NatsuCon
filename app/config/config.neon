@@ -2,8 +2,6 @@
 # WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
 # http://nette.org/security-warning
 #
-parameters:
-
 
 php:
 	date.timezone: Europe/Prague
@@ -28,4 +26,5 @@ services:
 	- App\Model\UserManager
 	- App\Forms\SignFormFactory
 	- Natsu\Model\EntityModel 
-	router: Natsu\Router\RouterFactory::createRouter
+	- \DibiConnection(%dibi%)
+	router: Natsu\Router\RouterFactory::createRouter

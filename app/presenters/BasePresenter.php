@@ -11,6 +11,12 @@ use App\Model;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+	/**
+	 * @inject
+	 * @var \DibiConnection
+	 */
+	public $dibi;
+
     public $toRender = array();
 
     public function add($key, $var){
@@ -20,6 +26,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function startup()
     {
 		parent::startup();
+
 
 		if (!$this->getUser()->isLoggedIn()) {
 			if ($this->getUser()->logoutReason === Nette\Security\IUserStorage::INACTIVITY) {
