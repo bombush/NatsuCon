@@ -18,12 +18,22 @@ application:
 session:
 	expiration: 14 days
 
-
 services:
+	- \DibiConnection(%dibi%)
 	- App\Model\UserManager
-	- App\Forms\SignFormFactory
-	- Natsu\Model\EntityModel
 	router: Natsu\Router\RouterFactory::createRouter
+
+	#models
+	- Natsu\Model\EntityModel
+
+	#controls
+	- App\Forms\SignFormFactory
+
+	#presenters
+	-
+		class: Natsu\Presenters\ContentPresenter
+		setup:
+			- @\Natsu\Model\EntityModel::setTable("content")
 
 tracy:
 	bar:

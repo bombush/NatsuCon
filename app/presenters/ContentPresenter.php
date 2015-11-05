@@ -4,15 +4,22 @@ namespace Natsu\Presenters;
 use Nette\Application\UI\Form;
 
 class ContentPresenter extends BasePresenter {
-    private $entityModel;
+
+	/**
+	 * @inject
+	 * @var \Natsu\Model\EntityModel
+	 */
+    public $entityModel;
     private $controls;
-    
+
+	/*
     public function inject(\Natsu\Model\EntityModel $entityModel){
         $this->entityModel = $entityModel;
         $this->entityModel->setTable("content");
-    }
+    }*/
     
     public function actionView($id){
+		$content = $this->entityModel;
         $content = $this->entityModel->getPrimary($id);
         $controlsModel = $this->entityModel->reflection("component");
         $this->controls = $controlsModel->getComponents($id);
@@ -72,7 +79,7 @@ class ContentPresenter extends BasePresenter {
         $form->addCheckbox("isNews", "Novinka");
         $form->addCheckbox("isSticky", "Sticky bit");
         $form->addSubmit("save", "Uložit");
-        $form->onSuccess[] = array($this, 'contentFormSucceeded');
+        $form->onSuccess[] = [$this, 'contentFormSucceeded'];
         return $form;
     }
 
