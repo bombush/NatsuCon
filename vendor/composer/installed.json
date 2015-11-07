@@ -1088,31 +1088,96 @@
         "description": "Customization for the best database management tool written in PHP, Adminer"
     },
     {
-        "name": "nette/tester",
-        "version": "v1.5.0",
-        "version_normalized": "1.5.0.0",
+        "name": "dibi/dibi",
+        "version": "v2.3.4",
+        "version_normalized": "2.3.4.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/nette/tester.git",
-            "reference": "0807e28b615af7a51acb6903d9f562ccab15fb51"
+            "url": "https://github.com/dg/dibi.git",
+            "reference": "47ef875c736fa3cdb339682dbfd0a0a0429c9bac"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nette/tester/zipball/0807e28b615af7a51acb6903d9f562ccab15fb51",
-            "reference": "0807e28b615af7a51acb6903d9f562ccab15fb51",
+            "url": "https://api.github.com/repos/dg/dibi/zipball/47ef875c736fa3cdb339682dbfd0a0a0429c9bac",
+            "reference": "47ef875c736fa3cdb339682dbfd0a0a0429c9bac",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0"
+        },
+        "replace": {
+            "dg/dibi": "self.version"
+        },
+        "require-dev": {
+            "nette/tester": "~1.3",
+            "tracy/tracy": "~2.2"
+        },
+        "time": "2015-10-26 18:31:39",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "dibi/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause",
+            "GPL-2.0",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "David Grudl",
+                "homepage": "https://davidgrudl.com"
+            }
+        ],
+        "description": "Dibi is Database Abstraction Library for PHP",
+        "homepage": "http://dibiphp.com",
+        "keywords": [
+            "access",
+            "database",
+            "dbal",
+            "mssql",
+            "mysql",
+            "odbc",
+            "oracle",
+            "pdo",
+            "postgresql",
+            "sqlite"
+        ]
+    },
+    {
+        "name": "nette/tester",
+        "version": "v1.6.1",
+        "version_normalized": "1.6.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/nette/tester.git",
+            "reference": "b0f312e7ab9a70bbd5c92568e2a20dd46be9a529"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/nette/tester/zipball/b0f312e7ab9a70bbd5c92568e2a20dd46be9a529",
+            "reference": "b0f312e7ab9a70bbd5c92568e2a20dd46be9a529",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-07-16 02:05:19",
+        "time": "2015-10-26 05:38:30",
         "bin": [
             "src/tester"
         ],
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.5-dev"
+                "dev-master": "1.6-dev"
             }
         },
         "installation-source": "dist",
@@ -1130,15 +1195,15 @@
         "authors": [
             {
                 "name": "David Grudl",
-                "homepage": "http://davidgrudl.com"
+                "homepage": "https://davidgrudl.com"
             },
             {
                 "name": "Nette Community",
-                "homepage": "http://nette.org/contributors"
+                "homepage": "https://nette.org/contributors"
             }
         ],
         "description": "An easy-to-use PHP unit testing framework.",
-        "homepage": "http://nette.org",
+        "homepage": "https://tester.nette.org",
         "keywords": [
             "nette",
             "testing",
