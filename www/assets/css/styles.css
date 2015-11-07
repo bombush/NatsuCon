@@ -366,6 +366,30 @@ Single styles
     background: url("../img/flag/united-kingdom.svg");
 }
 
+.sub-nav a {
+    background: white;
+    border: 0.1em solid #4284B0;
+    
+}
+
+.sub-nav a:link {
+    color:#4284B0;
+    border: 0.1em solid #4284B0;
+}
+
+
+
+
+
+.sub-nav a:hover {
+    color:white;
+    background-color:#4284B0;
+}
+
+.sub-nav{
+    background-color: transparent;
+}
+
 /* -----------------------
 Wide styles
 ------------------------*/
@@ -424,6 +448,16 @@ Wide styles
         text-decoration:none;
         border-bottom: 0;
     }
+
+ .sub-nav a:link {
+    color:#4284B0;
+    border: 0.1em solid #4284B0;
+}
+
+.sub-nav a:hover {
+    color:white;
+    background-color:#4284B0;
+}
 
 	.fb-page{
       display:block;

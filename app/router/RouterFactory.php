@@ -61,6 +61,7 @@ class RouterFactory
                  
 
 		$router[] = new Route('butaneko', 'Sign:in');
+                $router[] = new Route('sitemap.xml', 'Export:sitemap');
                 $router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
                 //$router[] = new Route('index.php', 'Homepage:default');
                 
