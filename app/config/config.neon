@@ -28,6 +28,7 @@ services:
 
 	#controls
 	- App\Forms\SignFormFactory
+	- Natsu\Control\IMainMenuControlFactory
 
 	#presenters
 	-
