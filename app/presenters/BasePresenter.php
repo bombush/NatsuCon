@@ -13,7 +13,10 @@ use Tracy\ILogger;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
-    public $toRender = array();
+	/** @var \Natsu\Control\IMainMenuControlFactory @inject */
+	public $mainMenuContolFactory;
+
+    public $toRender = [];
 
     public function add($key, $var){
         $this->toRender[$key] = $var;
@@ -22,7 +25,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function startup()
     {
 		parent::startup();
-
 
 		if (!$this->getUser()->isLoggedIn()) {
 			if ($this->getUser()->logoutReason === Nette\Security\IUserStorage::INACTIVITY) {
@@ -40,7 +42,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     }
 
     public function createComponentMainMenu(){
-        $menu = new \Natsu\Control\MainMenuControl();
-        return $menu;
+        return $this->mainMenuContolFactory->create();
     }
 }

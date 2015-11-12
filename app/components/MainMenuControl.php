@@ -9,4 +9,13 @@ class MainMenuControl extends Control {
         $this->template->render();
     }
 }
+
+interface IMainMenuControlFactory
+{
+
+	/**
+	 * @return MainMenuControl
+	 */
+	public function create();
+}
 ?>
