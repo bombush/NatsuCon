@@ -1,0 +1,18 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# http://nette.org/security-warning
+#
+
+parameters:
+
+dibi:
+	driver: mysql
+	username: root
+	password: imolol
+	database: natsucon
+	charset: utf8
+
+database:
+  dsn: 'mysql:host=localhost;dbname=natsucon'
+  user: root
+  password:
