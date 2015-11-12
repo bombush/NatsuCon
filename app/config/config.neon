@@ -22,9 +22,9 @@ session:
 services:
 	- App\Model\UserManager
 	- App\Forms\SignFormFactory
-	- Natsu\Model\EntityModel 
-	- \DibiConnection(%dibi%)
-	router: Natsu\Router\RouterFactory::createRoutertracy:
+	- Natsu\Model\EntityModel
+	router: Natsu\Router\RouterFactory::createRouter
+
 tracy:
 	bar:
 		- Dibi\Bridges\Tracy\Panel
