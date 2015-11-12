@@ -6,11 +6,6 @@
 php:
 	date.timezone: Europe/Prague
 
-database:
-  dsn: 'mysql:host=localhost;dbname=natsucon'
-  user: natsucon
-  password: Foo4kee4
-
 extensions:
     dibi: Dibi\Bridges\Nette\DibiExtension22
 
