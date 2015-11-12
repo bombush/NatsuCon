@@ -4,18 +4,14 @@ namespace Natsu\Presenters;
 
 use Nette;
 use App\Model;
-
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 /**
  * Base presenter for all application presenters.
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-	/**
-	 * @inject
-	 * @var \DibiConnection
-	 */
-	public $dibi;
 
     public $toRender = array();
 

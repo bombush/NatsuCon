@@ -10,16 +10,16 @@ use Nette\Application\Routers\Route;
 class RouterFactory
 {
 
-        /**
+	/**
      *
-     * @var Nette\Database\Connection
+     * @var \DibiConnection
      */
     private $database;
 
 	/**
 	 * @return Nette\Application\IRouter
 	 */
-	public static function createRouter(\Nette\Database\Connection $database = null)
+	public static function createRouter(\DibiConnection $database = null)
 	{
 		$router = new RouteList;
 

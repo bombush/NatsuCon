@@ -6,11 +6,13 @@
 php:
 	date.timezone: Europe/Prague
 
-
 database:
   dsn: 'mysql:host=localhost;dbname=natsucon'
   user: natsucon
   password: Foo4kee4
+
+extensions:
+    dibi: Dibi\Bridges\Nette\DibiExtension22
 
 
 application:
@@ -27,4 +29,7 @@ services:
 	- App\Forms\SignFormFactory
 	- Natsu\Model\EntityModel 
 	- \DibiConnection(%dibi%)
-	router: Natsu\Router\RouterFactory::createRouter
+	router: Natsu\Router\RouterFactory::createRoutertracy:
+tracy:
+	bar:
+		- Dibi\Bridges\Tracy\Panel
