@@ -9,13 +9,12 @@ use Nette;
 
 class EntityModel extends \Nette\Object{
     /**
-     *
-     * @var Nette\Database\Connection
+     * @var DibiConnection
      */
     public $database;
     public $table;
 
-    public function  __construct(Nette\Database\Connection $database) {
+    public function  __construct(\DibiConnection $database) {
         $this->database = $database;
        // print_r($this->database);
        // exit;
