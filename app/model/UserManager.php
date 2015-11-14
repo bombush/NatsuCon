@@ -21,11 +21,11 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		COLUMN_ROLE = 'roleId';
 
 
-	/** @var Nette\Database\Context */
+	/** @var \DibiConnection */
 	private $database;
 
 
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(\DibiConnection $database)
 	{
 		$this->database = $database;
 	}
@@ -40,7 +40,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	{
 		list($username, $password) = $credentials;
 
-		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
+		$row = $this->database->query("SELECT * FROM ".self::TABLE_NAME." WHERE username=?", $username)->fetch();
 
                //  print_r($row);
                // exit;
@@ -60,7 +60,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
                
 
 		$arr = $row->toArray();
-                $contact = $this->database->table(self::TABLE_NAME_CONTACT)->where(self::COLUMN_ID, $arr[self::COLUMN_CONTACT_ID])->fetch();
+                $contact = $this->database->query("SELECT * FROM ".self::TABLE_NAME_CONTACT." WHERE ".self::COLUMN_ID."=?", $arr[self::COLUMN_CONTACT_ID])->fetch();
                 $contact = $contact->toArray();
                 unset($contact[self::COLUMN_ID]);
                 $arr = array_merge($arr, $contact);
