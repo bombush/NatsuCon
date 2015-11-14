@@ -25,7 +25,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	private $database;
 
 
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(\DibiConnection $database)
 	{
 		$this->database = $database;
 	}
