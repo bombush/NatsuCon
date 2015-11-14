@@ -19,7 +19,6 @@ session:
 	expiration: 14 days
 
 services:
-	- \DibiConnection(%dibi%)
 	- App\Model\UserManager
 	router: Natsu\Router\RouterFactory::createRouter
 
