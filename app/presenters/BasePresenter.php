@@ -14,17 +14,24 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
 	/** @var \Natsu\Control\IMainMenuControlFactory @inject */
-	public $mainMenuContolFactory;
+    public $mainMenuContolFactory;
 
-    public $toRender = [];
+    public $toRender = array();
+    public $sectionId;
 
+
+   
     public function add($key, $var){
         $this->toRender[$key] = $var;
     }
 
+
+
     protected function startup()
     {
 		parent::startup();
+
+                $this->setSectionId($this->context->parameters['sectionId']);
 
 		if (!$this->getUser()->isLoggedIn()) {
 			if ($this->getUser()->logoutReason === Nette\Security\IUserStorage::INACTIVITY) {
@@ -43,5 +50,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     public function createComponentMainMenu(){
         return $this->mainMenuContolFactory->create();
+    }
+
+     public function setSectionId($sectionId) {
+        $this->sectionId = $sectionId;
     }
 }

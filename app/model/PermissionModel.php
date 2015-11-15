@@ -10,6 +10,12 @@ namespace Natsu\Model;
  *
  * @author campari
  */
+
+ /**
+  *  isInRule($user,$role[])
+  *
+  *
+  */
 class PermissionModel extends EntityModel {
     //put your code here
     public $tableName = "permission";

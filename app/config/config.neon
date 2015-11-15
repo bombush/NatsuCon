@@ -9,6 +9,8 @@ php:
 extensions:
     dibi: Dibi\Bridges\Nette\DibiExtension22
 
+parameters:
+  sectionId: 2016
 
 application:
 	errorPresenter: Error
