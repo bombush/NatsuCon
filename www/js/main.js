@@ -4,7 +4,7 @@ $(function(){
     selector: ".mceEditor",
     entity_encoding: "raw",
     plugins: "code,image,link,media,table,imagetools,visualchars" 
-})
+    });
 
     $(".box_skitter_large").skitter();
     
@@ -26,6 +26,8 @@ $(function(){
 		}
 	});
     
-    
+    $('.datepicker').datepicker();
+
+
 
 });
