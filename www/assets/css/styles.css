@@ -337,6 +337,56 @@ Single styles
 }
 
 /**
+ * Datepicker
+ */
+.ui-datepicker {
+    background-color: #fff;
+    padding: 1em;
+    border: 0.1em #4284B0 solid;
+    border-radius: 0.2em;
+}
+
+.ui-datepicker a {
+    color: #4284B0;
+    text-decoration: none;
+}
+
+.ui-datepicker a:hover {
+    text-decoration: underline;
+}
+
+.ui-datepicker-header {
+    margin-bottom: 1em;
+}
+
+.ui-datepicker-next {
+    float:right;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.ui-datepicker-next:hover {
+    text-decoration: underline;
+}
+
+.ui-datepicker-prev {
+    float:left;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+.ui-datepicker-prev:hover {
+    text-decoration: underline;
+}
+
+.ui-datepicker-title {
+    font-weight: bold;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+/**
  * content
  */
 .content-title {
