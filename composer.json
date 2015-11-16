@@ -1,6 +1,7 @@
 {
     "require": {
-        "dibi/dibi": "~2.3"
+        "dibi/dibi": "~2.3",
+        "radekdostal/nette-datetimepicker": "~2.2"
     },
     "require-dev": {
         "nette/tester": "~1.6"
