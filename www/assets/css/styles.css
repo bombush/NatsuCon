@@ -70,6 +70,21 @@ a:focus { color: black; }
 a:hover { color: purple; }
 a:active { color: #2087A9; }
 
+/**
+ * MicroClearfix
+ */
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
 /* -----------------------
 Layout styles
 ------------------------*/
