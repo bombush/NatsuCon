@@ -338,7 +338,10 @@ Single styles
 
 /**
  * Datepicker
+ * Replaced with jquery UI stylesheet.
+ * But JQUI SUXXX. Please leave here for future use.
  */
+/*
 .ui-datepicker {
     background-color: #fff;
     padding: 1em;
@@ -385,6 +388,7 @@ Single styles
     width: 50%;
     text-align: center;
 }
+*/
 
 /**
  * content
