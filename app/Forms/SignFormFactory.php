@@ -33,7 +33,7 @@ class SignFormFactory extends Nette\Object
 
 		$form->addCheckbox('remember', 'Keep me signed in');
 
-		$form->addDatePicker('date', 'Datum');
+		$form->addDateTimePicker('date', 'Datum');
 
 		$form->addSubmit('send', 'Sign in');
 
