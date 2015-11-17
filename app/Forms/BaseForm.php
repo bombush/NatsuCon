@@ -11,10 +11,12 @@ use RadekDostal\NetteComponents\DateTimePicker\DatePicker;
 class BaseForm extends \Nette\Application\UI\Form {
 
 	public function addDatePicker($name, $label = NULL, $maxLength = NULL) {
-		$this[$name] = new DatePicker($label, $maxLength);
+		$element = $this[$name] = new DatePicker($label, $maxLength);
+		return $element;
 	}
 
 	public function addDateTimePicker($name, $label = NULL, $maxLength = NULL){
-		$this[$name] = new DateTimePicker($label, $maxLength);
+		$element = $this[$name] = new DateTimePicker($label, $maxLength);
+		return $element;
 	}
 } 
