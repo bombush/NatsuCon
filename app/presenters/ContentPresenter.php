@@ -77,7 +77,7 @@ class ContentPresenter extends BasePresenter {
         $form->addText("author", "Autor");
         $form->addText("pageTitle", "Název stránky");
         $form->addText("anotation", "Krátký text");
-        $form->addTextArea("text", "Dlouhý text")->setAttribute('class', 'mceEditor');
+        $form->addTextArea("text", "Dlouhý text")->setAttribute('class', 'wysiwyg');
         $form->addText("activeFrom", "Aktivní od:")->setDefaultValue(date('Y-m-d G:i:s', time()));
         $form->addText("activeUntil", "Aktivní do:");
         $form->addCheckbox("isDraft", "Draft")->setDefaultValue(1);
