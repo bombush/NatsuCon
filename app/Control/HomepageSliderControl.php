@@ -3,10 +3,9 @@
 
 namespace Natsu\Control;
 
-use Nette\Application\UI;
 use Nette\Utils\ArrayHash;
 
-class HomepageSliderControl extends UI\Control{
+class HomepageSliderControl extends BaseControl {
      public function render(){
         $this->template->slides = $this->getSliderImages();
         $this->template->setFile(__DIR__."/templates/HomepageSliderControl.latte");

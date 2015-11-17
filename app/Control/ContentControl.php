@@ -1,16 +1,11 @@
 <?php
     namespace Natsu\Control;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-use Nette\Application\UI\Control;
 /**
  * Description of MenuControl
  *
  * @author campari
  */
-class ContentControl extends \Nette\Application\UI\Control {
+class ContentControl extends BaseControl {
     private $controls;
 
     public function setControls($controls){
