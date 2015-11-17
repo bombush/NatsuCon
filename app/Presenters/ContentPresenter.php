@@ -1,7 +1,7 @@
 <?php
 
 namespace Natsu\Presenters;
-use Nette\Application\UI\Form;
+use Natsu\Forms\BaseForm;
 
 class ContentPresenter extends BasePresenter {
 
@@ -64,7 +64,7 @@ class ContentPresenter extends BasePresenter {
     }
 
     public function createComponentContentForm(){
-        $form = new Form();
+        $form = new BaseForm();
         $form->addHidden("id");
         $form->addHidden("userId")->setDefaultValue($this->getUser()->id);
         $form->addText("sectionId", "Sekce")->setDefaultValue(0);
@@ -73,8 +73,8 @@ class ContentPresenter extends BasePresenter {
         $form->addText("pageTitle", "Název stránky");
         $form->addText("anotation", "Krátký text");
         $form->addTextArea("text", "Dlouhý text")->setAttribute('class', 'mceEditor');
-        $form->addText("activeFrom", "Aktivní od:")->setDefaultValue(date('Y-m-d G:i:s', time()));
-        $form->addText("activeUntil", "Aktivní do:");
+        $form->addDateTimePicker("activeFrom", "Aktivní od:")->setDefaultValue(date('Y-m-d G:i', time()));
+        $form->addDateTimePicker("activeUntil", "Aktivní do:");
         $form->addCheckbox("isDraft", "Draft")->setDefaultValue(1);
         $form->addCheckbox("isNews", "Novinka");
         $form->addCheckbox("isSticky", "Sticky bit");
