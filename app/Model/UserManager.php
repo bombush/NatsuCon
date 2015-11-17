@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace Natsu\Model;
 
 use Nette;
 use Nette\Security\Passwords;
@@ -40,7 +40,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	{
 		list($username, $password) = $credentials;
 
-		$row = $this->database->query("SELECT * FROM ".self::TABLE_NAME." WHERE username=?", $username)->fetch();
+		$row = $this->database->select('*')->from(self::TABLE_NAME)->where(self::COLUMN_NAME . ' = ?', $username)->fetch();
 
                //  print_r($row);
                // exit;
@@ -60,7 +60,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
                
 
 		$arr = $row->toArray();
-                $contact = $this->database->query("SELECT * FROM ".self::TABLE_NAME_CONTACT." WHERE ".self::COLUMN_ID."=?", $arr[self::COLUMN_CONTACT_ID])->fetch();
+                $contact = $this->database->select('*')->from(self::TABLE_NAME_CONTACT)->where(self::COLUMN_ID . ' = ?', $arr[self::COLUMN_CONTACT_ID])->fetch();
                 $contact = $contact->toArray();
                 unset($contact[self::COLUMN_ID]);
                 $arr = array_merge($arr, $contact);
@@ -80,10 +80,10 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	public function add($username, $password)
 	{
 		try {
-			$this->database->table(self::TABLE_NAME)->insert(array(
+			$this->database->query('INSERT INTO [' . self::TABLE_NAME . ']', [
 				self::COLUMN_NAME => $username,
 				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
-			));
+			]);
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
 			throw new DuplicateNameException;
 		}

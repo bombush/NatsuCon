@@ -6,8 +6,6 @@
 php:
 	date.timezone: Europe/Prague
 
-extensions:
-    dibi: Dibi\Bridges\Nette\DibiExtension22
 
 parameters:
   sectionId: 2016
@@ -17,18 +15,28 @@ application:
 	mapping:
 		*: Natsu\*Module\Presenters\*Presenter
 
+
+extensions:
+    dibi: Dibi\Bridges\Nette\DibiExtension22
+
+
 session:
 	expiration: 14 days
 
+tracy:
+	bar:
+		- Dibi\Bridges\Tracy\Panel
+
 services:
-	- App\Model\UserManager
+	- Natsu\Model\UserManager
 	router: Natsu\Router\RouterFactory::createRouter
+
 
 	#models
 	- Natsu\Model\EntityModel
 
 	#controls
-	- App\Forms\SignFormFactory
+	- Natsu\Forms\SignFormFactory
 	- Natsu\Control\IMainMenuControlFactory
 
 	#presenters
@@ -36,7 +44,3 @@ services:
 		class: Natsu\Presenters\ContentPresenter
 		setup:
 			- @\Natsu\Model\EntityModel::setTable("content")
-
-tracy:
-	bar:
-		- Dibi\Bridges\Tracy\Panel

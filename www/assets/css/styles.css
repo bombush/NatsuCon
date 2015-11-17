@@ -70,6 +70,21 @@ a:focus { color: black; }
 a:hover { color: purple; }
 a:active { color: #2087A9; }
 
+/**
+ * MicroClearfix
+ */
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+}
+
 /* -----------------------
 Layout styles
 ------------------------*/
@@ -320,6 +335,60 @@ Single styles
 .news-title{
     font-size:1.9em;
 }
+
+/**
+ * Datepicker
+ * Replaced with jquery UI stylesheet.
+ * But JQUI SUXXX. Please leave here for future use.
+ */
+/*
+.ui-datepicker {
+    background-color: #fff;
+    padding: 1em;
+    border: 0.1em #4284B0 solid;
+    border-radius: 0.2em;
+}
+
+.ui-datepicker a {
+    color: #4284B0;
+    text-decoration: none;
+}
+
+.ui-datepicker a:hover {
+    text-decoration: underline;
+}
+
+.ui-datepicker-header {
+    margin-bottom: 1em;
+}
+
+.ui-datepicker-next {
+    float:right;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.ui-datepicker-next:hover {
+    text-decoration: underline;
+}
+
+.ui-datepicker-prev {
+    float:left;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+.ui-datepicker-prev:hover {
+    text-decoration: underline;
+}
+
+.ui-datepicker-title {
+    font-weight: bold;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+*/
 
 /**
  * content

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms;
+namespace Natsu\Forms;
 
 use Nette;
 use Nette\Application\UI\Form;
@@ -24,7 +24,7 @@ class SignFormFactory extends Nette\Object
 	 */
 	public function create()
 	{
-		$form = new Form;
+		$form = new \Natsu\Forms\BaseForm;
 		$form->addText('username', 'Username:')
 			->setRequired('Please enter your username.');
 
@@ -32,6 +32,8 @@ class SignFormFactory extends Nette\Object
 			->setRequired('Please enter your password.');
 
 		$form->addCheckbox('remember', 'Keep me signed in');
+
+		$form->addDateTimePicker('date', 'Datum');
 
 		$form->addSubmit('send', 'Sign in');
 

@@ -1,10 +1,9 @@
 <?php
 namespace Natsu\Control;
 
-use Nette\Application\UI;
 use Nette\Utils\ArrayHash;
 
-class NewsControl extends UI\Control{
+class NewsControl extends BaseControl {
 
     public function render(){
         $this->template->setFile(__DIR__."/templates/NewsControl.latte");
@@ -12,5 +11,13 @@ class NewsControl extends UI\Control{
 
     }
 
+}
+
+interface INewsControlFactory{
+
+	/**
+	 * @return NewsControl
+	 */
+	public function create();
 }
 ?>

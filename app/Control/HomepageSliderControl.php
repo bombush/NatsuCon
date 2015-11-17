@@ -3,10 +3,9 @@
 
 namespace Natsu\Control;
 
-use Nette\Application\UI;
 use Nette\Utils\ArrayHash;
 
-class HomepageSliderControl extends UI\Control{
+class HomepageSliderControl extends BaseControl {
      public function render(){
         $this->template->slides = $this->getSliderImages();
         $this->template->setFile(__DIR__."/templates/HomepageSliderControl.latte");
@@ -14,7 +13,7 @@ class HomepageSliderControl extends UI\Control{
     }
 
     private function getSliderImages(){
-        $images = array();
+        $images = [];
 
         $image1 = new ArrayHash();
         $image1->title = "Obr1";
@@ -45,4 +44,13 @@ class HomepageSliderControl extends UI\Control{
 
 
 }
+
+interface IHomepageSliderControlFactory{
+
+	/**
+	 * @return HomepageSliderControl
+	 */
+	public function create();
+}
+
 ?>

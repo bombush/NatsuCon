@@ -1,9 +1,8 @@
 <?php
 
 namespace Natsu\Control;
-use Nette\Application\UI\Control;
 
-class BreadcrumbControl extends Control {
+class BreadcrumbControl extends BaseControl {
     private $content;
 
     public function setContent($content){
@@ -17,5 +16,13 @@ class BreadcrumbControl extends Control {
         $this->template->content = $this->content;
         $this->template->render();
     }
+}
+
+interface IBreadcrumbControlFactory{
+
+	/**
+	 * @return MainMenuControl
+	 */
+	public function create();
 }
 ?>

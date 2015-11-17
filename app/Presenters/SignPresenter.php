@@ -3,7 +3,7 @@
 namespace Natsu\Presenters;
 
 use Nette;
-use App\Forms\SignFormFactory;
+use Natsu\Forms\SignFormFactory;
 
 
 class SignPresenter extends BasePresenter

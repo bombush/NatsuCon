@@ -31,7 +31,20 @@ $(function(){
 			}
 		}
 	});
-    
-    
+
+    /*
+     *@TODO: take data from data attributes
+     */
+    $('.datepicker').datepicker({
+        dateFormat: 'dd.mm.yy'
+    });
+
+    $('.datetimepicker').datetimepicker(
+    {
+        dateFormat: 'dd.mm.yy',
+        yearRange: '2010:2020',
+        stepMinute: 5
+    });
+
 
 });
