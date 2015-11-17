@@ -4,7 +4,7 @@ namespace Natsu\Router;
 class PageRoute extends \Nette\Application\Routers\Route {
    /**
     *
-    * @var Nette\Database\Connection
+    * @var DibiConnection
     */
     public $database;
 
