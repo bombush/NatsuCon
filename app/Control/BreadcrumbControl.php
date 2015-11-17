@@ -18,4 +18,12 @@ class BreadcrumbControl extends Control {
         $this->template->render();
     }
 }
+
+interface IBreadcrumbControlFactory{
+
+	/**
+	 * @return MainMenuControl
+	 */
+	public function create();
+}
 ?>

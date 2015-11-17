@@ -13,4 +13,12 @@ class NewsControl extends UI\Control{
     }
 
 }
+
+interface INewsControlFactory{
+
+	/**
+	 * @return NewsControl
+	 */
+	public function create();
+}
 ?>

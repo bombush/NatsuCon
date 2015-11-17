@@ -14,7 +14,7 @@ class HomepageSliderControl extends UI\Control{
     }
 
     private function getSliderImages(){
-        $images = array();
+        $images = [];
 
         $image1 = new ArrayHash();
         $image1->title = "Obr1";
@@ -45,4 +45,13 @@ class HomepageSliderControl extends UI\Control{
 
 
 }
+
+interface IHomepageSliderControlFactory{
+
+	/**
+	 * @return HomepageSliderControl
+	 */
+	public function create();
+}
+
 ?>
