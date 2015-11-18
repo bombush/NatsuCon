@@ -71,6 +71,28 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	}
 
 
+        public function identify($username){
+            try {
+                $row = $this->database->select('*')->from(self::TABLE_NAME)->where(self::COLUMN_NAME . ' = ?', $username)->fetch();
+                if(!$row){
+                    return false;
+                }else{
+                    return $row;
+                }
+            }catch(\Exception $e){
+                return false;
+            }
+
+        }
+
+
+        public function createRequest($row){
+             $hash = substr(sha1($row->username.time()),0,20);
+             $this->database->update(self::TABLE_NAME, array("requesthash" => $hash))->where(self::COLUMN_ID." = ?", $row->id)->execute();
+             return $hash;
+        }
+
+
 	/**
 	 * Adds new user.
 	 * @param  string

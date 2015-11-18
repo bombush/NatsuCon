@@ -37,6 +37,8 @@ services:
 
 	#controls
 	- Natsu\Forms\SignFormFactory
+	- Natsu\Forms\ForgetFormFactory
+	- Natsu\Forms\NewPassFormFactory
 	- Natsu\Control\IMainMenuControlFactory
 
 	#presenters

@@ -13,6 +13,7 @@ class SignFormFactory extends Nette\Object
 	private $user;
 
 
+
 	public function __construct(User $user)
 	{
 		$this->user = $user;
@@ -25,15 +26,15 @@ class SignFormFactory extends Nette\Object
 	public function create()
 	{
 		$form = new \Natsu\Forms\BaseForm;
-		$form->addText('username', 'Username:')
-			->setRequired('Please enter your username.');
+		$form->addText('username', 'Uživatelské jméno:')
+			->setRequired('Zadej uživatelské jméno.');
 
-		$form->addPassword('password', 'Password:')
-			->setRequired('Please enter your password.');
+		$form->addPassword('password', 'Heslo:')
+			->setRequired('Zadej heslo.');
 
-		$form->addCheckbox('remember', 'Keep me signed in');
+		$form->addCheckbox('remember', 'Zapamatovat přihlášení');
 
-		$form->addDateTimePicker('date', 'Datum');
+		//$form->addDateTimePicker('date', 'Datum');
 
 		$form->addSubmit('send', 'Sign in');
 
