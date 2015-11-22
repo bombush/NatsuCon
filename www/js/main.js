@@ -12,7 +12,8 @@ $(function(){
     
 
 
-    $(".box_skitter_large").skitter();
+    //$(".box_skitter_large").skitter();
+    $(".slippry-default").slippry();
     
     $('.popup-gallery').magnificPopup({
 		delegate: 'a',

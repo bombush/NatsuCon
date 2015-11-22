@@ -3,13 +3,16 @@
 namespace Natsu\Presenters;
 
 use Nette;
-use App\Model;
+use Natsu\Model;
 
 
 class HomepagePresenter extends BasePresenter
 {
 
-	public function createComponentSlider(){
+	/**
+     * @return \Natsu\Control\HomepageSliderControl
+     */
+    public function createComponentSlider(){
             $slider = new \Natsu\Control\HomepageSliderControl();
             return $slider;
         }
