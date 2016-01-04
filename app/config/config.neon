@@ -40,6 +40,7 @@ services:
 	- Natsu\Forms\ForgetFormFactory
 	- Natsu\Forms\NewPassFormFactory
 	- Natsu\Control\IMainMenuControlFactory
+	- Natsu\Forms\MyAccountFormFactory
 
 	#presenters
 	-

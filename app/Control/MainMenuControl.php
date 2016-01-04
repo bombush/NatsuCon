@@ -5,6 +5,7 @@ class MainMenuControl extends BaseControl {
 
     public function render(){
         $this->template->setFile(__DIR__."/templates/MainMenuControl.latte");
+        $this->template->user = $this->getParent()->getUser();
         $this->template->render();
     }
 }

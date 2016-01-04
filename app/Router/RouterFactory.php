@@ -44,8 +44,12 @@ class RouterFactory
                            if(!is_numeric($id)){
                 return $id;
             }else{
-                
-                return $database->query("SELECT * FROM route WHERE contentId = ?", $id)->fetch()->url;
+                //dump($id);exit;
+                $fetchContent = $database->query("SELECT * FROM route WHERE contentId = ?", $id)->fetch();
+                if($fetchContent)
+                    return $fetchContent->url;
+                else
+                   return NULL;
             }
                         }
                     ),

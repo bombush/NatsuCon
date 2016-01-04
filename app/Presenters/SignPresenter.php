@@ -6,6 +6,7 @@ use Nette;
 use Natsu\Forms\SignFormFactory;
 use Natsu\Forms\ForgetFormFactory;
 use Natsu\Forms\NewPassFormFactory;
+use Natsu\Forms\MyAccountFormFactory;
 use Natsu\Model\UserManager;
 use Natsu\Model\EntityModel;
 
@@ -20,6 +21,9 @@ class SignPresenter extends BasePresenter
 
          /** @var NewPassFormFactory @inject */
 	public $factoryNewPass;
+
+         /** @var MyAccountFormFactory @inject */
+	public $factoryMyAccount;
 
         /** @var UserManager @inject */
         public $userManager;
@@ -62,6 +66,24 @@ class SignPresenter extends BasePresenter
 		return $form;
 	}
 
+
+        /**
+	 * Forget form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentMyAccountForm()
+	{      
+                $this->factoryMyAccount->setManager($this->userManager);
+                $this->factoryMyAccount->setUserId($this->getUser()->getId());
+		$form = $this->factoryMyAccount->create();
+                
+                
+		$form->onSuccess[] = function ($form) {
+			$form->getPresenter()->redirect('Sign:in');
+		};
+		return $form;
+	}
+
          /**
 	 * Forget form factory.
 	 * @return Nette\Application\UI\Form
@@ -91,7 +113,7 @@ class SignPresenter extends BasePresenter
 	{
 		$this->getUser()->logout();
 		$this->flashMessage('Odhlášení proběhlo úspěšně.');
-		$this->redirect('in');
+		$this->redirect('Homepage:');
 	}
 
 }

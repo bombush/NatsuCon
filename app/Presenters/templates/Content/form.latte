@@ -1,3 +1,18 @@
 {block content}
+    {if isset($content) && $content->id}
+        <h2>{$content->title}[{$content->id}]</h2>
+    {else}
+        <h2>Nový obsah</h2>
+    {/if}
+    
+    {if $user->loggedIn}
+    <div>
+        <span><a class="fa fa-list" href="{link Content:list}"></a></span>
+        {if isset($content)}
+            <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span>
+        {/if}
+    </div>
+    {/if}
+    
     {control contentForm}
 {/block}

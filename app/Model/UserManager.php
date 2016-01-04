@@ -14,10 +14,16 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	const
 		TABLE_NAME = 'user',
                 TABLE_NAME_CONTACT = 'contact',
+                TABLE_NAME_ROLE = 'role',
+                TABLE_NAME_STATUS = 'status',
 		COLUMN_ID = 'id',
                 COLUMN_CONTACT_ID = 'contactId',
+                COLUMN_ROLE_ID = 'roleId',
+                COLUMN_STATUS_ID = 'statusId',
 		COLUMN_NAME = 'username',
+                COLUMN_TITLE = 'title',
 		COLUMN_PASSWORD_HASH = 'password',
+                COLUMN_STATUS = 'statusId',
 		COLUMN_ROLE = 'roleId';
 
 
@@ -82,6 +88,18 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
             }catch(\Exception $e){
                 return false;
             }
+
+        }
+
+        public function getMyAccount($userId){
+            $row = $this->database->
+                    select("contact.*, user.roleId, user.statusId, role.title AS role_title, status.title AS status_title")
+                    ->from(self::TABLE_NAME)
+                ->leftJoin(self::TABLE_NAME_CONTACT,"ON ". self::TABLE_NAME.".".self::COLUMN_CONTACT_ID."=".self::TABLE_NAME_CONTACT.".".self::COLUMN_ID)
+                ->leftJoin(self::TABLE_NAME_ROLE,"ON ". self::TABLE_NAME.".".self::COLUMN_ROLE_ID."=".self::TABLE_NAME_ROLE.".".self::COLUMN_ID)
+                ->leftJoin(self::TABLE_NAME_STATUS,"ON ". self::TABLE_NAME.".".self::COLUMN_STATUS_ID."=".self::TABLE_NAME_STATUS.".".self::COLUMN_ID)
+                ->where(self::TABLE_NAME.".".self::COLUMN_ID."= ?", $userId)->fetch();
+            return $row;
 
         }
 

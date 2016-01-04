@@ -1,7 +1,10 @@
 {block #content}
     {if $user->loggedIn}
     <div>
-        <span><a href="{link Content:form}">[+]</a></span><span><a href="{link Content:form $content->id}">[Editovat]</a></span><span><a href="{link Content:delete $content->id}">[Odstranit]</a></span>
+        <span><a class="fa fa-list" href="{link Content:list}"></a></span>
+        <span><a class="fa fa-file" href="{link Content:form}"></a></span>
+        <span><a class="fa fa-save" href="{link Content:form $content->id}"></a></span>
+        <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span>
     </div>
     {/if}
 

@@ -1,0 +1,54 @@
+{* Latte template *}
+
+{block content}
+{dump $timetable}
+   
+<table>
+    <thead>
+        <th>Čas</th> 
+        {foreach $rooms as $room}
+        <th>{$room->title}</th>   
+            
+        {/foreach}
+    </thead>    
+    <tbody>
+       {foreach $slots as $slot}
+           <tr> 
+               <td>{$slot|date:'G:i'}</td>   
+                {var $actualSlot = $slot}
+               {foreach $rooms as $room}
+                   
+                      {var $actualRoom = $room->id}  
+                      {var $ttRoom = $timetable[$actualRoom]}  
+                      {ifset $ttRoom[$actualSlot]}
+                           {var $program = $ttRoom[$actualSlot][0]}
+                           <td {if $program->length > 1} rowspan="{$program->length}"{/if}>
+                            <div>
+                              
+                             
+                              <p><a href="{$baseUri}/{$program->url}">  <strong>{$program->title} </strong></a></p>  
+                              <p><cite>{$program->author}</cite></p>
+                          </div>
+                          </td> 
+                       {else}
+                           <td></td>
+                      {/ifset}    
+                    
+                      
+                   
+                   </td>    
+                {/foreach}   
+           
+            </tr> 
+        {/foreach}
+        
+    </tbody>    
+    
+    
+    
+
+</table>
+
+
+
+{/block}

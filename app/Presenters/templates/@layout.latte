@@ -13,15 +13,18 @@
 	<link rel="stylesheet" href="{$basePath}/assets/css/_style.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/styles.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="{$basePath}/assets/css/slippry.css">
-    <link rel="stylesheet" href="{$basePath}/assets/css/font-awesome.css">
+        <link rel="stylesheet" href="{$basePath}/assets/css/skitter.styles.min.css">
+        <link rel="stylesheet" href="{$basePath}/assets/css/font-awesome.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/phoca-flags.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/phoca-style.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 
+        
+        {if $user->isLoggedIn}
+        <link rel="stylesheet" href="{$basePath}/assets/css/grido.css">
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css"  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.css">
-
+        {/if}
 
 	<meta name="viewport" content="width=device-width">
         <meta name="robots" content="noindex,nofollow">
@@ -44,9 +47,10 @@
 			<div class="container">
 				<!-- Flash messages -->
                                     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-                                        <div class="main">
+                                        <div class="main {if $user->loggedIn}full-width{/if}">
                                         {include content}
                                         </div>
+                                {if !$user->loggedIn}
 				<div class="aside">
 									<div class="hp-social-icons">
 										<a target="__blank" href="https://www.facebook.com/natsucon.cz"><span class="fa fa-facebook-official"></span></a>
@@ -57,6 +61,7 @@
 									</div>
                                     <div class="fb-page" data-href="https://www.facebook.com/natsucon.cz" data-width="300" data-height="1300" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/natsucon.cz"><a href="https://www.facebook.com/natsucon.cz"></a></blockquote></div></div>
                                </div>
+                               {/if}
 			</div>
                         </div>
 		<div class="footer">
@@ -73,19 +78,38 @@
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
-
+                <script type="text/javascript" src="{$basePath}/js/jquery.easing.1.3.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/jquery.skitter.min.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/jquery.magnific-popup.js"></script>
+                
+                
+                
+                {if $user->isLoggedIn}
+                <script type="text/javascript" src="{$basePath}/js/grido.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/slippry.min.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/plugins/grido.datepicker.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/plugins/grido.daterangepicker.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/plugins/grido.history.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/plugins/grido.nette.ajax.js"></script>
+                <script type="text/javascript" src="{$basePath}/js/plugins/grido.typeahead.js"></script>
 		<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
-        <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+                <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+                {/if}
+                
+                <script src="{$basePath}/js/main.js"></script>
 
-		<script type="text/javascript" src="{$basePath}/js/jquery.easing.1.3.js"></script>
-        <script type="text/javascript" src="{$basePath}/js/jquery.magnific-popup.js"></script>
-		<script type="text/javascript" src="{$basePath}/js/slippry.min.js"></script>
-        <script src="{$basePath}/js/main.js"></script>
+
+
+
+
 	{/block}
+        {if $user->isLoggedIn}
 <iframe id="form_target" name="form_target" style="display:none"></iframe>
 
 <form id="my_form" action="{$basePath}/postAcceptor.php" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden"><input name="image" type="file" onchange="$('#my_form').submit();this.value='';"></form>
-</body>
+{/if}
+
+ </body>
 <script>
 	$(window).load(function (d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];

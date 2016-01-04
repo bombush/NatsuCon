@@ -3,6 +3,13 @@
 namespace Natsu\Presenters;
 use Natsu\Forms\BaseForm;
 
+
+use App\Controls\Grido\Grid;
+use Nette\Utils\Html;
+
+
+
+
 class ContentPresenter extends BasePresenter {
 
 	/**
@@ -53,7 +60,7 @@ class ContentPresenter extends BasePresenter {
             $this->add("content", $content);
 
         }
-        //print_R($content);
+     //   print_R($content); exit;
     }
 
     public function renderForm(){
@@ -61,6 +68,7 @@ class ContentPresenter extends BasePresenter {
         $content = $this->toRender['content'];
         $form = $this['contentForm']->setDefaults($content);
        }
+       $this->prepare();
 
     }
 
@@ -93,6 +101,72 @@ class ContentPresenter extends BasePresenter {
         $bc->setContent($this->toRender['content']);
         return $bc;
     }
+
+
+
+    protected function createComponentGrid($name){
+         $dataSource = $this->entityModel->reflection("datasource");
+         $dibiSource = $dataSource->setTable("content")->table(NULL);
+
+         $grid = new Grid($this, $name);
+         $grid->model = $dibiSource;
+         $grid->setPrimaryKey("id");
+         $grid->addColumnText('id', 'ID')
+            ->setFilterText()
+            ->setSuggestion();
+          $grid->addColumnText('sectionId', 'Sekce')
+            ->setFilterText()
+            ->setSuggestion();
+          
+          $grid->addColumnText('title', 'Title')
+            ->setFilterText()
+            ->setSuggestion();
+          $grid->addColumnText('type', 'Typ')
+                  ->setColumn(function($item){
+                      if($item->isDraft){
+                          return "Draft";
+                      }else if($item->isNews){
+                          return "Novinka";
+                      }else{
+                          return "Stránka";
+                      }
+
+                  });
+
+       
+
+
+          
+         $grid->addActionHref('form', 'Form');
+         $grid->addActionHref('view', 'View');
+        // $grid->addActionHref('form', 'Form');
+
+        /*
+        $grid->addActionHref('delete', 'Delete')
+            ->setIcon('trash')
+            ->setConfirm(function($item) {
+                return "Are you sure you want to delete {$item->title}?";
+        });
+         *
+         */
+           
+           
+
+       // $grid->filterRenderType = $this->filterRenderType;
+        $grid->setExport();
+
+        return $grid;
+
+
+
+
+
+
+    }
+
+
+
+
 
     public function contentFormSucceeded($form){
        $values = $form->getValues();

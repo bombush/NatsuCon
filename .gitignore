@@ -5,3 +5,4 @@ app/config/config.local.neon
 
 www/__adminer/*
 
+/nbproject/private/

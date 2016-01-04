@@ -22,6 +22,7 @@ class EntityModel extends \Nette\Object{
 
     public function setTable($table){
         $this->table = $table;
+        return $this;
     }
 
     public function table($id = NULL){
