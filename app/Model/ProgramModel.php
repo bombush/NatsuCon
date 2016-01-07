@@ -37,4 +37,17 @@ class ProgramModel extends EntityModel{
         
     }
     
+    public function getProgramByContentId($contentId){
+        $stm = $this->database->select("program.*, content.title, room.title AS roomTitle, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs")
+               ->from("program")
+               ->leftJoin("content", "ON program.contentId = content.id")
+               ->leftJoin("route", "ON content.id = route.contentId")
+               ->leftJoin("room", "ON program.roomId = room.id")
+               ->leftJoin("programtype", "ON programtype.id = program.typeId")
+               ->where("statusId = 14 AND program.contentId = ?", $contentId)
+               ->orderBy("program.timeFrom");
+        return $stm->count() ? $stm->fetchAll() : false; 
+        
+    }
+    
 }

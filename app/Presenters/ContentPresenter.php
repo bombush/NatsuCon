@@ -101,6 +101,13 @@ class ContentPresenter extends BasePresenter {
         $bc->setContent($this->toRender['content']);
         return $bc;
     }
+    
+    public function createComponentProgramInfo(){
+        $pi = new \Natsu\Control\ProgramInfoControl();
+        $pi->setEm($this->entityModel);
+        $pi->setContent($this->toRender['content']);
+        return $pi;
+    }
 
 
 
