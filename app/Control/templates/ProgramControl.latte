@@ -1,7 +1,8 @@
 {* Latte template *}
 
 {block content}
-{dump $timetable}
+
+ 
    
 <table>
     <thead>
@@ -12,31 +13,39 @@
         {/foreach}
     </thead>    
     <tbody>
-       {foreach $slots as $slot}
-           <tr> 
+       {foreach $slots as $id => $slot}
+           {if $id == 0 || ($slot+7200) % (3600*24) == 0}
+               <tr>
+                   <td colspan="4"><strong>{$slot|date:'l'} {$slot|date:'d.m.Y'}</strong></td>
+               </tr>    
+           {/if}    
+           <tr data-id="{$slot}"> 
                <td>{$slot|date:'G:i'}</td>   
                 {var $actualSlot = $slot}
                {foreach $rooms as $room}
                    
                       {var $actualRoom = $room->id}  
                       {var $ttRoom = $timetable[$actualRoom]}  
-                      {ifset $ttRoom[$actualSlot]}
+                      {if isset($ttRoom[$actualSlot])}
                            {var $program = $ttRoom[$actualSlot][0]}
                            <td {if $program->length > 1} rowspan="{$program->length}"{/if}>
                             <div>
                               
                              
-                              <p><a href="{$baseUri}/{$program->url}">  <strong>{$program->title} </strong></a></p>  
+                              <p><a href="{$baseUri}/{$program->url}">  <strong>{$program->title} </strong></a><span class="fa {$program->typeIcon}" title="{$program->programType}" ></span></p>  
                               <p><cite>{$program->author}</cite></p>
                           </div>
                           </td> 
-                       {else}
-                           <td></td>
-                      {/ifset}    
+                       {elseif !isset($map[$actualRoom][$actualSlot])}
+                         
+                              
+                           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                      {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 2}     
+                      {/if}    
                     
                       
                    
-                   </td>    
+                       
                 {/foreach}   
            
             </tr> 

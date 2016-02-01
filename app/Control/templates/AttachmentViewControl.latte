@@ -1,0 +1,16 @@
+{* Latte template *}
+
+{block content}
+
+
+{ifset $attachments['IMAGE']}
+
+<br/><br/>
+<div class="popup-gallery">
+{foreach $attachments['IMAGE'] as $image}
+<a  href="{$image->data->originalFile}"> <img src="{$image->data->listFile}" alt="" /> </a>
+
+{/foreach}
+</div>
+
+{/ifset}

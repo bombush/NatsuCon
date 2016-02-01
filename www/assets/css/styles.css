@@ -172,11 +172,53 @@ Layout styles
 }
 
 .popup-gallery a img {
-    height: 15em;
+    height: 10em;
     width: auto;
     
 }
 
+
+.program-title{
+    width:100%;
+    background-color: #4284B0;
+    color: #ECF8E0;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 0.5em;
+}
+
+.program-image{
+    line-height:0;
+}
+
+.program-author{
+    width:100%;
+    background-color: #ECF8E0;
+    color: #4284B0;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+.program-header{
+    width:100%;
+    overflow:hidden;
+}
+
+.div-left,div-right{
+    width:50%;
+    margin:0.25em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+        
+}
+
+.div-left{
+    float:left;
+}
+
+.div-right{
+    text-align:right;
+}
 /**
 * Link picture
 */

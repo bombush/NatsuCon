@@ -39,6 +39,10 @@ class ProgramLoader {
     }    
     
     public function getPrograms(){
-        return $this->em->getPrograms($this->sectionId);
+       $programs = $this->em->getPrograms($this->sectionId);
+       foreach($programs as $i => $program){
+           $programs[$i]->startTs = $programs[$i]->timeFrom->getTimestamp();
+       }
+       return $programs;
     }
 }

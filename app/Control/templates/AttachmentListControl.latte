@@ -1,0 +1,14 @@
+{* Latte template *}
+
+{block content}
+{if count($attachments) > 0}
+    <table>
+{foreach $attachments as $att}
+    <tr>
+        <td></td>
+    </tr>   
+{/foreach}
+    </table>
+{else}
+    <p>K obsahu není nahrána žádná příloha.</p>
+{/if}

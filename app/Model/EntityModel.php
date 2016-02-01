@@ -33,6 +33,15 @@ class EntityModel extends \Nette\Object{
         //echo $sql;
         return $id == NULL? $this->database->query($sql)->fetchAll() : $this->database->query($sql)->fetch();
     }
+    
+    public function fetchWhere($where){
+        $sql = "SELECT * FROM {$this->table}";
+        foreach($where as $column => $intValue)
+           $sql .= " WHERE ".$column." = $intValue";
+        
+        
+        return $this->database->query($sql)->fetchAll();
+    }
 
     public function getPrimary($id = NULL){
         return $this->table($id);

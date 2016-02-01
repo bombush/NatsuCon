@@ -67,6 +67,8 @@ class ProgramControl extends ContentControl{
         $this->template->programs = $container->programs;
         $this->template->rooms = $container->rooms;
         $this->template->timetable = $container->timeTable;
+        $this->template->map = $container->map;
+
         
     }
     

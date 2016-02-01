@@ -1,4 +1,5 @@
 temp/*
+nbproject/*
 log/*
 www/images/*
 app/config/config.local.neon

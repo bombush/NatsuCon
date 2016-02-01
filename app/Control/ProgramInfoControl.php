@@ -16,6 +16,7 @@ use Natsu\Model\EntityModel;
  */
 class ProgramInfoControl extends ContentControl{
     private $content;
+    private $attachments;
     /**
      *
      * @var Natsu\Model\EntityModel 
@@ -24,6 +25,10 @@ class ProgramInfoControl extends ContentControl{
     
     public function setContent($content) {
         $this->content = $content;
+    }
+    
+    public function setAttachments($attachments){
+        $this->attachments = $attachments;
     }
 
     public function setEm(\Natsu\Model\EntityModel $em) {
@@ -41,6 +46,19 @@ class ProgramInfoControl extends ContentControl{
         $model = $this->em->reflection("program");
         $this->template->programs = $model->getProgramByContentId($this->content->id);
         $this->template->content = $this->content;
+        $this->template->mainImage = $this->mainImage();
+    }
+    
+    private function mainImage(){
+        $mainImage = NULL;
+        //print_r($this->attachments);
+        foreach($this->attachments as $att){
+            if($att->mime == "HEADIMAGE"){
+               $mainImage ="/data/uploaded/attachment/thumbs/".$att->url;
+            }
+        }
+       // var_dump($mainImage);
+        return $mainImage;
     }
 
 

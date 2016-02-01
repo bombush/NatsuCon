@@ -19,6 +19,7 @@ class ProgramContainer {
     public $programs;
     public $timeTable;
     public $slots;
+    public $map;
     /**
      *
      * @var Custom\Program\ProgramLoader
@@ -45,16 +46,40 @@ class ProgramContainer {
         $tt = new ProgramTimetable;
         $tt->programs = $this->programs;
         $this->timeTable = $tt->getTable();
+        date_default_timezone_set('Europe/Prague');
         $this->slots = $tt->getSlots(strtotime($this->festivalStart), strtotime($this->festivalEnd));
         $this->programs = $tt->getIndex();
-        
-       // Debugger::dump($this->slots);
-       // exit;
+        $this->map = $this->getMap();
+       
     }
     
     
    
-    
+    private function getMap(){
+        $map = array();
+        foreach($this->timeTable as $roomId => $roomLineUp){
+            foreach($roomLineUp as $slotId => $program){
+                
+                $map[$roomId][$slotId] = 1;
+               
+                
+                $endTs = $program[0]->timeTo->getTimestamp();
+              //  dump($program);
+              //  dump($slotId);
+              //  dump($endTs);
+              //  exit;
+                $slotBetween = $slotId;
+                do{
+                $slotBetween = $slotBetween + 1800;    
+                $map[$roomId][$slotBetween] = 2;
+                
+                }while($endTs > $slotBetween);
+                
+            }
+        }
+       // dump($map);
+        return $map;
+    }
     
     
     

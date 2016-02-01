@@ -1,17 +1,27 @@
 {block content}
-    {dump $programs}
+   
     {if $programs}
-        <span style="color:gray" class="content-author">{$content->author}</span>
-     
-     <fieldset>
-         <legend>Na programu:</legend>  
-         <ul>
-             {foreach $programs as $program}
-                 <li>{$program->roomTitle} - {$program->timeFrom|date:'D'}    {$program->timeFrom|date:'G:i'} - {$program->timeTo|date:'G:i'} {if $program->reprise} (repríza){/if}
-             {/foreach}
-         </ul>
-         
-     </fieldset>
+        
+        
+     <div class="program-header">   
+        {if $mainImage}
+            <div class="program-image" ><img src="{$mainImage}"/></div>
+        {/if}    
+        <div class="program-title">{$content->title}</div>
+        <div class="program-author">{$content->author}</div>
+     </div>
+     {var $program = $programs[0]}
+     <div>
+         <div class="div-left"><span class="fa {$program->typeIcon}"></span>&nbsp; <strong>{$program->type}</strong> {if $program->genre != $program->type}({$program->genre}){/if}</div> 
+         <div class="div-right">
+             <span class="fa fa-clock-o"></span> <strong> {$program->roomTitle} - {$program->timeFrom|date:'D'}    {$program->timeFrom|date:'G:i'} - {$program->timeTo|date:'G:i'} {if $program->reprise} (repríza){/if}</strong>
+             
+         </div> 
+                   
+     </div> 
+     <br/><br/>
+                   
+
              {/if} 
 {/block}
 

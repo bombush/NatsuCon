@@ -1,7 +1,7 @@
 {block #content}
     {if $user->loggedIn}
     <div>
-        <span><a class="fa fa-list" href="{link Content:list}"></a></span>
+            <span><a class="fa fa-list" href="{link Content:list}"></a></span>
         <span><a class="fa fa-file" href="{link Content:form}"></a></span>
         <span><a class="fa fa-save" href="{link Content:form $content->id}"></a></span>
         <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span>
@@ -10,8 +10,7 @@
 
     {control breadCrumbs}
 
-    <h2 class="content-title">{$content->title} {if $access && $content->isDraft} [TOTO JE DRAFT!] {/if}</h2>
-    {if $content->isNews}<span style="color:gray" class="content-author">{$content->activeFrom|date:'%d.%m.%Y'} [{$content->author}]</span>{/if}
+    
 	
     
     {if !$access}
@@ -19,18 +18,25 @@
         Obsah ještě není dostupný
     </div>
     {else}
-        {if !empty($content->anotation)}
+        
+        {if count($programs) == 0}
+            <h2 class="content-title">{$content->title} {if $access && $content->isDraft} [TOTO JE DRAFT!] {/if}</h2>
+         
+        {/if}
+        {if $content->isNews}<span style="color:gray" class="content-author">{$content->activeFrom|date:'%d.%m.%Y'} [{$content->author}]</span>{/if}
+           {if !empty($content->anotation)}
         <br>    
         <cite class="content-annotation">{$content->anotation}</cite>
         {/if}
         {control programInfo}
-    <div>
+    <div> 
       {$content->text|noescape}
+      {control attachmentsView}
     </div>
 
     {control contentControl}
     {/if}
 {/block}
 {block #title}
-    {$content->pageTitle}
+    {if $content != false}{$content->pageTitle}{else} Not Found!{/if}
 {/block}

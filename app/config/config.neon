@@ -41,6 +41,7 @@ services:
 	- Natsu\Forms\NewPassFormFactory
 	- Natsu\Control\IMainMenuControlFactory
 	- Natsu\Forms\MyAccountFormFactory
+	- Natsu\Forms\AttachmentFormFactory
 
 	#presenters
 	-

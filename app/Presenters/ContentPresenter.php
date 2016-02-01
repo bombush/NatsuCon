@@ -2,6 +2,7 @@
 
 namespace Natsu\Presenters;
 use Natsu\Forms\BaseForm;
+use Natsu\Forms\AttachmentFormFactory;
 
 
 use App\Controls\Grido\Grid;
@@ -18,8 +19,13 @@ class ContentPresenter extends BasePresenter {
 	 */
     public $entityModel;
     private $controls;
+    private $contentId;
+    private $attachments;
 
     public $sectionId;
+    
+       /** @var AttachmentFormFactory @inject */
+	public $factoryAttachment;
 
 	/*
     public function inject(\Natsu\Model\EntityModel $entityModel){
@@ -33,10 +39,21 @@ class ContentPresenter extends BasePresenter {
 
         $content = $this->entityModel;
         $content = $this->entityModel->getPrimary($id);
+       
+        
+        
         $controlsModel = $this->entityModel->reflection("component");
         $this->controls = $controlsModel->getComponents($id);
+        $this->entityModel->setTable("attachment");
+        $this->attachments = $this->entityModel->fetchWhere(array("contentId" => $id));
+        
+        $model = $this->entityModel->reflection("program");
+        $programs = $model->getProgramByContentId($id);
+       // print_r($this->attachments);
         $this->setPermission($content);
         $this->add("content", $content);
+        $this->add("attachments", $this->attachments);
+        $this->add("programs", $programs);
         $this->prepare();
     }
 
@@ -52,6 +69,13 @@ class ContentPresenter extends BasePresenter {
 
 
 
+    }
+    
+    public function actionAttachments($id = 0){
+        $this->contentId = $id;
+        $this->entityModel->setTable("attachment");
+        $this->attachments = $this->entityModel->fetchWhere(array("contentId" => $this->contentId));
+        
     }
 
     public function actionForm($id = 0){
@@ -75,6 +99,19 @@ class ContentPresenter extends BasePresenter {
     public function actionDelete($id = 0){
 
     }
+    
+    /**
+	 * Sign-in form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentSignInForm()
+	{
+		$form = $this->factoryAttachment->create();
+		$form->onSuccess[] = function ($form) {
+			$form->getPresenter()->redirect('Content:attachment '.$this->contentId);
+		};
+		return $form;
+	}
 
     public function createComponentContentForm(){
         $form = new BaseForm();
@@ -105,9 +142,38 @@ class ContentPresenter extends BasePresenter {
     public function createComponentProgramInfo(){
         $pi = new \Natsu\Control\ProgramInfoControl();
         $pi->setEm($this->entityModel);
+        $pi->setAttachments($this->attachments);
         $pi->setContent($this->toRender['content']);
         return $pi;
     }
+    
+    
+     /**
+	 * Forget form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentAttachments()
+	{
+		$ctl = new \Natsu\Control\AttachmentListControl();
+                $ctl->setAttachments($this->attachments);
+                return $ctl;
+		
+	}
+        
+        protected function createComponentAttachmentsView(){
+            $ctl = new \Natsu\Control\AttachmentViewControl;
+            $ctl->setAttachments($this->attachments);
+            return $ctl;
+        }
+        
+        
+        protected function createComponentAttachmentForm(){
+            $form = $this->factoryAttachment->create();
+            $form->onSuccess[] = function ($form) {
+			$form->getPresenter()->redirect('Content:Attachments '.$this->contentId);
+		};
+		return $form;
+        }
 
 
 

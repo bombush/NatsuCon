@@ -32,6 +32,12 @@ class PermissionModel extends EntityModel {
     }
 
     public function checkContent($content){
+     //  var_dump($content); exit;
+        if($content == false){
+            return false;
+        }
+        
+        
         if($this->userId){
             if($this->userId == $content->userId) return true;
 

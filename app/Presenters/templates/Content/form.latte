@@ -9,6 +9,7 @@
     <div>
         <span><a class="fa fa-list" href="{link Content:list}"></a></span>
         {if isset($content)}
+            <span><a class="fa fa-file-photo-o" href="{link Content:attachments $content->id}"></a></span>   
             <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span>
         {/if}
     </div>
