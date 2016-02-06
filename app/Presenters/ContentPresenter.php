@@ -21,6 +21,7 @@ class ContentPresenter extends BasePresenter {
     private $controls;
     private $contentId;
     private $attachments;
+    private $attachment;
 
     public $sectionId;
     
@@ -56,6 +57,25 @@ class ContentPresenter extends BasePresenter {
         $this->add("programs", $programs);
         $this->prepare();
     }
+    
+    
+    public function actionAttachment($id){
+        $this->entityModel->setTable("attachment");
+        $this->attachment = $this->entityModel->table($id);
+       // $ia = new \Custom\Content\ImageAttachment();
+       // $ia->setRow($this->attachment);
+       // $ia->run();
+        
+      //  print_r($ia);
+        
+        
+        $this->add("attachment", $this->attachment);
+      //  $this->add("attachments", $this->attachments);
+     //   $this->add("programs", $programs);
+        $this->prepare();
+        
+        //print_r($attachment); exit;
+    }
 
     private function setPermission($content){
         $pm = $this->entityModel->reflection("Permission");
@@ -76,12 +96,17 @@ class ContentPresenter extends BasePresenter {
         $this->entityModel->setTable("attachment");
         $this->attachments = $this->entityModel->fetchWhere(array("contentId" => $this->contentId));
         
+        $this->add("contentId", $id);
+        $this->add("pageTitle", "Přílohy k obsahu[$id]");
+        $this->prepare();
+        
     }
 
     public function actionForm($id = 0){
         if($id){
             $content = $this->entityModel->getPrimary($id);
             $this->add("content", $content);
+            $this->add("pageTitle", $content->title." (Editace)");
 
         }
      //   print_R($content); exit;
@@ -168,9 +193,13 @@ class ContentPresenter extends BasePresenter {
         
         
         protected function createComponentAttachmentForm(){
+            $this->factoryAttachment->setAttachment($this->attachment);
+            $this->factoryAttachment->setContentId($this->contentId);
+            $this->factoryAttachment->setEm($this->entityModel);
             $form = $this->factoryAttachment->create();
             $form->onSuccess[] = function ($form) {
-			$form->getPresenter()->redirect('Content:Attachments '.$this->contentId);
+                        $form->getPresenter()->flashMessage("Saved");
+			$form->getPresenter()->redirect('Content:attachments', $this->attachment->contentId);
 		};
 		return $form;
         }
@@ -262,6 +291,12 @@ class ContentPresenter extends BasePresenter {
         $control->setControls($this->controls);
 
         return $control;
+    }
+    
+    
+    public function renderList(){
+        $this->add("pageTitle", "Výpis stránek");
+        $this->prepare();
     }
 
    

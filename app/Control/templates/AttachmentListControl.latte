@@ -1,14 +1,20 @@
 {* Latte template *}
 
 {block content}
+{dump $attachments}
 {if count($attachments) > 0}
     <table>
 {foreach $attachments as $att}
     <tr>
-        <td></td>
+        <td><a href="/content/attachment/{$att->id}">{$att->id} </a>    </td>
+        <td>{$att->title} </td>
+        <td>{$att->mime} </td>
+        <td>{$att->url}</td>
+
     </tr>   
 {/foreach}
     </table>
+    <br/><br/>
 {else}
     <p>K obsahu není nahrána žádná příloha.</p>
 {/if}

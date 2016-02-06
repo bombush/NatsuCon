@@ -54,7 +54,7 @@ class EntityModel extends \Nette\Object{
     public function insert($values){
         //return $this->database->lastInsertId($this->table);
         //die('insert');
-        $this->database->query("INSERT INTO $this->table SET ", $values);
+        $this->database->query("INSERT INTO $this->table ", $values);
         return $this->database->getInsertId();
         //$context = new Context($this->database);
         //$context->table($this->table)->insert($values);

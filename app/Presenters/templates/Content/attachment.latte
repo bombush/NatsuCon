@@ -1,0 +1,17 @@
+{* Latte template *}
+
+{block content}
+
+  {if isset($attachment)}
+      {if $attachment->mime == "HEADIMAGE" || $attachment->mime == "IMAGE"}
+      <fieldset>
+          <legend>Náhled</legend>
+          <div>
+              <img class="img-responsive" src="/images/uploaded/attachment/{$attachment->url}" alt="Nahled" />
+          </div>    
+      </fieldset>    
+      {/if}
+      
+  {/if}    
+
+ {control attachmentForm}

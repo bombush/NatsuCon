@@ -54,7 +54,7 @@ class ProgramInfoControl extends ContentControl{
         //print_r($this->attachments);
         foreach($this->attachments as $att){
             if($att->mime == "HEADIMAGE"){
-               $mainImage ="/data/uploaded/attachment/thumbs/".$att->url;
+               $mainImage ="/images/uploaded/attachment/thumbs/".$att->url;
             }
         }
        // var_dump($mainImage);

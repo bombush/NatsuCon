@@ -115,5 +115,11 @@ class SignPresenter extends BasePresenter
 		$this->flashMessage('Odhlášení proběhlo úspěšně.');
 		$this->redirect('Homepage:');
 	}
+        
+        public function renderMyaccount(){
+            $this->add("pageTitle", "Můj účet");
+            $this->prepare();
+                   
+        }
 
 }

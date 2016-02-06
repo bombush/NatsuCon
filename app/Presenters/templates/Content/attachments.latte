@@ -1,8 +1,10 @@
 {* Latte template *}
 
 {block content}
-        {control attachments}
+<h2>Přílohy k obsahu[{$contentId}]</h2>
         
+        {control attachments}
+<h2>Nová příloha k obsahu[{$contentId}]</h2>        
         {control attachmentForm}
 
 {/block}

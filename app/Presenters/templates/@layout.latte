@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>{ifset title}{include title|striptags} | {/ifset}NatsuCon</title>
+        <title>{ifset title}{include title|striptags} | {elseifset $pageTitle} {$pageTitle} | {/ifset}NatsuCon</title>
 
 	<link rel="stylesheet" href="{$basePath}/assets/css/_style.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/styles.css">

@@ -11,6 +11,7 @@ namespace Natsu\Forms;
 
 use Nette;
 use Natsu\Forms\BaseForm;
+use Nette\Http\FileUpload;
 
 /**
  * Description of AttachmentFormFactory
@@ -21,9 +22,23 @@ class AttachmentFormFactory extends Nette\Object{
     //put your code here
     
     private $contentId;
+    private $attachment;
+    /**
+     *
+     * @var Natsu\Model\EntityModel
+     */
+    private $em;
+    
+    public function setAttachment($attachment){
+        $this->attachment = $attachment;
+    }
     
     public function setContentId($contentId){
         $this->contentId = $contentId;  
+    }
+    
+    public function setEm($em){
+        $this->em = $em;
     }
     
     public function create()
@@ -37,11 +52,52 @@ class AttachmentFormFactory extends Nette\Object{
                 $form->addText("url", "Odkaz");
                 $form->addSubmit("save", "Uložit");
                 $form->onSuccess[] = array($this, 'formSucceeded');
+                
+                if($this->attachment){
+                    $form->setDefaults($this->attachment);
+                }
 		return $form;   
         } 
         
+        private function createAttachment($values){
+        switch($values->mime){
+            case 'MAINIMAGE':
+                $att = new \Custom\Content\MainimageAttachment();
+                $att->setRow($values);
+                $att->create();
+                break;
+            case 'IMAGE': 
+                $att = new \Custom\Content\ImageAttachment();
+                $att->setRow($values);
+                $att->create();
+                break;
+        }
+        }
+        
         public function formSucceeded(BaseForm $form, $values){
+            
+            
+            
+            if($values->file->isOk()){
+                //$filename = $values->file->getSanitizedName();
+                $this->createAttachment($values);
+                $values->url = $this->values->contentId."-".$values->file->getSanitizedName();
+                
+              //  print_r($values); exit;
+                
+            }
+            
+           // print_r($values); exit;
 
+            unset($values->file);
+            
+            $this->em->setTable("attachment");
+            if($values->id){
+                $this->em->update($values);
+            }else{
+                unset($values->id);
+                $this->em->insert($values);
+            }
 
         }
     
