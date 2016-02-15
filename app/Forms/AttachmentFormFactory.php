@@ -61,7 +61,7 @@ class AttachmentFormFactory extends Nette\Object{
         
         private function createAttachment($values){
         switch($values->mime){
-            case 'MAINIMAGE':
+            case 'HEADIMAGE':
                 $att = new \Custom\Content\MainimageAttachment();
                 $att->setRow($values);
                 $att->create();
@@ -74,14 +74,16 @@ class AttachmentFormFactory extends Nette\Object{
         }
         }
         
-        public function formSucceeded(BaseForm $form, $values){
+        public function formSucceeded(BaseForm $form, \Nette\Utils\ArrayHash $values){
             
             
             
             if($values->file->isOk()){
                 //$filename = $values->file->getSanitizedName();
                 $this->createAttachment($values);
-                $values->url = $this->values->contentId."-".$values->file->getSanitizedName();
+                //$values->
+               // unset($values->url);
+                $values->url = $values->contentId."-".$values->file->getSanitizedName();
                 
               //  print_r($values); exit;
                 

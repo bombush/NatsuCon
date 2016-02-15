@@ -28,6 +28,17 @@ class ManagementPresenter  extends BasePresenter {
         
         
     }
+    
+    
+     public function createComponentProgramListControl(){
+        $ctl = new \Natsu\Control\ProgramListControl;
+        $ctl->setSectionId(2015);
+        $ctl->setTitle("Promítání");
+        $ctl->setTypeId("3");
+        $ctl->setEm($this->entityModel);
+        return $ctl;
+     }
+        
 
 
     public function createComponentGrido(){

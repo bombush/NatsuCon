@@ -22,4 +22,20 @@ class MainimageAttachment {
     public $smallFile;
     public $listFile;
     public $originalFile;
+    
+    
+    public function setRow($row) {
+        $this->_row = $row;
+    }
+    
+    public function create(){
+        $this->saveOriginal();
+    }
+    
+    private function saveOriginal(){
+        $this->_row->file->move(self::IMAGE_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName());
+        //exit;
+        
+    }
+    
 }

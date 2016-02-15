@@ -1,0 +1,29 @@
+{* Latte template *}
+
+{block content}
+<h2>{$title}</h2>
+
+{dump $programs}
+
+{foreach $programs as $program}
+    <div class="program-list">
+        <a href="/{$program->url}">
+            <div class="right">
+                <img src="/images/uploaded/attachment/thumbs/278-2-200x200.jpg" alt=""/> 
+            </div>
+        <div class="left">
+            <div class="list-info">
+            <p class="list-time ">
+                    <span class="left">{$program->programType}</span>
+                    <span class="right">{$program->timeFrom|date:'d/m G:i'} {$program->roomTitle}</span></p>
+            <p class="headline"></p>
+            <p class="list-title">{$program->title}</p>
+            <p class="list-author">{$program->author}</p>
+            </div>
+        
+        
+        </div>
+        </a>    
+        
+    </div>
+{/foreach}    

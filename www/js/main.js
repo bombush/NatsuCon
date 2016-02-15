@@ -46,6 +46,61 @@ $(function(){
         yearRange: '2010:2020',
         stepMinute: 5
     });
+    
+    if($("#upload-demo")){
+        demoBasic();
+    }
 
 
 });
+
+
+
+function demoBasic(){
+   var $uploadCrop; 
+   $uploadCrop = $('#upload-demo').croppie({
+        viewport: {
+            width: 800,
+            height: 200,
+            type: 'square'
+        },
+        boundary: {
+            width: 800,
+            height: 500
+        }
+    });
+
+    $uploadCrop.croppie('bind', {
+			url: $("#upload-demo").attr("data-url")
+			
+		});
+
+    $('.upload-result').on('click', function (ev) {
+        $uploadCrop.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+            $('#imagebase64').val(resp);
+            $('#form').submit();
+        });
+    });
+
+
+
+}
+
+
+function readFile(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();          
+            reader.onload = function (e) {
+                $uploadCrop.croppie('bind', {
+                    url: e.target.result
+                });
+                $('.upload-demo').addClass('ready');
+            }           
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+

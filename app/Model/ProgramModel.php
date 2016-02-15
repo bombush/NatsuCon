@@ -42,6 +42,43 @@ class ProgramModel extends EntityModel{
         
     }
     
+    
+    public function getProgramsList($sectionId = NULL, $typeId = NULL, $roomId = NULL ,$startTime = NULL, $endTime = NULL, $orderBy = "content.title"){
+         $stm = $this->database->select("program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType, programgenre.title AS programGenre, content.title, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs")
+               ->from("program")
+               ->leftJoin("content", "ON program.contentId = content.id")
+               ->leftJoin("route", "ON content.id = route.contentId")
+               ->leftJoin("room", "ON program.roomId = room.id")
+               ->leftJoin("programtype", "ON programtype.id = program.typeId")
+               ->leftJoin("programgenre", "ON programgenre.id = program.genreId")
+               ->leftJoin("attachment", "ON attachment.contentId = content.id AND attachment.mime = \"IMAGE\"")  
+               ->where("statusId = 14");
+          if(isset($sectionId)){
+              $stm->where("program.sectionId = $sectionId");
+          }
+          
+          if(isset($typeId)){
+              $stm->where("program.typeId = $typeId");
+          }
+        
+          if(isset($startTime)){
+              $startTimeTs = strtotime($startTime);
+              $stm->where("UNIX_TIMESTAMP(program.start_time) >= $startTimeTs");
+          }  
+          
+           if(isset($endTime)){
+              $endTimeTs = strtotime($endTime);
+              $stm->where("UNIX_TIMESTAMP(program.end_time) >= $endTimeTs");
+          }
+          
+          $stm->groupBy("content.id");
+          $stm->orderBy($orderBy);
+          
+          return $stm->fetchAll();
+        
+        
+    }
+    
     public function getProgramByContentId($contentId){
         $stm = $this->database->select("program.*, content.title, room.title AS roomTitle, programgenre.title AS genre, programtype.title AS type, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs")
                ->from("program")
