@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * useri + jejich management
+ * emailove sablony
+ * 
+ * 
+ * 
+ */
+
 namespace Natsu\Presenters;
 
 use Mesour\DataGrid\NetteDbDataSource,
@@ -19,7 +28,7 @@ class ManagementPresenter  extends BasePresenter {
     
     public function createComponentProgram(){
         $ctl = new \Natsu\Control\ProgramControl;
-        $ctl->setLocations(array(1,2,3));
+        $ctl->setLocations(array(1,2,3,4));
         $ctl->setFestivalStart('2015-08-21 18:00:00');
         $ctl->setFestivalEnd('2015-08-23 17:00:00');
         $ctl->setSectionId(2015);

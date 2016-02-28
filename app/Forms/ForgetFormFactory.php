@@ -61,7 +61,7 @@ class ForgetFormFactory extends \Nette\Application\UI\Form{
             }else{
                 $hash = $this->userManager->createRequest($row);
                 $template = $this->emailModel->getTemplate(emailModel::FORGET_PASSWD);
-                $template->text .= $hash;
+                $template->body .= $hash;
                 /**
                  *  TODO
                  * $this->emailModel->sendEmail($from, $to, $template);

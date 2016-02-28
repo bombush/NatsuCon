@@ -1,3 +1,4 @@
+@import "//fonts.googleapis.com/css?family=Bangers";
 /* -----------------------
 Base styles
 ------------------------*/
@@ -452,6 +453,40 @@ Single styles
 .news-title{
     font-size:1.9em;
 }
+
+
+
+
+.wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 40vh;
+  background: white;
+}
+
+.time-to {
+  text-align: center;
+  font-family: Bangers;
+  color: #4284B0;
+  font-size: 45px;
+  letter-spacing: 2px;
+}
+.time-to span {
+  display: block;
+  font-size:90px;
+  color: red;
+}
+
 
 /**
  * Homepage slider

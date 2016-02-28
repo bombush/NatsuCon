@@ -51,7 +51,13 @@ class NewPassFormFactory {
 
             if($values->password != $values->confirm_password){
                 $form->addError("Hesla musí být shodná");
+                return;
             }
+            unset($values->code);
+            unset($values->confirm_password);
+            $values->id = $form->getPresenter()->getUser()->getId();
+            
+           // print_r($values); exit;
         }
 }
 ?>

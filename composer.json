@@ -2,7 +2,8 @@
     "require": {
         "dibi/dibi": "~2.3",
         "radekdostal/nette-datetimepicker": "~2.2",
-        "o5/grido": "^2.1"
+        "o5/grido": "^2.1",
+        "google/apiclient": "^1.1"
     },
     "require-dev": {
         "nette/tester": "~1.6"

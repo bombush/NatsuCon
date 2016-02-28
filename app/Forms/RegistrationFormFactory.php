@@ -41,8 +41,8 @@ class RegistrationFormFactory extends Nette\Object {
 		$form = new \Natsu\Forms\BaseForm;
 		$form->addText('email', 'E-mail:')
 			->setRequired('Zadejte e-mail');
-                $form->addPassword('password')->setRequired('Zadejte heslo:');
-                $form->addPassword('confirm_password')->setRequired('Potvrďte heslo:');
+                $form->addPassword('password', "Heslo:")->setRequired('Zadejte heslo:');
+                $form->addPassword('confirm_password', "Potvrzení hesla:")->setRequired('Potvrďte heslo:');
 
                 $form->addSubmit('submit', 'Registrovat');
                 $form->onSuccess[] = array($this, 'formSucceeded');
@@ -51,7 +51,23 @@ class RegistrationFormFactory extends Nette\Object {
 
 
     public function formSucceeded(BaseForm $form, $values){
-
+        //return false;       
+        if($values->password != $values->confirm_password){
+            $form->addError("Hesla se neshodují");
+            return;
+        }
+        $id = $this->userManager->add($values->email, $values->password);
+        $this->userManager->addContact(array('id' => $id, 'email' => $values->email));
+        $template = $this->emailModel->getTemplate(\Natsu\Model\emailModel::REGISTER_CMPL);
+        $template->body = $this->emailModel->replace(array("%EMAIL%" => $values->email, '%PASSWORD%' => $values->password), $template->body);
+        $this->emailModel->sendEmail(\Natsu\Model\EmailModel::FROM, $values->email, $template);
+        
+        
+        
+        
+        
+     //   print_r($values); exit;
+                    
 
     }
 

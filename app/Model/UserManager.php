@@ -21,6 +21,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
                 COLUMN_ROLE_ID = 'roleId',
                 COLUMN_STATUS_ID = 'statusId',
 		COLUMN_NAME = 'username',
+                COLUMN_EMAIL = 'email',
                 COLUMN_TITLE = 'title',
 		COLUMN_PASSWORD_HASH = 'password',
                 COLUMN_STATUS = 'statusId',
@@ -122,12 +123,38 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		try {
 			$this->database->query('INSERT INTO [' . self::TABLE_NAME . ']', [
 				self::COLUMN_NAME => $username,
-				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
+				self::COLUMN_PASSWORD_HASH => md5($password),
+                                self::COLUMN_STATUS => \Natsu\Model\PermissionModel::ACTIVE_STATUS,
+                                self::COLUMN_ROLE_ID => \Natsu\Model\PermissionModel::REGISTERED_ROLE,
 			]);
+                        return $this->database->getInsertId();
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
 			throw new DuplicateNameException;
 		}
 	}
+        
+        public function update($user){
+            try {
+			  $this->database->update(self::TABLE_NAME, $user)->where(self::COLUMN_ID." = ?", $user->id)->execute();
+                     
+		} catch (Nette\Database\DriverException  $e) {
+			throw new \Nette\Database\DriverException;
+		}
+            
+        }
+        
+        
+        public function addContact($contact){
+            try {
+			$this->database->query('INSERT INTO [' . self::TABLE_NAME_CONTACT . ']', [
+				self::COLUMN_ID => $contact['id'],
+				self::COLUMN_EMAIL => $contact['email'],
+			]);
+                     
+		} catch (Nette\Database\DriverException  $e) {
+			throw new \Nette\Database\DriverException;
+		}
+        }
 
 }
 

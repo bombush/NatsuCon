@@ -1,5 +1,12 @@
 <?php
 
+/*
+ *  zadani prav
+ *  zadani komponent
+ * 
+ * 
+ */
+
 namespace Natsu\Presenters;
 use Natsu\Forms\BaseForm;
 use Natsu\Forms\AttachmentFormFactory;

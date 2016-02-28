@@ -3,7 +3,7 @@
 			<div class="container">
 				<ul class="nav">
                                         {if $user->loggedIn}
-                                            <li><a href="{$basePath}/sign/myaccount"><span class="fa fa-user">&nbsp;</span>{$user->identity->nickname}</a><a class="fa fa-sign-out" href="{$basePath}/sign/out"></a></li>
+                                            <li><a href="{$basePath}/sign/myaccount"><span class="fa fa-user">&nbsp;</span>{$user->identity->username}</a><a class="fa fa-sign-out" href="{$basePath}/sign/out"></a></li>
                                         {/if}
 					<li><a href="{$basePath}">DOMŮ</a></li>
                                        <!-- <li><a href="{$basePath}/2016/ohlasy">OHLASY</a></li> -->
