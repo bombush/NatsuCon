@@ -8,7 +8,7 @@ class ComponentModel extends EntityModel {
     public $tableRelation = "contentcomponent";
 
     public function getComponents($contentId){
-        $sql = "SELECT {$this->table}.*
+        $sql = "SELECT {$this->table}.*, {$this->tableRelation}.params, {$this->tableRelation}.id AS relationId
                FROM
                 {$this->table}
                 INNER JOIN {$this->tableRelation} ON {$this->table}.id = {$this->tableRelation}.componentId

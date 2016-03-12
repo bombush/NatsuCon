@@ -5,6 +5,13 @@
         {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId == 3)} <span><a class="fa fa-file" href="{link Content:form}"></a></span>{/if}
         {if $user->loggedIn && ($user->id == $content->userId || $user->identity->roleId == 1 || $user->identity->roleId == 2 || (isset($rules) && $rules->writable))} <span><a class="fa fa-save" href="{link Content:form $content->id}"></a></span>{/if}
         {if $user->loggedIn && ($user->id == $content->userId || $user->identity->roleId == 1 || $user->identity->roleId == 2 || (isset($rules) && $rules->deletable))} <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span></a></span>{/if}
+        
+
+         {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1))}
+            <span><a class="fa fa-asterisk" href="{link Content:components $content->id}"></a></span>   
+            <span><a class="fa fa-lock" href="{link Content:permissions $content->id}"></a></span>   
+         {/if}     
+ 
     </div>
     {/if}
 

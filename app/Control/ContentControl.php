@@ -18,9 +18,7 @@ class ContentControl extends BaseControl {
         $this->template->controls = $this->controls;
         $this->template->render();
     }
-
-   
-
+    
 
     public function createComponentMagic(){
         $controls = $this->controls;
@@ -30,6 +28,13 @@ class ContentControl extends BaseControl {
                     $className = ucfirst($ctrl->class)."Control";
                     $controlClass = "\Natsu\Control\\".$className;
                     $control = new $controlClass;
+                    if(!empty($ctrl->params)){
+                        parse_str($ctrl->params,$params);
+                    //    print_R($params);
+                        foreach($params as $key => $value){
+                            $control->set($key, $value);
+                        }
+                    }
                     return $control;
 
             }

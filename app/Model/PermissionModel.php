@@ -77,6 +77,16 @@ class PermissionModel extends EntityModel {
     }
     
     
+    public function getPermissions($contentId){
+        $stm = $this->database->select("permission.*, role.title AS roleTitle")
+                ->from("permission")
+                ->leftJoin("role", "ON role.id = permission.roleId")
+                ->where("contentId = ?", $contentId);
+        return $stm->fetchAll();
+        
+    }
+    
+    
     public function loadRules($contentId){
          $stm = $this->database->select("permission.deletable, permission.writable, permission.forbidden")
                    ->from("permission")
@@ -104,6 +114,26 @@ class PermissionModel extends EntityModel {
         }else{
             return true;
         }
+    }
+    
+    
+    public function getPermissionById($permissionId){
+        $stm = $this->database->select("*")->from("permission")->where("id = ?", $permissionId);
+        return $stm->fetch();
+        
+    }
+    
+    
+    public function getRoles(){
+        $stm = $this->database->select("role.*")->from("role");
+        $roles = $stm->fetchAll();
+        $o = [];
+        foreach($roles as $role){
+            $o[$role->id] = $role->title;
+        }
+        
+        return $o;
+        
     }
 
 }

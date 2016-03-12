@@ -7,11 +7,15 @@
     
     {if $user->loggedIn}
     <div>
-        {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 )}<span><a class="fa fa-list" href="{link Content:list}"></a></span>{/if}
+        {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 ))}<span><a class="fa fa-list" href="{link Content:list}"></a></span>{/if}
         {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->id == $content->userId))}
             <span><a class="fa fa-file-photo-o" href="{link Content:attachments $content->id}"></a></span>   
             <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span>
         {/if}
+         {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1))}
+            <span><a class="fa fa-asterisk" href="{link Content:components $content->id}"></a></span>   
+            <span><a class="fa fa-lock" href="{link Content:permissions $content->id}"></a></span>   
+         {/if}
     </div>
     {/if}
     

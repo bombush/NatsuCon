@@ -1,0 +1,35 @@
+{* Latte template *}
+
+{block content}
+<h2>Komponenty</h2>
+
+{if count($controls) > 0}
+    <table>
+        <thead>
+        <th>ID<th>
+        <th>Komponenta</th>    
+        <th>Třída</th>
+        <th>Parametry</th>
+            
+        </thead>    
+        <tbody>
+        
+{foreach $controls as $control}
+    <tr>
+        <td></td>
+        <td><a href="?componentId={$control->id}">{$control->id}</a></td>
+        <td>{$control->title}</td>
+        <td>{$control->class}</td>
+        <td>{$control->params}</td>
+    
+    </tr>
+ {/foreach}
+  <tbody>
+    </table>
+ {else}
+     <p>Žádná komponenta pro tento obsah!</p>
+ {/if}    
+
+ 
+{control componentForm}
+ 

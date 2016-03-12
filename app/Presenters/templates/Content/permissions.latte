@@ -1,0 +1,34 @@
+{* Latte template *}
+
+{block content}
+<h2>Nastavení oprávnění</h2>
+
+{if count($permissions)}
+    <table>
+        <thead>
+        <th>Id</th>
+        <th>Role</th>
+        <th>Write</th>
+        <th>Delete</th>
+        <th>Forbidden</th>
+            
+        </thead>   
+        <tbody>
+            {foreach $permissions as $p}
+                <tr>
+                    <td><a href="?permissionId={$p->id}">{$p->id}</a></td>
+                    <td>{$p->roleTitle}</td>
+                    <td>{if $p->writable == 1}Ano{else}-{/if}</td>
+                    <td>{if $p->deletable ==1}Ano{else}-{/if}</td>
+                    <td>{if $p->forbidden == 1}Ano{else}-{/if}</td>
+                </tr>    
+            {/foreach}   
+        </tbody>    
+        
+        
+    </table>     
+{else}
+    <p>Zadna prava pro dany obsah</p> 
+{/if}
+
+{control permissionControl}

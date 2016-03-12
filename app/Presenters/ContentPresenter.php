@@ -10,6 +10,8 @@
 namespace Natsu\Presenters;
 use Natsu\Forms\BaseForm;
 use Natsu\Forms\AttachmentFormFactory;
+use Natsu\Forms\ContentComponentFormFactory;
+use Natsu\Forms\PermissionFormFactory;
 
 
 use App\Controls\Grido\Grid;
@@ -27,13 +29,21 @@ class ContentPresenter extends BasePresenter {
     public $entityModel;
     private $controls;
     private $contentId;
+    private $componentId;
     private $attachments;
     private $attachment;
+    private $permission;
+    private $permissionId;
 
     public $sectionId;
     
        /** @var AttachmentFormFactory @inject */
 	public $factoryAttachment;
+        
+        /** @var ContentComponentFormFactory @inject */
+	public $factoryContentComponent;
+        /** @var PermissionFormFactory @inject */
+        public $factoryPermission;
 
 	/*
     public function inject(\Natsu\Model\EntityModel $entityModel){
@@ -98,6 +108,32 @@ class ContentPresenter extends BasePresenter {
 
     }
     
+    
+    public function actionPermissions($id = 0, $permissionId=0){
+        $this->contentId = $id;
+        $this->permissionId = $permissionId;
+        $permissionModel = $this->entityModel->reflection("permission");
+        $permissions = $permissionModel->getPermissions($id);
+        $this->add("permissions", $permissions );
+        $this->prepare();
+        
+        
+        
+    }
+    
+    public function actionComponents($id = 0, $componentId = 0){
+        $this->contentId = $id;
+        $this->componentId = $componentId;
+        $controlsModel = $this->entityModel->reflection("component");
+        $controls = $controlsModel->getComponents($id);
+        $this->add("controls", $controls);
+        $this->prepare();
+        
+        
+        
+    }
+    
+    
     public function actionAttachments($id = 0){
         $this->contentId = $id;
         $this->entityModel->setTable("attachment");
@@ -127,6 +163,10 @@ class ContentPresenter extends BasePresenter {
        $this->prepare();
 
     }
+    
+    
+    
+    
 
     public function actionDelete($id = 0){
 
@@ -144,7 +184,43 @@ class ContentPresenter extends BasePresenter {
 		};
 		return $form;
 	}
+        
+        private function getControls(){
+            $this->entityModel->setTable("component");
+            $controls = $this->entityModel->table();
+            $out = [];
+            foreach($controls as $control){
+                $out[$control->id] = $control->title;
+            }
+            
+            return $out;
+        }
+        
+        private function getControlById($id){
+            $this->entityModel->setTable("contentcomponent");
+            return $this->entityModel->table($id);
+            
+        }
+        
 
+        
+        protected function createComponentComponentForm()
+	{
+                $this->factoryContentComponent->setContentId($this->contentId);
+                $this->factoryContentComponent->setEm($this->entityModel);
+                $this->factoryContentComponent->setComponents($this->getControls());
+                $this->factoryContentComponent->setContentComponent($this->getControlById($this->componentId));
+                
+		$form = $this->factoryContentComponent->create();
+		$form->onSuccess[] = function ($form) {
+                        $form->getPresenter()->flashMessage("Uloženo");    
+			$form->getPresenter()->redirect('Content:components',$this->contentId);
+		};
+		return $form;
+	}
+   
+        
+        
     public function createComponentContentForm(){
         $form = new BaseForm();
         $form->addHidden("id");
@@ -290,6 +366,22 @@ class ContentPresenter extends BasePresenter {
        }
        $this->flashMessage("OK");
        $this->redirect("Content:view", $values->id);
+    }
+    
+    
+    public function createComponentPermissionControl(){
+                $this->factoryPermission->setContentId($this->contentId);
+                $this->factoryPermission->setEm($this->entityModel);
+                $pM = $this->entityModel->reflection("permission");
+                $this->factoryPermission->setRoles($pM->getRoles());
+                $this->factoryPermission->setContentPermission($pM->getPermissionById($this->permissionId));
+                
+		$form = $this->factoryPermission->create();
+		$form->onSuccess[] = function ($form) {
+                        $form->getPresenter()->flashMessage("Uloženo");    
+			$form->getPresenter()->redirect('Content:permissions',$this->contentId);
+		};
+		return $form;
     }
 
 
