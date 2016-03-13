@@ -28,6 +28,7 @@ and open the template in the editor.
 }
 
 .ill_01 {
+  padding-top: 80px;
   background-color: white;
   background-image: url("../paralax/obr1.png");
 }
