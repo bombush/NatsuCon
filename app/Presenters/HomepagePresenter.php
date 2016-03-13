@@ -22,6 +22,11 @@ class HomepagePresenter extends BasePresenter
             return $slider;
         }
 
+      public function createComponentParalax(){
+          $paralax = new \Natsu\Control\ParalaxHomepage;
+          return $paralax;
+          
+      }  
 
 
 }

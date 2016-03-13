@@ -471,7 +471,7 @@ Single styles
       -ms-flex-pack: center;
           justify-content: center;
   height: 40vh;
-  background: white;
+ /* background: white;*/
 }
 
 .time-to {
