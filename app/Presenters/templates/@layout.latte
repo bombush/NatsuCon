@@ -20,7 +20,7 @@
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 
         
-        {if $user->isLoggedIn}
+       {if $user->loggedIn}
         <link rel="stylesheet" href="{$basePath}/assets/css/grido.css">
 	 <link rel="stylesheet" href="{$basePath}/assets/css/croppie.css" />
         <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css">
@@ -74,7 +74,7 @@
 										<a target="__blank" href="javascript: void(0);"><span class="fa fa-rss-square"></span></a>
                                                                         </span>
                                 
-                           </div>
+                           
                               
 		</div>
 
@@ -87,15 +87,17 @@
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
-                <script type="text/javascript" src="{$basePath}/js/jquery.easing.1.3.js"></script>
+
+                     
+                
+                
+                
+                
+             {if $user->loggedIn}
+                                 <script type="text/javascript" src="{$basePath}/js/jquery.easing.1.3.js"></script>
                 <script type="text/javascript" src="{$basePath}/js/jquery.skitter.min.js"></script>
                 <script type="text/javascript" src="{$basePath}/js/jquery.magnific-popup.js"></script>
-                     
-      <script src="{$basePath}/js/croppie.min.js"></script>    
-                
-                
-                
-                {if $user->isLoggedIn}
+                 <script src="{$basePath}/js/croppie.min.js"></script>    
                 <script type="text/javascript" src="{$basePath}/js/grido.js"></script>
                 <script type="text/javascript" src="{$basePath}/js/slippry.min.js"></script>
                 <script type="text/javascript" src="{$basePath}/js/plugins/grido.datepicker.js"></script>
