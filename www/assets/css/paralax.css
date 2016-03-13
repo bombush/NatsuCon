@@ -68,6 +68,12 @@ and open the template in the editor.
 
 }
 
+@media(max-width:55em) {
+  .right {
+    background-position: 0 80%;
+  }
+}
+
 /*
 @media (max-width: 106.25rem) {
   .separator {
