@@ -129,7 +129,7 @@ Layout styles
 .header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat scroll 0 -0.8em; overflow:hidden;height: 100px;margin-left:300px;}
 
 .nav-bar {
-    position: fixed;
+    position: static;
     width: 100%;
     top: 0px;
     background-color: #4284B0;
@@ -632,7 +632,10 @@ Wide styles
 @media (min-width: 55em)
 {
 
-	.nav-bar { padding: 0.5em 3em; }
+	.nav-bar {
+        padding: 0.5em 3em;
+        position: fixed;
+    }
 	.content { padding: 2em 3em; }
 
     .header-image {
