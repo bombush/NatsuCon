@@ -287,7 +287,7 @@ Nav
     font-size: 0.9em;
     list-style-type: none;
     display: inline-block;
-    margin: 0 0 1.5em 0;
+    margin: 1.5em 0 1.5em 0;
     padding: 0px;
 }
 
@@ -481,12 +481,12 @@ Single styles
   text-align: center;
   font-family: Bangers;
   color: #4284B0;
-  font-size: 45px;
+  font-size: 2em;
   letter-spacing: 2px;
 }
 .time-to span {
   display: block;
-  font-size:90px;
+  font-size:2.5em;
   color: red;
 }
 
@@ -637,6 +637,7 @@ Wide styles
     .fb-page{
         display: none !important;
     }
+    .hp-social-icons {font-size: 1.5em;}
 }
 
 @media (min-width: 55em)

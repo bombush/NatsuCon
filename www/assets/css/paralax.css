@@ -68,100 +68,21 @@ and open the template in the editor.
 
 }
 
-@media(max-width:55em) {
-  .right {
-    background-position: 0 80%;
-  }
-}
 
-/*
-@media (max-width: 106.25rem) {
-  .separator {
-    font-size: 1.6875rem;
-  }
+@media (max-width: 55em)
+{
+   .ill_01, .ill_02, .ill_03 { background-image: none;}
+   .right, .left, .center {padding: 0.4em;font-size: 1em;}
+   .separator {font-size:0.75em; padding:1em;}
+   .time-to {font-size: 1.5em; letter-spacing: 0.05em;}
+   .time-to span {font-size: 1.6em;}
+   .sub-nav a:visited {color:#2087D9;}
+   .sub-nav a:hover {color:white;}
+   
+   
+} 
+
+@media (min-width: 55em){
+ 
+    
 }
-@media (max-width: 93.75rem) {
-  .obsah,
-  .separator {
-    font-size: 1.5rem;
-  }
-  .right {
-    padding: 1.618em 4.854em 1.618em 50%;
-  }
-  .left {
-    padding: 1.618em 50% 1.618em 4.854em;
-  }
-}
-@media (max-width: 81.25rem) {
-  .obsah,
-  .separator {
-    font-size: 1.3125rem;
-  }
-  .right {
-    padding: 1.618em 3.236em 1.618em 45%;
-    background-size: 44% auto;
-    background-position: 0 55%;
-  }
-  .left {
-    padding: 1.618em 45% 1.618em 3.236em;
-    background-size: 44% auto;
-    background-position: 100% 55%;
-  }
-}
-@media (max-width: 68.75rem) {
-  .content,
-  .separator {
-    font-size: 1.125rem;
-  }
-  .right {
-    padding: 1.618em 3.236em 1.618em 40%;
-    background-size: 39% auto;
-    background-position: 0 60%;
-  }
-  .left {
-    padding: 1.618em 40% 1.618em 3.236em;
-    background-size: 39% auto;
-    background-position: 100% 60%;
-  }
-  
-   .center {
-    padding: 1.618em 40% 1.618em 3.236em;
-    background-size: 39% auto;
-    background-position: 100% 60%;
-  }
-}
-@media (max-width: 50rem) {
-  .smallscreen {
-    display: block;
-  }
-  .right {
-    padding: 1.618em 3.236em;
-    background-image: none;
-  }
-  .left {
-    padding: 1.618em 3.236em;
-    background-image: none;
-  }
-  .center {
-    padding: 1.618em 3.236em;
-    background-image: none;
-  }
-}
-@media (max-width: 31.25rem) {
-  .right {
-    padding: 1.618em 1.618em;
-  }
-  .left {
-    padding: 1.618em 1.618em;
-  }
-   .center {
-    padding: 1.618em 1.618em;
-  }
-}
-@media (max-width: 12rem) {
-  html {
-    min-width: 12rem;
-  }
-}
-}
-*/
