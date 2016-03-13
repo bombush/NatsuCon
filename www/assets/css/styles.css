@@ -128,10 +128,12 @@ Layout styles
 
 .header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat scroll 0 -0.8em; overflow:hidden;height: 100px;margin-left:300px;}
 
-.nav-bar
-{
-	background: #4284B0;
-	padding: 0;
+.nav-bar {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    background-color: #2087D9;
+    box-shadow: 0px 0px 10px #010829;
 }
 
 .content
