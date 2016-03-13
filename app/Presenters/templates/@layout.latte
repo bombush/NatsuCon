@@ -53,30 +53,29 @@
 			<div class="container">
 				<!-- Flash messages -->
                                     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-                                        <div class="main {if $user->loggedIn}full-width{/if}">
+                                        <div class="main full-width ">
                                         {include content}
                                         </div>
-                                {if !$user->loggedIn}
-				<div class="aside">
-									<div class="hp-social-icons">
-										<a target="__blank" href="https://www.facebook.com/natsucon.cz"><span class="fa fa-facebook-official"></span></a>
-										<a target="__blank" href="https://www.youtube.com/channel/UCGEv3Zuqz7hcRCAjaIotDng"><span class="fa fa-youtube"></span></a>
-										<!--<a target="__blank" href="https://twitter.com/NatsuConCZ"><span class="fa fa-twitter-square"></span></a> -->
-										<a target="__blank" href="https://vimeo.com/user31566058"><span class="fa fa-vimeo"></span></a>
-										<a target="__blank" href="javascript: void(0);"><span class="fa fa-rss-square"></span></a>
-									</div>
-                                    <div class="fb-page" data-href="https://www.facebook.com/natsucon.cz" data-width="300" data-height="1300" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/natsucon.cz"><a href="https://www.facebook.com/natsucon.cz"></a></blockquote></div></div>
-                               </div>
-                               {/if}
+                                
 			</div>
                         </div>
                 {else}
                     {control paralax}
                 {/if}    
 		<div class="footer">
-			<div class="container">
+			<span class="container">
 				&copy; 2015 NatsuCon
-			</div>
+			</span>
+									<span class="hp-social-icons">
+										<a target="__blank" href="https://www.facebook.com/natsucon.cz"><span class="fa fa-facebook-official"></span></a>
+										<a target="__blank" href="https://www.youtube.com/channel/UCGEv3Zuqz7hcRCAjaIotDng"><span class="fa fa-youtube"></span></a>
+										<!--<a target="__blank" href="https://twitter.com/NatsuConCZ"><span class="fa fa-twitter-square"></span></a> -->
+										<a target="__blank" href="https://vimeo.com/user31566058"><span class="fa fa-vimeo"></span></a>
+										<a target="__blank" href="javascript: void(0);"><span class="fa fa-rss-square"></span></a>
+                                                                        </span>
+                                
+                           </div>
+                              
 		</div>
 
 
@@ -122,14 +121,4 @@
 {/if}
 
  </body>
-<script>
-	$(window).load(function (d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-</script>
 </html>

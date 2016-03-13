@@ -128,8 +128,9 @@ Layout styles
 
 .header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat scroll 0 -0.8em; overflow:hidden;height: 100px;margin-left:300px;}
 
+
 .nav-bar-fixed {
-    position: fixed;
+    position: static;
     width: 100%;
     top: 0px;
     background-color: #4284B0;
@@ -566,14 +567,16 @@ Single styles
  */
 .hp-social-icons {
 	margin-bottom: 1em;
+        color:white;
+        font-size: 2em;
 }
 .hp-social-icons .fa {
-    color: #4284b0;
-    font-size: 3em;
+    
+    color:white;
     margin-left: 0.15em ;
 }
 .hp-social-icons .fa:hover {
-    color: #2087d9;
+    color:white;
 }
 
 /**
@@ -597,6 +600,7 @@ Single styles
 .sub-nav a {
     background: white;
     border: 0.1em solid #4284B0;
+
     
 }
 
@@ -616,6 +620,12 @@ Single styles
 
 .sub-nav{
     background-color: transparent;
+        margin-top:1em;
+}
+
+.sub-nav a:visited {
+    color:#4284B0;
+    border: 0.1em solid #4284B0;
 }
 
 /* -----------------------
@@ -632,7 +642,10 @@ Wide styles
 @media (min-width: 55em)
 {
 
-	.nav-bar-fixed { padding: 0.5em 3em; }
+    .nav-bar-fixed {
+        padding: 0.5em 3em;
+        position: fixed;
+    }
 	.content { padding: 2em 3em; }
 
     .header-image {
@@ -659,7 +672,7 @@ Wide styles
 		margin-bottom: 1em;
 	}
 
-	.footer { padding: 2em 3em; }
+	.footer { padding: 1em 2em; }
 	
 	.nav li
 	{
