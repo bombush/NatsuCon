@@ -47,6 +47,7 @@ and open the template in the editor.
 
 .ill_03 {
   color: #262626;
+   background-position: 100% 10%;
   background-image: url("../paralax/obr3.png");
 }
 
@@ -65,6 +66,7 @@ and open the template in the editor.
 .opacited{
     background-color:rgba(255, 255, 255, 0.9);
     padding: 0.5em;
+    box-shadow: 0px 0px 10px #010829;
 
 }
 
@@ -78,6 +80,12 @@ and open the template in the editor.
    .time-to span {font-size: 1.6em;}
    .sub-nav a:visited {color:#2087D9;}
    .sub-nav a:hover {color:white;}
+   .opacited{
+   background-color:transparent;
+    padding: 0.5em;
+    box-shadow:none;
+   }
+    
    
    
 } 

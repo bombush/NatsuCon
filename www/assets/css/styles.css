@@ -628,6 +628,7 @@ Single styles
     border: 0.1em solid #4284B0;
 }
 
+
 /* -----------------------
 Wide styles
 ------------------------*/
@@ -665,6 +666,11 @@ Wide styles
 		margin-right: 5%;
 		margin-bottom: 1em;
 	}
+        
+        .full-width{
+    width: 100%;
+}
+
 
 	.aside
 	{
