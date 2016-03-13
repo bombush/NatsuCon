@@ -60,7 +60,7 @@ class ProgramContainer {
         foreach($this->timeTable as $roomId => $roomLineUp){
             foreach($roomLineUp as $slotId => $program){
                 
-                $map[$roomId][$slotId] = 1;
+              
                
                 
                 $endTs = $program[0]->timeTo->getTimestamp();
@@ -69,11 +69,12 @@ class ProgramContainer {
               //  dump($endTs);
               //  exit;
                 $slotBetween = $slotId;
-                do{
+                while($endTs-1800 > $slotBetween){
+                    
                 $slotBetween = $slotBetween + 1800;    
                 $map[$roomId][$slotBetween] = 2;
                 
-                }while($endTs > $slotBetween);
+                };
                 
             }
         }
@@ -84,3 +85,24 @@ class ProgramContainer {
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

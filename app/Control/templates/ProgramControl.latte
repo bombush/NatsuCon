@@ -2,6 +2,8 @@
 
 {block content}
 
+{dump $map}
+
  
    
 <table>
@@ -40,7 +42,11 @@
                          
                               
                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                      {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 1}
+                           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                       {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 2}     
+                      {else}
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                       {/if}    
                     
                       
