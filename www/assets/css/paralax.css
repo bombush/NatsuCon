@@ -9,16 +9,16 @@ and open the template in the editor.
 */
 
 .obsah {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #262626;
-  background-size: 49% auto;
+  background-size: 35% auto;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
 .right {
-  padding: 4.1em 6.472em 3.236em 50%;
-  background-position: 0 22%;
+  padding: 4.1em 12.472em 3.236em 45%;
+  background-position: 22% 22%;
 }
 
 
@@ -28,44 +28,47 @@ and open the template in the editor.
 }
 
 .ill_01 {
-  padding-top: 80px;
+  
   background-color: white;
+   background-position: 20% 10%;
   background-image: url("../paralax/obr1.png");
 }
 
 .left {
-  padding: 1.618em 50% 3.236em 6.472em;
-  background-position: 100% 50%;
+  padding: 1.618em 50% 3.236em 12.472em;
+  background-position: 50% 22%;
 }
 .ill_02 {
   background-color: #white;
   background-size: 100% auto;
   color: #262626;
+  padding-left: 20.75em;
   background-image: url("../paralax/obr2.jpg");
-  
+   background-attachment: inherit;
 }
 
 .ill_03 {
   color: #262626;
-   background-position: 100% 10%;
+   background-position: 75% 10%;
   background-image: url("../paralax/obr3.png");
 }
 
 .separator {
-  font-size: 1.875rem;
+  font-size: 1.275rem;
   
-  background-color:#4284B0;
-  padding: 0.95em 0;
+  background-color:white;
+  padding: 0.55em 0;
   text-align: center;
 }
 
 .separator h3{
-    color:white;
+    color:#4284B0;
+    margin-bottom: 0;
 }
 
 .opacited{
     background-color:rgba(255, 255, 255, 0.9);
-    padding: 0.5em;
+    padding: 0.5em 0.75em;
     box-shadow: 0px 0px 10px #010829;
 
 }
