@@ -11,8 +11,6 @@ and open the template in the editor.
 .obsah {
   font-size: 1rem;
   color: #262626;
-  background-size: 35% auto;
-  background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
@@ -31,7 +29,8 @@ and open the template in the editor.
   
   background-color: white;
   background-position: 22% 10%;
-  background-image: url("../paralax/obr1.png");
+  background-size: 34%;
+  background-image: url("../paralax/obr1.jpg");
   background-attachment: inherit;
 }
 
