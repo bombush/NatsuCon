@@ -22,7 +22,6 @@ class ProgramControl extends ContentControl{
     protected $festivalEnd;
     protected $em;
     
-    
     public function setEm($em){
         $this->em = $em;
     }
@@ -49,6 +48,25 @@ class ProgramControl extends ContentControl{
         $this->prepare();
         $this->template->render();
     }
+    
+    
+     
+    protected function createComponentCustomProgram(){
+        $list = new ProgramListControl;
+        $list->setEm($this->em);
+        $list->setSectionId($this->sectionId);
+        $list->setRoomId(5);
+        $list->setTemplateName("ProgramListSimpleControl");
+        $list->setTitle("Doprovodný program");
+        return $list;
+        
+        
+        
+        
+        
+        
+    }
+  
     
     private function prepare(){
         $container = new ProgramContainer;

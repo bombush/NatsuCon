@@ -1,24 +1,34 @@
 {* Latte template *}
 
 {block content}
-<h2>{$title}</h2>
+{if $title}
+<h2><span class="fa fa-list"></span>{$title}</h2>
+{/if}
 
-{dump $programs}
+
 
 {foreach $programs as $program}
     <div class="program-list">
         <a href="{$baseUrl}/{$program->url}">
-            <div class="right">
-                <img src="/images/uploaded/attachment/thumbs/278-2-200x200.jpg" alt=""/> 
-            </div>
-        <div class="left">
+           
+        <div>
+            
             <div class="list-info">
             <p class="list-time ">
                     <span class="left">{$program->programType}</span>
                     <span class="right">{$program->timeFrom|date:'d/m G:i'} {$program->roomTitle}</span></p>
             <p class="headline"></p>
+            <div class="program-section">
+            <div class="left">
             <p class="list-title">{$program->title}</p>
             <p class="list-author">{$program->author}</p>
+            </div>
+            <div class="right" style="background-image: url('/natsucon/www/2015-ohlasy.jpg')">
+              <!--  <span class="list-thumb" ></span> -->
+              <!-- <img class="list-thumb" src='/natsucon/www/2015-ohlasy.jpg'/> -->
+              <span class="">&nbsp;</span>
+            </div>
+            </div>
             </div>
         
         

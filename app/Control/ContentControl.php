@@ -7,9 +7,14 @@
  */
 class ContentControl extends BaseControl {
     private $controls;
+    private $em;
 
     public function setControls($controls){
         $this->controls = $controls;
+    }
+    
+    public function setEm($em){
+        $this->em = $em;
     }
 
 
@@ -22,8 +27,9 @@ class ContentControl extends BaseControl {
 
     public function createComponentMagic(){
         $controls = $this->controls;
+        $em = $this->em;
         $control = new \Nette\Application\UI\Multiplier(
-            function($id) use($controls){
+            function($id) use($controls,$em){
                     $ctrl = $controls[$id];
                     $className = ucfirst($ctrl->class)."Control";
                     $controlClass = "\Natsu\Control\\".$className;
@@ -34,6 +40,7 @@ class ContentControl extends BaseControl {
                         foreach($params as $key => $value){
                             $control->set($key, $value);
                         }
+                        $control->set("em", $em);
                     }
                     return $control;
 

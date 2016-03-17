@@ -31,7 +31,7 @@ class ProgramInfoControl extends ContentControl{
         $this->attachments = $attachments;
     }
 
-    public function setEm(\Natsu\Model\EntityModel $em) {
+    public function setEm($em) {
         $this->em = $em;
     }
     

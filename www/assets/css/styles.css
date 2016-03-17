@@ -12,7 +12,7 @@ body
 	font: 1em/1.2 "Helvetica Neue", Verdana, Geneva, sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6
+    h1,h2,h3,h4,h5,h6
 {
 	margin: 0 0 .5em;
 	font-weight: 500;
@@ -154,6 +154,10 @@ Layout styles
 	color: #fff;
 	background: #4284B0;
 	padding: 1em 1.25em;
+}
+
+.text-center{
+    text-align: center;
 }
 
 
@@ -388,39 +392,128 @@ Single styles
 
 .program-list{
     width: 100%;
-    height: 12em;
+    height: auto;
     margin-bottom: 1em;
 }
 
-.program-list .left{
-    width: 50%;
-     
-     
+.list-time .left{
+    width:75%;
     
 }
 
 
+.list-time{
+    background-color: #ddd;
+    
+}
 
-.program-list .right{
-    width: 50%;
+.list-time .right{
     float:right;
+    
+}
+
+.list-info .left{
+    height:auto;
+    width: 75%;
+}
+
+
+.list-info .right{
+    height:auto;
+   
+    
+    
+}
+
+
+.normal-color,.normal-color th{
+    background-color: #4284B0;
+    color: white;
+    text-align: center;
+     border: 0.05em solid white;
+}
+
+.pr-slot{
+    width: 25%;
+    border: 0.05em solid gray;
+}
+
+
+
+.program-section {
   
+    height: 5em;
+
+    margin: auto;
+}
+.program-section .left {
+    width: 75%;
+    float: left;
+    height: 5em;
+}
+.program-section .right {
+    margin-left: 75%;
+    width: 25%;
+    color: black;
+    font-size:4em;
+    text-align: right;
+    padding-top: 0.25em;   padding-bottom: 0.25em;
+    background-size: 250%;
+    background-position: 50% 50%;   
+    background-repeat: no-repeat;
+}
+
+.list-thumb{
+    left: 50%;
+    position: absolute;
+    margin-left: -10em;
+}
+
+
+.empty-slot{
+    background-color: #4284B0;
+    border: 0.05em solid #4284B0;
+    
+}
+
+.day-headline{
+ border: 0.05em solid white !important;   
+}
+
+.program-table{
+    margin-top: 2em;
+}
+
+
+
+
+.admin-navi a{
+    font-size:2em;
+    text-decoration: none;
+    padding:0.15em;
+    margin-top: 0.25em;
+}
+
+.main-text{
+    text-align: justify;
 }
 
 .list-info{
-    padding-top: 2em; padding-bottom: 2em;
+    padding-top: 2em; padding-bottom: 0; margin-bottom: 0.30em;
 }
 
 .list-time{
     font-weight: bold;
     color:#000;
-    margin-bottom: 0.25em;
+    margin-bottom: 0em;
+    padding: 0 0.5em;   
 }
 
 
 .list-title{
     color:#2087D9;
-    font-size: 1.8em;
+    font-size: 1.2em;
+    font-weight: bold;
     padding-bottom: 0.25em;
     margin-bottom: 0;
 }
@@ -428,11 +521,14 @@ Single styles
 .list-author{
     color: black;
     font-style: italic;
+    font-size: 1em;
 }
 
 .headline{
     background-color: #000;
-    height: 0.25em;
+    height: 0.15em;
+    margin-bottom: 0;
+    margin-top: 0;
     
 }
 
@@ -640,6 +736,12 @@ Wide styles
         display: none !important;
     }
     .hp-social-icons {font-size: 1.2em;}
+    
+    .list-info {font-size: 75%; margin-bottom: 0;padding:0.0045em 0;}
+    
+    .program-list {margin-bottom: 2em;}
+    .program-section {font-size: 70%;}
+    .list-thumb {background-image: none !important; }
 }
 
 @media (min-width: 55em)
@@ -649,7 +751,7 @@ Wide styles
         padding: 0.5em 0em;
         position: fixed;
     }
-	.content { padding: 2em 3em; }
+	.content { padding: 2em 10em; }
 
     .header-image {
         display: block;

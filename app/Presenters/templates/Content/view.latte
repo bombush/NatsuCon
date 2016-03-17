@@ -1,6 +1,6 @@
 {block #content}
     {if $user->loggedIn}
-    <div>
+    <div class="admin-navi">
         {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2)}<span><a class="fa fa-list" href="{link Content:list}"></a></span>{/if}
         {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId == 3)} <span><a class="fa fa-file" href="{link Content:form}"></a></span>{/if}
         {if $user->loggedIn && ($user->id == $content->userId || $user->identity->roleId == 1 || $user->identity->roleId == 2 || (isset($rules) && $rules->writable))} <span><a class="fa fa-save" href="{link Content:form $content->id}"></a></span>{/if}
@@ -36,7 +36,7 @@
         <cite class="content-annotation">{$content->anotation}</cite>
         {/if}
         {control programInfo}
-    <div> 
+    <div class="main-text"> 
       {$content->text|noescape}
       {control attachmentsView}
     </div>

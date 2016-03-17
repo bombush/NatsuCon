@@ -6,11 +6,11 @@
 
  
    
-<table>
-    <thead>
+<table class="program-table">
+    <thead class="normal-color">
         <th>Čas</th> 
         {foreach $rooms as $room}
-        <th>{$room->title}</th>   
+        <th> {$room->title}</th>   
             
         {/foreach}
     </thead>    
@@ -18,11 +18,11 @@
        {foreach $slots as $id => $slot}
            {if $id == 0 || ($slot+7200) % (3600*24) == 0}
                <tr>
-                   <td colspan="4"><strong>{$slot|date:'l'} {$slot|date:'d.m.Y'}</strong></td>
+                   <td class="normal-color text-center day-headline" colspan="{count($rooms)+1}"><strong>{$slot|date:'l'} {$slot|date:'d.m.Y'}</strong></td>
                </tr>    
            {/if}    
            <tr data-id="{$slot}"> 
-               <td>{$slot|date:'G:i'}</td>   
+               <td class="normal-color">{$slot|date:'G:i'}</td>   
                 {var $actualSlot = $slot}
                {foreach $rooms as $room}
                    
@@ -30,7 +30,7 @@
                       {var $ttRoom = $timetable[$actualRoom]}  
                       {if isset($ttRoom[$actualSlot])}
                            {var $program = $ttRoom[$actualSlot][0]}
-                           <td {if $program->length > 1} rowspan="{$program->length}"{/if}>
+                           <td class="pr-slot"{if $program->length > 1} rowspan="{$program->length}"{/if}>
                             <div>
                               
                              
@@ -41,12 +41,12 @@
                        {elseif !isset($map[$actualRoom][$actualSlot])}
                          
                               
-                           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                           <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                       {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 1}
-                           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                           <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                       {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 2}     
                       {else}
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                       {/if}    
                     
                       
@@ -64,6 +64,6 @@
 
 </table>
 
+{control customProgram}
 
-
-{/block}
+    {/block}

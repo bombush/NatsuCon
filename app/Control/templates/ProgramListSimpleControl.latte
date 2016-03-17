@@ -1,0 +1,15 @@
+{* Latte template *}
+
+{block content}
+
+<h2>{$title}</h2>
+
+
+<ul>
+{foreach $programs as $program}
+    <li>
+       {$program->timeFrom|date:'d/m G:i'}  <a href="{$baseUrl}/{$program->url}"> {$program->title} ({$program->author})</a>    
+        
+    </li>
+{/foreach}    
+</ul>

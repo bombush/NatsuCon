@@ -19,6 +19,9 @@ class ProgramListControl extends BaseControl {
     private $startTime;
     private $endTime;
     private $title;
+    private $roomId;
+    private $templateName;
+    
     /**
      *
      * @var Natsu\Model\EntityModel 
@@ -30,6 +33,10 @@ class ProgramListControl extends BaseControl {
         $this->em = $em;
     }
     
+    public function setTemplateName($templateName){
+        $this->templateName = $templateName;
+    }
+    
     
     function getTitle() {
         return $this->title;
@@ -37,6 +44,10 @@ class ProgramListControl extends BaseControl {
 
     function setTitle($title) {
         $this->title = $title;
+    }
+    
+    function setRoomId($roomId){
+        $this->roomId = $roomId;
     }
 
         
@@ -74,17 +85,23 @@ class ProgramListControl extends BaseControl {
     
     
     public function render(){
-        $this->template->setFile(__DIR__."/templates/ProgramListControl.latte");
+        
+        $templateName = "ProgramListControl";
+        if(isset($this->templateName)){
+            $templateName = $this->templateName;
+        }
+        $this->template->setFile(__DIR__."/templates/".$templateName.".latte");
         $this->prepare();
         $this->template->render();
         
         
     }
     
+     
     
     private function prepare(){
         $em = $this->em->reflection("program");
-        $programs = $em->getProgramsList($this->sectionId,$this->typeId,NULL);
+        $programs = $em->getProgramsList($this->sectionId,$this->typeId,$this->roomId);
         $this->template->title = $this->title;
         $this->template->programs = $programs;
     }

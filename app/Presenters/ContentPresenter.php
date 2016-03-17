@@ -388,6 +388,7 @@ class ContentPresenter extends BasePresenter {
     public function createComponentContentControl(){
         $control = new \Natsu\Control\ContentControl();
         $control->setControls($this->controls);
+        $control->setEm($this->entityModel);
 
         return $control;
     }

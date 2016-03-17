@@ -6,7 +6,7 @@
     <table>
 {foreach $attachments as $att}
     <tr>
-        <td><a href="/content/attachment/{$att->id}">{$att->id} </a>    </td>
+        <td><a href="{$baseUri}/content/attachment/{$att->id}">{$att->id} </a>    </td>
         <td>{$att->title} </td>
         <td>{$att->mime} </td>
         <td>{$att->url}</td>

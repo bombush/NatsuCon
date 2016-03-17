@@ -60,6 +60,10 @@ class ProgramModel extends EntityModel{
           if(isset($typeId)){
               $stm->where("program.typeId = $typeId");
           }
+          
+           if(isset($roomId)){
+              $stm->where("program.roomId = $roomId");
+          }
         
           if(isset($startTime)){
               $startTimeTs = strtotime($startTime);

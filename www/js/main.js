@@ -60,12 +60,12 @@ function demoBasic(){
    var $uploadCrop; 
    $uploadCrop = $('#upload-demo').croppie({
         viewport: {
-            width: 800,
+            width: 1200,
             height: 200,
             type: 'square'
         },
         boundary: {
-            width: 800,
+            width: 1200,
             height: 500
         }
     });
