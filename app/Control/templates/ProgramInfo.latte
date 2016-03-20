@@ -11,7 +11,7 @@
         <div class="program-author">{$content->author}</div>
      </div>
      {var $program = $programs[0]}
-     <div>
+     <div class="program-time-place">
          <div class="div-left"><span class="fa {$program->typeIcon}"></span>&nbsp; <strong>{$program->type}</strong> {if $program->genre != $program->type}({$program->genre}){/if}</div> 
          <div class="div-right">
              <span class="fa fa-clock-o"></span> <strong> {$program->roomTitle} - {$program->timeFrom|date:'D'}    {$program->timeFrom|date:'G:i'} - {$program->timeTo|date:'G:i'} {if $program->reprise} (repríza){/if}</strong>

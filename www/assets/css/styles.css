@@ -766,6 +766,14 @@ Wide styles
         display: none;
     }
     
+    .program-time-place .div-left,  .program-time-place .div-right {
+        width: 100%;
+    }
+    
+    .program-time-place .div-right {
+        text-align: left;
+    }
+    
     .fb-page{
         display: none !important;
     }
