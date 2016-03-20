@@ -391,10 +391,15 @@ Single styles
     
 }
 
+.social-buttons span {
+    float: left;
+    margin-right: 1em;
+}
+
 .program-list{
     width: 100%;
     height: auto;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 .list-time .left{
@@ -720,6 +725,16 @@ Single styles
     border: 0.1em solid #4284B0;
 }
 
+.header{
+    text-align: right;
+}
+
+.header .fa {
+    border: 0.1em solid #2087A9;
+    font-size: 1.2em;
+    padding: 0.5em;
+
+}
 
 
 
@@ -744,8 +759,13 @@ Single styles
 Wide styles
 ------------------------*/
 
-@media (max-width: 55em)
+@media (max-width: 44em)
 {
+    
+    .social-buttons{
+        display: none;
+    }
+    
     .fb-page{
         display: none !important;
     }
@@ -753,19 +773,27 @@ Wide styles
     
     .list-info {font-size: 75%; margin-bottom: 0;padding:0.0045em 0;}
     
-    .program-list {margin-bottom: 2em;}
-    .program-section {font-size: 70%;}
+    h2 {font-size: 1.5em;}
+    
+    .program-list {margin-bottom: 1em;}
+    .program-section {font-size: 80%;}
+    .program-section .right {background-image: none !important;}
     .list-thumb {background-image: none !important; }
+    .nav-bar-fixed {display:none;}
 }
 
-@media (min-width: 55em)
+@media (min-width: 44em)
 {
 
+    .header{
+        display:none;
+    }
+    
     .nav-bar-fixed {
         padding: 0.5em 0em;
         position: fixed;
     }
-	.content { padding: 3em 10em; }
+	.content { padding: 3em 4em; }
 
     .header-image {
         display: block;

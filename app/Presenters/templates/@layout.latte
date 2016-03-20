@@ -35,17 +35,18 @@
 </head>
 
 <body>
-<!--	
-    <a href="/">
+	
+
 		<div class="header">
 			<div class="container">
 				<div class="header-logo"><h1 class="header-heading">NatsuCon</h1></div>
 				<div class="header-image"></div>
 			</div>
+                    <a href="{$baseUri}/"><span class="fa fa-home"></span></a>
+                    <a href="#" class="toggle-menu"><span class="fa fa-list"></span></a>
 
 		</div>
-	</a>
--->
+
         {control mainMenu}
        
         {if $presenter->name != "Homepage"}
@@ -81,7 +82,7 @@
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.4.5/jquery-ui-timepicker-addon.min.js"></script>
-
+                <script type="text/javascript" src="{$basePath}/js/jquery.magnific-popup.js"></script>
                      
                 
                 
@@ -90,7 +91,7 @@
              {if $user->loggedIn}
                                  <script type="text/javascript" src="{$basePath}/js/jquery.easing.1.3.js"></script>
                 <script type="text/javascript" src="{$basePath}/js/jquery.skitter.min.js"></script>
-                <script type="text/javascript" src="{$basePath}/js/jquery.magnific-popup.js"></script>
+
                  <script src="{$basePath}/js/croppie.min.js"></script>    
                 <script type="text/javascript" src="{$basePath}/js/grido.js"></script>
                 <script type="text/javascript" src="{$basePath}/js/slippry.min.js"></script>

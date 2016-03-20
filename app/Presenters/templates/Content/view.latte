@@ -40,6 +40,31 @@
         {$content->text|noescape|nl2br}
       {control attachmentsView}
     </div>
+    {if count($programs) > 0}
+        <div class="social-buttons">
+            <span>
+                 <script src="https://apis.google.com/js/platform.js" async defer></script>
+                <g:plusone></g:plusone>
+                
+            </span>
+             <span>
+   <a href="" class="twitter-share-button" data-count="horizontal" data-via="account">Tweet</a>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>    
+            </span>  
+            <span>
+                <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v2.5&appId=318865124849458";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-href="" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
+            </span>  
+             
+        </div>    
+    {/if}   
 
     {control contentControl}
     {/if}

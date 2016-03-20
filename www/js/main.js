@@ -1,5 +1,6 @@
 $(function(){
 
+    if($(".wysiwyg").length > 0){
     tinyMCE.init({
     selector: ".wysiwyg",
     entity_encoding: "raw",
@@ -9,11 +10,14 @@ $(function(){
         if(type=='image') $('#my_form input').click();
     }
     });
+}
     
 
 
     //$(".box_skitter_large").skitter();
-    $(".slippry-default").slippry();
+  //  $(".slippry-default").slippry();
+    
+    $(".toggle-menu").click(function(){$(".nav-bar-fixed").toggle(); return false; });
     
     $('.popup-gallery').magnificPopup({
 		delegate: 'a',
@@ -47,7 +51,7 @@ $(function(){
         stepMinute: 5
     });
     
-    if($("#upload-demo")){
+    if($("#upload-demo").length > 0){
         demoBasic();
     }
 

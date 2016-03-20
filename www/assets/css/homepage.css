@@ -166,10 +166,11 @@ and open the template in the editor.
 
 
 
-@media (max-width: 55em)
+@media (max-width: 44em)
 {
      .ill_01 {margin:0em; padding: 0.5em; height: auto; }
      .nav-bar-fixed {display:none;}
+     .header-logo {display: none;}
      
     .ill_01 .left-scr {width:0;}
     .ill_01 .right-scr {margin-left: 0;margin: 0.25em.5em;}
