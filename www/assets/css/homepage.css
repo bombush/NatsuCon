@@ -189,6 +189,7 @@ and open the template in the editor.
     .wrap {display: none;}
      .separator {padding: 0.5em 0.75em;}
     .separator h3 {font-size: 90%;}
+    .sub-nav a:hover {color: white;}
    }
     
 }
