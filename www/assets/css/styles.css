@@ -674,16 +674,20 @@ Single styles
  */
 .hp-social-icons {
 	margin-bottom: 1em;
-        color:white;
-        font-size: 2em;
+        color:#4284B0;
+        font-size: 3em;
 }
 .hp-social-icons .fa {
     
-    color:white;
+  
     margin-left: 0.15em ;
 }
-.hp-social-icons .fa:hover {
-    color:white;
+.hp-social-icons a:hover {
+    color:#428400;
+}
+
+.hp-social-icons a:visited, .hp-social-icons a:link {
+            color:#4284B0;
 }
 
 /**
