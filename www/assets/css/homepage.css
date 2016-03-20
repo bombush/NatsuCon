@@ -148,7 +148,7 @@ and open the template in the editor.
     margin: 2em 4em;
 }
 .ill_05 li {
-    padding-left: 2em;
+    padding: 0.5em;
 }
 
 .wrap {
