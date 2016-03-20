@@ -7,6 +7,7 @@ body
 {
 	margin: 0;
 	padding: 0;
+        
 	color: #333;
 	background-color: #eee;
 	font: 1em/1.2 "Helvetica Neue", Verdana, Geneva, sans-serif;
@@ -29,7 +30,7 @@ h6 { font-size: .875em; } /* 14px */
 
 p
 {
-	margin: 0 0 1.5em;
+	margin: 0 0 0.9em;
 	line-height: 1.5;
 }
 
@@ -420,6 +421,7 @@ Single styles
 
 .list-info .right{
     height:auto;
+
    
     
     
@@ -442,7 +444,7 @@ Single styles
 
 .program-section {
   
-    height: 5em;
+    height: 6.1em;
 
     margin: auto;
 }
@@ -456,11 +458,13 @@ Single styles
     width: 25%;
     color: black;
     font-size:4em;
+   
     text-align: right;
     padding-top: 0.25em;   padding-bottom: 0.25em;
     background-size: 250%;
     background-position: 50% 50%;   
     background-repeat: no-repeat;
+    background-color: #EFF5FB;
 }
 
 .list-thumb{
@@ -658,6 +662,12 @@ Single styles
     margin-top:1em;
 }
 
+.program-section{
+    background-color: #EFF5FB;
+    padding: 0.7em;
+    padding-top: 0;
+}
+
 
 /**
  * Social
@@ -751,7 +761,7 @@ Wide styles
         padding: 0.5em 0em;
         position: fixed;
     }
-	.content { padding: 2em 10em; }
+	.content { padding: 3em 10em; }
 
     .header-image {
         display: block;
@@ -766,7 +776,7 @@ Wide styles
 	{
 		float: left;
 		width: 65%;
-		margin-right: 5%;
+		/*margin-right: 5%;*/
 		margin-bottom: 1em;
 	}
         

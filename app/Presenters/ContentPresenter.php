@@ -14,8 +14,7 @@ use Natsu\Forms\ContentComponentFormFactory;
 use Natsu\Forms\PermissionFormFactory;
 
 
-use App\Controls\Grido\Grid;
-use Nette\Utils\Html;
+
 
 
 
@@ -75,6 +74,18 @@ class ContentPresenter extends BasePresenter {
         $this->prepare();
     }
     
+    public function handleDelete($contentId){
+        $content = $this->entityModel;
+        $content = $this->entityModel->getPrimary($contentId);
+        $this->setPermission($content);
+        $rules = $this->data['rules'];
+        if(isset($rules) && $rules->deletable == 1){
+            $model = $this->entityModel->reflection("content");
+            $model->deleteContent($contentId);
+            
+        }
+    }
+    
     
     public function actionAttachment($id){
         $this->entityModel->setTable("attachment");
@@ -101,8 +112,11 @@ class ContentPresenter extends BasePresenter {
         $roleId = $userId ? $this->getUser()->getIdentity()->roleId : 0;
         $pm->setRoleId($roleId);
         $result = $pm->checkContent($content);
+        
+       
        
         $this->add("access", $result);
+        $this->add("rules", $pm->getRules());
 
 
 
@@ -115,6 +129,7 @@ class ContentPresenter extends BasePresenter {
         $permissionModel = $this->entityModel->reflection("permission");
         $permissions = $permissionModel->getPermissions($id);
         $this->add("permissions", $permissions );
+        $this->add("contentId", $id);
         $this->prepare();
         
         
@@ -127,6 +142,7 @@ class ContentPresenter extends BasePresenter {
         $controlsModel = $this->entityModel->reflection("component");
         $controls = $controlsModel->getComponents($id);
         $this->add("controls", $controls);
+        $this->add("contentId", $id);
         $this->prepare();
         
         
@@ -169,7 +185,12 @@ class ContentPresenter extends BasePresenter {
     
 
     public function actionDelete($id = 0){
-
+        $content = $this->entityModel;
+        $content = $this->entityModel->getPrimary($id);
+       // print_r($this->attachments);
+        $this->setPermission($content);
+        $this->add("contentId", $id);
+        $this->prepare();
     }
     
     /**
@@ -292,7 +313,41 @@ class ContentPresenter extends BasePresenter {
     protected function createComponentGrid($name){
          $dataSource = $this->entityModel->reflection("datasource");
          $dibiSource = $dataSource->setTable("content")->table(NULL);
+         
+         $grid = new \Natsu\Control\GridControl;
+         $grid->setName($name);
+         $grid->setPk('id');
+         $grid->setDibiSource($dibiSource);
+         $grid->setColumns(
+                 array(
+                     'id' => 'ID',
+                     'sectionId' => 'Sekce',
+                     'title' => 'Title',
+                     'isNews' => 'Novinka',
+                     
+                 )
+         );
+         
+         $grid->setCallBack(array(
+             'type' => function($item){
+                      if($item->isDraft){
+                          return "Draft";
+                      }else if($item->isNews){
+                          return "Novinka";
+                      }else{
+                          return "Stránka";
+                      }
 
+                  }
+         ));
+         
+         $grid->setButtons(array(
+             'form' => 'Form',
+             'view' => 'View'
+             
+             
+         ));
+/*
          $grid = new Grid($this, $name);
          $grid->model = $dibiSource;
          $grid->setPrimaryKey("id");
@@ -307,16 +362,7 @@ class ContentPresenter extends BasePresenter {
             ->setFilterText()
             ->setSuggestion();
           $grid->addColumnText('type', 'Typ')
-                  ->setColumn(function($item){
-                      if($item->isDraft){
-                          return "Draft";
-                      }else if($item->isNews){
-                          return "Novinka";
-                      }else{
-                          return "Stránka";
-                      }
-
-                  });
+                  ->setColumn();
 
        
 
@@ -324,7 +370,7 @@ class ContentPresenter extends BasePresenter {
           
          $grid->addActionHref('form', 'Form');
          $grid->addActionHref('view', 'View');
-        // $grid->addActionHref('form', 'Form');
+  */      // $grid->addActionHref('form', 'Form');
 
         /*
         $grid->addActionHref('delete', 'Delete')
@@ -338,9 +384,11 @@ class ContentPresenter extends BasePresenter {
            
 
        // $grid->filterRenderType = $this->filterRenderType;
-        $grid->setExport();
+    //    $grid->setExport();
 
-        return $grid;
+           
+        $grid->run();
+        return $grid->getGrid();
 
 
 

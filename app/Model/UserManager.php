@@ -92,7 +92,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 
         }
 
-        public function getMyAccount($userId){
+        public function getAccount($userId){
             $row = $this->database->
                     select("contact.*, user.roleId, user.statusId, role.title AS role_title, status.title AS status_title")
                     ->from(self::TABLE_NAME)

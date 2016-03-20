@@ -23,10 +23,11 @@
             <p class="list-title">{$program->title}</p>
             <p class="list-author">{$program->author}</p>
             </div>
-            <div class="right" style="background-image: url('/natsucon/www/2015-ohlasy.jpg')">
+            
+            <div class="right" {if true} style="background-image: url('/natsucon/www/2015-ohlasy.jpg')"{/if}>
               <!--  <span class="list-thumb" ></span> -->
               <!-- <img class="list-thumb" src='/natsucon/www/2015-ohlasy.jpg'/> -->
-              <span class="">&nbsp;</span>
+              <span class="fa {$program->typeIcon}">&nbsp;</span>
             </div>
             </div>
             </div>

@@ -37,7 +37,7 @@
         {/if}
         {control programInfo}
     <div class="main-text"> 
-      {$content->text|noescape}
+        {$content->text|noescape|nl2br}
       {control attachmentsView}
     </div>
 

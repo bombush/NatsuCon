@@ -78,7 +78,11 @@ class ProgramModel extends EntityModel{
           $stm->groupBy("content.id");
           $stm->orderBy($orderBy);
           
-          return $stm->fetchAll();
+           $programs = $stm->fetchAll();
+           foreach($programs as $key => $program){
+            $programs[$key]->typeIcon = $this->typeIcon($program->typeId);
+        }
+        return $programs;
         
         
     }

@@ -1,6 +1,14 @@
 {* Latte template *}
 
 {block content}
+
+<div class="nav sub-nav">
+    <ul>
+        <li><a href="{link Content:view $contentId}">&lt;&lt; Zpět na stránku </a></li>
+    </ul>    
+</div>   
+
+
 <h2>Nastavení oprávnění</h2>
 
 {if count($permissions)}

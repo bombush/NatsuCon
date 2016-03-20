@@ -4,15 +4,26 @@
 				<ul class="nav">
                                         {if $user->loggedIn}
                                             <li><a href="{$basePath}/sign/myaccount"><span class="fa fa-user">&nbsp;</span>{$user->identity->username}</a><a class="fa fa-sign-out" href="{$basePath}/sign/out"></a></li>
+                                            {if $user->identity->roleId == 1 ||  $user->identity->roleId == 2 }
+                                            <li>
+                                                <a href="{$basePath}/management/users">MANAGEMENT</a>
+                                            </li>
+                                            
+                                            
+                                            {/if}
                                         {/if}
 					<li><a href="{$basePath}">DOMŮ</a></li>
                                        <!-- <li><a href="{$basePath}/2016/ohlasy">OHLASY</a></li> -->
                                        <!-- <li><a href="{$basePath}/2016/program">PROGRAM</a></li> -->
                                         <li><a href="{$basePath}/informace">INFORMACE</a></li>
+                                         <li><a href="{$basePath}/informace">VSTUPNÉ</a></li>
+                                         <li><a href="{$basePath}/informace">PROGRAM</a></li>
+                                         
+                                         <li><a href="{$basePath}/informace">SOUTĚŽE</a></li>
+                                         
                                         <li><a href="{$basePath}/kontakt">KONTAKT</a></li>
-                                        <li><a href="{$basePath}/historie">HISTORIE</a></li>
-
-                                        <li><a href="{$basePath}/partneri">PARTNEŘI</a></li>
+                                        
+                                        
                                         <li><a class="english" href="{$basePath}/english">ENGLISH<span class="flag-webicon united-kingdom"></span></a></li>
                                 </ul>
                         </div>

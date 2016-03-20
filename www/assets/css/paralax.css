@@ -15,8 +15,16 @@ and open the template in the editor.
 }
 
 .right {
-  padding: 4.1em 17.472em 3.236em 45%;
+  /*padding: 4.1em 17.472em 3.236em 42%;
   background-position: 22% 22%;
+  */
+   background-position: 22% 22%;
+   padding: 2em 1em;
+}
+
+.right .inner-content {
+    margin:2em;
+    padding-left: 27em;
 }
 
 
@@ -25,11 +33,19 @@ and open the template in the editor.
   background-position: 0 50%;
 }
 
+
+.ill_01 .nav{
+    background-color: white;
+    text-align: left;
+    clear: both;
+    
+}
+
 .ill_01 {
   
   background-color: white;
-  background-position: 22% 10%;
-  background-size: 34%;
+  background-position: 16% 13%;
+  background-size: 25em;
   background-image: url("../paralax/obr1.jpg");
   background-attachment: inherit;
 }
@@ -82,8 +98,10 @@ and open the template in the editor.
 
 @media (max-width: 55em)
 {
-   .ill_01, .ill_02, .ill_03 { background-image: none;}
-   .right, .left, .center {padding: 0.4em;font-size: 1em;}
+   .ill_01, .ill_02, .ill_03 { background-image: none; }
+   .right .inner-content {margin: 2em 2em;}
+   .right .img-responsive {text-align: center;}
+   .right, .left, .center {padding: 0.1em;font-size: 1em;}
    .separator {font-size:0.75em; padding:1em;}
    .time-to {font-size: 1.5em; letter-spacing: 0.05em;}
    .time-to span {font-size: 1.6em;}

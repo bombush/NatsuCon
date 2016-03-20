@@ -29,9 +29,30 @@ class PermissionModel extends EntityModel {
     const EDITOR_ROLE = 5;
     const ACTIVE_STATUS = 1;
     const INACTIVE_STATUS = 2;
+    
+    
+    public static function getRoleIds(){
+        return array(
+            self::ADMIN_ROLE => 'Admin',
+            self::FUHRER_ROLE => 'Fuhrer',
+            self::SUPERVISOR_ROLE => 'Vedouci',
+            self::REGISTERED_ROLE => 'Registrovany',
+            self::EDITOR_ROLE => 'Editor',
+            
+        );
+        
+    }
+    
+    public static function getStatusIds(){
+        return array(
+            self::ACTIVE_STATUS => 'Aktivní',
+            self::INACTIVE_STATUS => 'Neaktivní'
+            
+        );
+        
+    }
 
-
-    public function setUserId($userId){
+        public function setUserId($userId){
         $this->userId = $userId;
     }
 
@@ -46,6 +67,13 @@ class PermissionModel extends EntityModel {
     public function getRules(){
         return $this->rules;
     }
+    
+    public function getAllRules(){
+        $rules = new \stdClass;
+        $rules->deletable = 1;
+        $rules->editable = 1;
+        return $rules;
+    }
 
     public function checkContent($content){
      //  var_dump($content); exit;
@@ -55,12 +83,13 @@ class PermissionModel extends EntityModel {
         
         
         if($this->roleId == self::ADMIN_ROLE || $this->roleId == self::FUHRER_ROLE){
+            $this->setRules($this->getAllRules());
             return true;
         }
         
         
         if($this->userId){
-            if($this->userId == $content->userId) return true;
+            if($this->userId == $content->userId){ $this->setRules($this->getAllRules());return true;}
 
             $this->loadRules($content->id);
             return $this->performUserRules();

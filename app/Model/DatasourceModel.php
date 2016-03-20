@@ -8,6 +8,13 @@ class DatasourceModel extends EntityModel {
         return $this->database->select("*")->from($this->table);
         
     }
+    
+    
+    public function userList(){
+        return $this->database->select("user.id, user.username, contact.fullname, contact.email")->from("user")->leftJoin("contact", "ON user.contactId = contact.id");
+        
+    }
+    
 
 
 }

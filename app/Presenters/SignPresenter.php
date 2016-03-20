@@ -34,6 +34,7 @@ class SignPresenter extends BasePresenter {
     /** @var EntityModel @inject */
     public $entityModel;
     private $code;
+    private $userId;
 
     /**
      * Sign-in form factory.
@@ -85,11 +86,31 @@ class SignPresenter extends BasePresenter {
     protected function createComponentMyAccountForm() {
         $this->factoryMyAccount->setManager($this->userManager);
         $this->factoryMyAccount->setUserId($this->getUser()->getId());
+        $this->factoryMyAccount->setEmailModel($this->entityModel);
         $form = $this->factoryMyAccount->create();
 
 
         $form->onSuccess[] = function ($form) {
-            $form->getPresenter()->redirect('Sign:in');
+            $form->getPresenter()->flashMessage("OK");
+            $form->getPresenter()->redirect('Sign:myaccount');
+        };
+        return $form;
+    }
+    
+    
+    /**
+     * Forget form factory.
+     * @return Nette\Application\UI\Form
+     */
+    protected function createComponentEditAccountForm() {
+        $this->factoryMyAccount->setManager($this->userManager);
+        $this->factoryMyAccount->setUserId($this->userId);
+        $this->factoryMyAccount->setEmailModel($this->entityModel);
+        $form = $this->factoryMyAccount->createAdmin();
+
+
+        $form->onSuccess[] = function ($form) {
+            $form->getPresenter()->redirect('Management:users');
         };
         return $form;
     }
@@ -99,6 +120,25 @@ class SignPresenter extends BasePresenter {
      * @return Nette\Application\UI\Form
      */
     protected function createComponentNewPassForm() {
+        $this->factoryNewPass->setManager($this->userManager);
+
+        $this->factoryNewPass->setCode($this->code);
+        $form = $this->factoryNewPass->create();
+
+
+        $form->onSuccess[] = function ($form) {
+            $form->getPresenter()->redirect('in');
+        };
+        return $form;
+    }
+    
+    
+    
+    /**
+     * Forget form factory.
+     * @return Nette\Application\UI\Form
+     */
+    protected function createComponentEditNewPassForm() {
         $this->factoryNewPass->setManager($this->userManager);
 
         $this->factoryNewPass->setCode($this->code);
@@ -161,6 +201,10 @@ class SignPresenter extends BasePresenter {
     public function renderMyaccount() {
         $this->add("pageTitle", "Můj účet");
         $this->prepare();
+    }
+    
+    public function actionEdit($id){
+        $this->userId = $id;
     }
 
 }

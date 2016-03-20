@@ -48,20 +48,75 @@ class ManagementPresenter  extends BasePresenter {
         return $ctl;
      }
         
-
-
-    public function createComponentGrido(){
      
+protected function createComponentPagesList($name){
+         $dataSource = $this->entityModel->reflection("datasource");
+         $dibiSource = $dataSource->setTable("content")->table(NULL);
+         
+         $grid = new \Natsu\Control\GridControl;
+         $grid->setName($name);
+         $grid->setPk('id');
+         $grid->setPresenter("Content");
+         $grid->setDibiSource($dibiSource);
+         $grid->setColumns(
+                 array(
+                     'id' => 'ID',
+                     'sectionId' => 'Sekce',
+                     'title' => 'Title',
+                     'isNews' => 'Novinka',
+                     
+                 )
+         );
+         
+         $grid->setCallBack(array(
+             'type' => function($item){
+                      if($item->isDraft){
+                          return "Draft";
+                      }else if($item->isNews){
+                          return "Novinka";
+                      }else{
+                          return "Stránka";
+                      }
 
-        $dataSource = $this->entityModel->reflection("datasource");
-        $dibi_source = $dataSource->setTable("content")->table(NULL);
-        
-        $source = new \Mesour\DataGrid\DibiDataSource($dibi_source); //limitation for \DibiDataSource
-
-        $grid = new \Mesour\DataGrid\Grid(NULL, "grid1");
-
-	$grid->setDataSource($source);
-	return $grid;
+                  }
+         ));
+         
+         $grid->setButtons(array(
+             'form' => 'Form',
+             'view' => 'View'        
+         ));
+        $grid->run();
+        return $grid->getGrid();
     }
+    
+    protected function createComponentUserList($name){
+         $dataSource = $this->entityModel->reflection("datasource");
+         $dibiSource = $dataSource->userList();
+         
+         $grid = new \Natsu\Control\GridControl;
+         $grid->setName($name);
+         $grid->setPk('id');
+                 $grid->setPresenter("Sign");
+         $grid->setDibiSource($dibiSource);
+         $grid->setColumns(
+                 array(
+                     'id' => 'ID',
+                     'username' => 'Username',
+                     'fullname' => 'Fullname',
+                     'email' => 'Email',
+           
+                     
+                 )
+         );
+         
+         
+         $grid->setButtons(array(
+                    'edit' => 'Změnit'
+                ));
+         
+        $grid->run();
+        return $grid->getGrid();
+    }
+
 }
 ?>
