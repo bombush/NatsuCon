@@ -491,7 +491,13 @@ Single styles
 
 .program-table{
     margin-top: 2em;
+    max-width: 100%;
+    font-size:0.7em;
+   
 }
+
+
+
 
 
 
@@ -579,7 +585,7 @@ Single styles
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  height: 40vh;
+ /* height: 40vh; */
  /* background: white;*/
 }
 
@@ -759,6 +765,8 @@ Single styles
 Wide styles
 ------------------------*/
 
+
+
 @media (max-width: 44em)
 {
     
@@ -788,6 +796,15 @@ Wide styles
     .program-section .right {background-image: none !important;}
     .list-thumb {background-image: none !important; }
     .nav-bar-fixed {display:none;}
+    .program-table {font-size: 66%;}
+    
+    
+}
+
+@media (max-width: 22em)
+{
+    .program-table {font-size: 35%;} 
+    
 }
 
 @media (min-width: 44em)
@@ -836,9 +853,9 @@ Wide styles
 	
 	.nav li
 	{
-		display: inline;
+		display: inline-table;
 		margin: 0 0.15em 0 0;
-		padding:1em 0.05em 0em 0em;
+		padding:0em 0.05em 0em 0em;
 	}
 	
     .nav a

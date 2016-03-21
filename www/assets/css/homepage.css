@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .obsah {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #262626;
   background-repeat: no-repeat;
  
@@ -17,9 +17,10 @@ and open the template in the editor.
 }
 
 .ill_01{
-       padding: 2em 3em;
+       padding: 2em 0em 1em 0em;
        background-color: white;
-       /*height:17.5em;*/   
+       height:22em;  
+       overflow: hidden;
 }
 
 
@@ -36,23 +37,72 @@ and open the template in the editor.
 
 .ill_01 .right-scr {padding-right: 2em;}
 
+.ill_03,.ill_05 {
+    height: auto;
+    margin: auto;
+    padding: 0.5em 1em;
+    margin: 0.5em 1em;
+}
+
+
+.ill_03 .left-scr,.ill_05 .left-scr {
+    width:50%;
+    float:left;
+  
+    
+}
+
+.ill_03 .left-scr .separator,.ill_05 .left-scr .separator {
+    border-right: 0.05em solid white;
+}
+
+.ill_03 .inner-content, .ill_05 .inner-content {
+       padding-top: 0.5em;
+}
+
+.ill_03 .right-scr, .ill_05 .right-scr{
+    margin-left: 50%;
+    
+}
+
+.ill_03 .clear {
+    clear:both;
+    height: auto;
+}
+
+.ill_03  .separator, .ill_05  .separator {
+    background-color: #4284B0;
+    
+}
+.ill_03 .separator h3, .ill_05 .separator h3{
+    color: white;
+}
+
+.ill_03 .inner-content, .ill_05 .inner-content {
+    padding-left: 1em;
+}
+
+
 .ill_04{
     
       overflow: hidden;
-      padding-bottom: 0;
+      padding-bottom: 2em;
       margin-bottom: 0;
       margin-top: 0;
+      margin-right: 1em;
 }
 
 
 .ill_04 .left-scr {
-    width:60%;
+    width:65%;
     padding-top: 1em;
     text-align: left;
+    
+   /* margin-right: 1em;*/
 }
 
 .ill_04 .right-scr img {
-     width:95%;
+     width:75%;
      margin-right: 1em;
      
        
@@ -70,12 +120,14 @@ and open the template in the editor.
 .ill_01 .left-scr {
     width:40%;
     text-align: right;
+    overflow: hidden;
 }
 
 .ill_01 .left-scr img {
-     width:60%;
+     width:71%;
      margin-left: 1em;
-         
+     overflow:hidden;    
+     
          
          
          
@@ -83,18 +135,27 @@ and open the template in the editor.
 
 .ill_01 .right-scr {
     margin-left: 40%;
-    margin-right: 3em;
+    margin-right: 1em;
 }
 
 
-.right-scr .sub-nav .nav{
+
+
+.left-scr .sub-nav .nav, .right-scr .sub-nav .nav{
     text-align: left;
+    font-size: 100%;
+    line-height: 2em;
+}
+
+li .whitespace {
+    white-space: pre;
 }
 
 .ill_06{
     height: 5em;
      
 }
+
 
 .ill_06 .left-scr {
     width:60%;
@@ -104,9 +165,17 @@ and open the template in the editor.
 
 .ill_06 .right-scr {
     padding: 1em 0.25em;
+
    
 }
 
+.ill_06 .right-scr .sub-nav .nav{
+    text-align: center;
+}
+
+.sub-nav li a span {
+    padding-right: 0.5em;
+}
 
 
 .ill_02 {
@@ -141,9 +210,7 @@ and open the template in the editor.
     margin-bottom: 0;
 }
 
-.ill_05{
-    margin: 2em 4em;
-}
+
 .ill_05 li {
     padding: 0.5em;
 }
@@ -161,6 +228,10 @@ and open the template in the editor.
    
 }
 
+.mapa-mobile {
+    display:none;
+}
+
 
 
 @media (max-width: 44em)
@@ -168,28 +239,37 @@ and open the template in the editor.
      .ill_01 {margin:0em; padding: 0.5em; height: auto; }
      .nav-bar-fixed {display:none;}
      .header-logo {display: none;}
+     .mapa-mobile {display: block;}
+     .left-scr .sub-nav .nav, .right-scr .sub-nav .nav{line-height: 1.12em;}
      
-    .ill_01 .left-scr {width:0;}
+    .ill_01 .left-scr {width:0; visibility: hidden;}
     .ill_01 .right-scr {margin-left: 0;margin: 0.25em.5em;}
     .ill_01 .right-scr p{text-align: left;}
     .ill_01 .right-scr .center{text-align: center;}
     .ill_01 .sub-nav li {padding-left: 0.05em; text-align: center;}
    .ill_02 {background-image: none;margin:0.25em 0.5em; padding: 0; }
    .ill_02 .opacited {box-shadow: none;background-color: transparent; padding: 1em 2em; font-size: 100%;}    
-   .ill_03 {margin:0.25em 0.5em; padding: 1em 2em;}         
+   .ill_03,.ill_05 {margin:0; }  
+   .ill_03,.ill_05 {height: auto;padding: 0.5em 0em 0em 0em;}
+   .ill_03 .left-scr, .ill_05 .left-scr {float:none; width: 100%; text-align:left;}
+   .ill_03 .inner-content, .ill_05 .inner-content{ margin:0.25em 0.5em; padding: 1em 1em;   }
+   .ill_03 .right-scr, .ill_05 .right-scr  {margin: 1em 0em;}
+    .ill_03 .sub-nav a { /*padding: 0.1em;*/text-align: center; }
+    .ill_03 .sub-nav a {margin-bottom: 1em;}
     .ill_04 .right-scr {width:0;}
     .ill_04 .left-scr {margin-right: 0;width:100%;}
     .ill_04 {margin:0.25em 0.5em; padding: 1em 2em; height: auto;}
-    .ill_05 {margin:0.25em 0.5em; padding: 1em 2em; }
     .ill_06 {margin:0.25em 0.5em; padding: 1em 2em; height: auto; }
     .ill_06 .left-scr {float:none;margin:0.25em 0.5em; width: 100%; text-align: center;}
     .ill_06 .right-scr {margin:0.25em 0.5em; padding: 0; text-align: center;}
     .ill_07 {margin: 0.5em 0.5em; padding: 0.25em 0.5em; font-size:2em;}
+     .ill_04 .sub-nav li, .ill_05 .sub-nav li {padding-left: 0.04em; text-align: center;}
       .ill_06 .sub-nav .nav {text-align: center;}
     .wrap {display: none;}
      .separator {padding: 0.5em 0.75em;}
     .separator h3 {font-size: 90%;}
     .sub-nav a:hover {color: white;}
+    .hp-social-icons {font-size: 1.5em;}
    }
     
 }
