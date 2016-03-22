@@ -126,6 +126,10 @@ Layout styles
     border: none;
 }
 
+.header .mobile-buttons a:visited {
+    color:inherit;
+}
+
 .header-heading { float:left; visibility:hidden;}
 
 .header-logo {float:none; margin: 0;
