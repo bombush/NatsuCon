@@ -122,6 +122,14 @@ Layout styles
 	padding: 0em 0em 0em 0em;
 }
 
+.header .mobile-buttons a span {
+    border: none;
+}
+
+.header .mobile-buttons a:visited {
+    color:inherit;
+}
+
 .header-heading { float:left; visibility:hidden;}
 
 .header-logo {float:none; margin: 0;
