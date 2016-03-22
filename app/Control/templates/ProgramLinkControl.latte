@@ -1,0 +1,33 @@
+{* Latte template *}
+
+{block content}
+    <div class="breadcrumbs nav-bar sub-nav">
+         <ul class="nav">
+             
+ {ifset $linkTimeTable}
+    <li><a href="{$basePath}/{$sectionId}/{$linkTimeTable}">Program</a></li>
+{/ifset}             
+            
+{ifset $linkLectures}
+    <li><a href="{$basePath}/{$sectionId}/{$linkLectures}">Přednášky</a></li>
+{/ifset}   
+{ifset $linkScreenings}
+    <li><a href="{$basePath}/{$sectionId}/{$linkScreenings}">Promítání</a></li>
+{/ifset}  
+{ifset $linkWorkshops}
+    <li><a href="{$basePath}/{$sectionId}/{$linkWorkshops}">Workshopy</a></li>
+{/ifset}  
+
+{ifset $linkEdo}
+    <li><a href="{$basePath}/{$sectionId}/{$linkEdo}">Edo</a></li>
+{/ifset}  
+
+{ifset $linkNara}
+    <li><a href="{$basePath}/{$sectionId}/{$linkNara}">Nara</a></li>
+{/ifset}  
+
+{ifset $linkMeiji}
+    <li><a href="{$basePath}/{$sectionId}/{$linkMeiji}">Meidži</a></li>
+{/ifset}  
+         </ul>
+    </div>    

@@ -8,7 +8,9 @@
 <br/><br/>
 <div class="popup-gallery">
 {foreach $attachments['IMAGE'] as $image}
-<a  href="{$image->data->originalFile}"> <img src="{$image->data->listFile}" alt="" /> </a>
+    {if $image->data->listFile}
+    <a  href="{$baseUri}{$image->data->originalFile}"> <img src="{$baseUri}{$image->data->listFile}" alt="" /> </a>
+    {/if}
 
 {/foreach}
 </div>

@@ -155,6 +155,10 @@ class ContentPresenter extends BasePresenter {
         $this->entityModel->setTable("attachment");
         $this->attachments = $this->entityModel->fetchWhere(array("contentId" => $this->contentId));
         
+        $this->entityModel->setTable("content");
+        $content = $this->entityModel->getPrimary($id);
+        $this->setPermission($content);
+        
         $this->add("contentId", $id);
         $this->add("pageTitle", "Přílohy k obsahu[$id]");
         $this->prepare();
@@ -164,6 +168,9 @@ class ContentPresenter extends BasePresenter {
     public function actionForm($id = 0){
         if($id){
             $content = $this->entityModel->getPrimary($id);
+
+            $this->setPermission($content);
+
             $this->add("content", $content);
             $this->add("pageTitle", $content->title." (Editace)");
 
@@ -276,6 +283,35 @@ class ContentPresenter extends BasePresenter {
         return $pi;
     }
     
+    public function createComponentProgramLink(){
+    
+        
+        $program = $this->toRender['programs'][0];
+        
+        $control = new \Natsu\Control\ProgramLinkControl;
+        $control->setSectionId($program->sectionId);
+        $control->setLinkTimeTable('program');
+        
+        
+        
+        switch($program->typeId){
+            case 3: $control->setLinkScreenings('promitani'); break;
+            case 1: $control->setLinkLectures('prednasky'); break;
+            case 4: $control->setLinkWorkshops('workshopy'); break;
+            case 2: case 5: case 7:  $control->setLinkWorkshops('doprovodny-program'); break;
+        }
+        
+        switch($program->roomId){
+            case 1: $control->setLinkEdo('mistnost-edo'); break;
+            case 2: $control->setLinkNara('mistnost-nara'); break;
+            case 3: $control->setLinkMeiji('mistnost-meiji'); break;
+            case 4: $control->setLinkWorkshop('mistnost-workshop'); break;
+        }
+        
+        
+        return $control;
+    }
+    
     
      /**
 	 * Forget form factory.
@@ -303,7 +339,7 @@ class ContentPresenter extends BasePresenter {
             $form = $this->factoryAttachment->create();
             $form->onSuccess[] = function ($form) {
                         $form->getPresenter()->flashMessage("Saved");
-			$form->getPresenter()->redirect('Content:attachments', $this->attachment->contentId);
+			$form->getPresenter()->redirect('Content:attachments', $this->contentId);
 		};
 		return $form;
         }

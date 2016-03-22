@@ -238,7 +238,7 @@ li .whitespace {
 {
      .ill_01 {margin:0em; padding: 0.5em; height: auto; }
      .nav-bar-fixed {display:none;}
-     .header-logo {display: none;}
+     .header-logo {background:none;}
      .mapa-mobile {display: block;}
      .left-scr .sub-nav .nav, .right-scr .sub-nav .nav{line-height: 1.12em;}
      

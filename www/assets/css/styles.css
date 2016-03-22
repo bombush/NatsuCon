@@ -113,7 +113,7 @@ Layout styles
 
 .container
 {
-	max-width: 70em;
+	/*max-width: 70em;*/
 	margin: 0 auto;
 }
 
@@ -125,7 +125,7 @@ Layout styles
 .header-heading { float:left; visibility:hidden;}
 
 .header-logo {float:none; margin: 0;
-    background: transparent url("../img/logo.png") no-repeat scroll 2em 0.3em / 80% auto; height: 100px;width:300px; overflow:hidden;}
+    background: transparent url("../img/logo.png") no-repeat scroll 2em 0.3em / 30% auto; overflow:hidden; height: 3em;}
 
 .header-image {  display:none; width:0px; padding-left: 10em;margin: 0; background: transparent url("../img/buta-head.png") no-repeat scroll 0 -0.8em; overflow:hidden;height: 100px;margin-left:300px;}
 
@@ -198,6 +198,8 @@ Layout styles
 
 .program-image{
     line-height:0;
+    text-align: center;
+    background-color: #ddd;
 }
 
 .program-author{
@@ -213,12 +215,29 @@ Layout styles
     overflow:hidden;
 }
 
-.div-left,div-right{
+.div-left{
     width:50%;
     margin:0.25em;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
-        
+     
+}
+
+.div-right {
+      margin:0.25em;
+      margin-bottom: 1em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;  
+}
+
+.div-left{
+    float:left;
+}
+
+
+
+.program-time-place{
+    height: 2em;
 }
 
 .div-left{
@@ -270,6 +289,10 @@ Nav
 
 .nav a:link { color: white; }
 .nav a:visited { color: white; }
+
+.social-buttons {
+    margin-top: 1em; overflow-x: hidden;
+}
 
 .nav a:focus
 {
@@ -511,6 +534,7 @@ Single styles
 
 .main-text{
     text-align: justify;
+     margin-top: 0.5em;
 }
 
 .list-info{
@@ -798,6 +822,20 @@ Wide styles
     .nav-bar-fixed {display:none;}
     .program-table {font-size: 66%;}
     
+        .header-logo:before{
+       
+       font-weight: bold;
+        content: 'NatsuCon'; 
+    }
+    .header-logo {
+        background: none;  
+    }
+    
+    .breadcrumbs li+li:before {
+    content: '';
+    margin: 0em;
+
+}
     
 }
 
@@ -813,6 +851,8 @@ Wide styles
     .header{
         display:none;
     }
+    
+
     
     .nav-bar-fixed {
         padding: 0.5em 0em;
