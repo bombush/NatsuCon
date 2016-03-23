@@ -56,8 +56,8 @@ class SignPresenter extends BasePresenter {
         $emailModel->setTable("emailtemplate");
         $this->factoryRegistration->setEmailModel($emailModel);
         $form->onSuccess[] = function ($form) {
-            $form->getPresenter()->flashMessage("Registrace dokončena");
-            $form->getPresenter()->redirect('Homepage:');
+            $form->getPresenter()->flashMessage("Registrace dokončena, přihlašte se");
+            $form->getPresenter()->redirect('Sign:in');
         };
         return $form;
     }
@@ -127,6 +127,7 @@ class SignPresenter extends BasePresenter {
 
 
         $form->onSuccess[] = function ($form) {
+            $form->getPresenter()->flashMessage("Heslo změněno!");
             $form->getPresenter()->redirect('in');
         };
         return $form;

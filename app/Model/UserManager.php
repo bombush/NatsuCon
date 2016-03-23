@@ -136,7 +136,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
         public function update($user){
             try {
 			  $this->database->update(self::TABLE_NAME, $user)->where(self::COLUMN_ID." = ?", $user->id)->execute();
-                     
+                          
 		} catch (Nette\Database\DriverException  $e) {
 			throw new \Nette\Database\DriverException;
 		}
@@ -150,6 +150,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 				self::COLUMN_ID => $contact['id'],
 				self::COLUMN_EMAIL => $contact['email'],
 			]);
+                        return $this->database->getInsertId();
                      
 		} catch (Nette\Database\DriverException  $e) {
 			throw new \Nette\Database\DriverException;

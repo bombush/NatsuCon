@@ -74,6 +74,35 @@ class PermissionModel extends EntityModel {
         $rules->editable = 1;
         return $rules;
     }
+    
+    private function checkTimeValidity($content){
+        $validTo = false;
+        $validFrom = false;
+        
+        if($content->activeFrom == "0000-00-00 00:00:00" || $content->activeFrom == ""){
+            $validFrom = true;
+        }
+        
+        if($content->activeUntil == "0000-00-00 00:00:00" || $content->activeUntil == ""){
+           $validTo = true; 
+        }
+        
+        if($validFrom == false){
+            if($content->activeFrom->getTimestamp() < time()){
+                 $validFrom = true;
+            }
+        }
+        
+        if($validTo== false){
+            if($content->activeUntil->getTimestamp() > time()){
+                 $validFrom = true;
+            }
+        }
+        
+        
+        return $validFrom && $validTo;
+        
+    }
 
     public function checkContent($content){
      //  var_dump($content); exit;
@@ -95,7 +124,10 @@ class PermissionModel extends EntityModel {
             return $this->performUserRules();
 
         }else{
+          //  print_r($content);
             if($content->isDraft) {
+                return false;
+            }elseif(!$content->isDraft && !$this->checkTimeValidity($content)){
                 return false;
             }else{
                 return true;

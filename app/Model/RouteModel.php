@@ -26,6 +26,14 @@ class RouteModel extends EntityModel {
             $this->insert($this->newRoute($contentId, $url));
         }
     }
+    
+    public function updateRoute($contentId, $routeUrl){
+        
+        $route = $this->getRoute($contentId);
+        $route->url = $this->getUnique($contentId, $routeUrl);
+                  $this->setTable("route");
+        $this->update($route);
+    }
 
     private function newRoute($id, $url){
         $route = new \Nette\Utils\ArrayHash();

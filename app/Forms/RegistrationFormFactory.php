@@ -57,8 +57,13 @@ class RegistrationFormFactory extends Nette\Object {
             return;
         }
         $id = $this->userManager->add($values->email, $values->password);
-        $this->userManager->addContact(array('id' => $id, 'email' => $values->email));
+        $contactId = $this->userManager->addContact(array('id' => $id, 'email' => $values->email));
+        
+        $this->userManager->update(Nette\Utils\ArrayHash::from(array('id' => $id, 'contactId' => $contactId)));
+        
         $template = $this->emailModel->getTemplate(\Natsu\Model\emailModel::REGISTER_CMPL);
+        
+        
         $template->body = $this->emailModel->replace(array("%EMAIL%" => $values->email, '%PASSWORD%' => $values->password), $template->body);
         $this->emailModel->sendEmail(\Natsu\Model\EmailModel::FROM, $values->email, $template);
         

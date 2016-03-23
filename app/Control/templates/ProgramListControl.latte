@@ -15,7 +15,7 @@
             
             <div class="list-info">
             <p class="list-time ">
-                    <span class="left">{$program->programType}</span>
+                    <span class="left">{$program->programType} {if $program->programGenre != 'NatsuCon'}({$program->programGenre}){/if}</span>
                     <span class="right">{$program->timeFrom|date:'d/m G:i'} {$program->roomTitle}</span></p>
             <p class="headline"></p>
             <div class="program-section">

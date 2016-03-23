@@ -57,7 +57,8 @@ class NewPassFormFactory {
             unset($values->confirm_password);
             $values->id = $form->getPresenter()->getUser()->getId();
             
-           // print_r($values); exit;
+            $values->password = md5($values->password);
+            $this->userManager->update($values);
         }
 }
 ?>

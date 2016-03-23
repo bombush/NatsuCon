@@ -56,9 +56,9 @@ class ContentPresenter extends BasePresenter {
 
         $content = $this->entityModel;
         $content = $this->entityModel->getPrimary($id);
-       
         
-        
+      //  print_r($content);
+
         $controlsModel = $this->entityModel->reflection("component");
         $this->controls = $controlsModel->getComponents($id);
         $this->entityModel->setTable("attachment");
@@ -69,6 +69,7 @@ class ContentPresenter extends BasePresenter {
        // print_r($this->attachments);
         $this->setPermission($content);
         $this->add("content", $content);
+      //  $this->add("routes", $routes);
         $this->add("attachments", $this->attachments);
         $this->add("programs", $programs);
         $this->prepare();
@@ -168,10 +169,14 @@ class ContentPresenter extends BasePresenter {
     public function actionForm($id = 0){
         if($id){
             $content = $this->entityModel->getPrimary($id);
+            
+            $this->entityModel->setTable("route");
+            $routes = $this->entityModel->fetchWhere(array('contentId'=>$id));
 
             $this->setPermission($content);
 
             $this->add("content", $content);
+            $this->add("routes", $routes);
             $this->add("pageTitle", $content->title." (Editace)");
 
         }
@@ -182,6 +187,13 @@ class ContentPresenter extends BasePresenter {
        if(isset($this->toRender['content'])){
         $content = $this->toRender['content'];
         $form = $this['contentForm']->setDefaults($content);
+        print_r($this->toRender['routes']);
+        /* 
+        if(isset($this->toRender['routes']) && isset($this->toRender['routes'][0])){
+             $this['contentForm']->setDefaults(array('routeUrl' => $this->toRender['routes'][0]->url));
+         }
+         * 
+         */
        }
        $this->prepare();
 
@@ -254,7 +266,10 @@ class ContentPresenter extends BasePresenter {
         $form->addHidden("id");
         $form->addHidden("userId")->setDefaultValue($this->getUser()->id);
         $form->addText("sectionId", "Sekce")->setDefaultValue(0);
+       
         $form->addText("title", "Název")->setRequired();
+        
+     
         $form->addText("author", "Autor");
         $form->addText("pageTitle", "Název stránky");
         $form->addText("anotation", "Krátký text");
@@ -264,6 +279,10 @@ class ContentPresenter extends BasePresenter {
         $form->addCheckbox("isDraft", "Draft")->setDefaultValue(1);
         $form->addCheckbox("isNews", "Novinka");
         $form->addCheckbox("isSticky", "Sticky bit");
+            if($this->user->getIdentity()->roleId == 1 || $this->user->getIdentity()->roleId == 2){
+           $form->addText("routeUrl", "Routa"); 
+        }
+        
         $form->addSubmit("save", "Uložit");
         $form->onSuccess[] = $this->contentFormSucceeded;
         return $form;
@@ -383,54 +402,9 @@ class ContentPresenter extends BasePresenter {
              
              
          ));
-/*
-         $grid = new Grid($this, $name);
-         $grid->model = $dibiSource;
-         $grid->setPrimaryKey("id");
-         $grid->addColumnText('id', 'ID')
-            ->setFilterText()
-            ->setSuggestion();
-          $grid->addColumnText('sectionId', 'Sekce')
-            ->setFilterText()
-            ->setSuggestion();
-          
-          $grid->addColumnText('title', 'Title')
-            ->setFilterText()
-            ->setSuggestion();
-          $grid->addColumnText('type', 'Typ')
-                  ->setColumn();
 
-       
-
-
-          
-         $grid->addActionHref('form', 'Form');
-         $grid->addActionHref('view', 'View');
-  */      // $grid->addActionHref('form', 'Form');
-
-        /*
-        $grid->addActionHref('delete', 'Delete')
-            ->setIcon('trash')
-            ->setConfirm(function($item) {
-                return "Are you sure you want to delete {$item->title}?";
-        });
-         *
-         */
-           
-           
-
-       // $grid->filterRenderType = $this->filterRenderType;
-    //    $grid->setExport();
-
-           
         $grid->run();
         return $grid->getGrid();
-
-
-
-
-
-
     }
 
 
@@ -439,14 +413,31 @@ class ContentPresenter extends BasePresenter {
 
     public function contentFormSucceeded($form){
        $values = $form->getValues();
+       $this->entityModel->setTable("content");
       // print_r($values); exit;
+       $routeUrl = "";
+       if(isset($values->routeUrl)){
+           $routeUrl = $values->routeUrl;
+           unset($values->routeUrl);
+           
+       }
+       
        if($values->id){
            $this->entityModel->update($values);
+           if(!empty($routeUrl)){
+            $rm = $this->entityModel->reflection("Route");
+  
+            $rm->updateRoute($values->id, $routeUrl);
+           }
+           
        }else{
            $values->id = $this->entityModel->insert($values);
            $rm = $this->entityModel->reflection("Route");
            $pageTitle = (empty ($values->pageTitle))? $values->title : $values->pageTitle;
            $rm->createRoute($values->id, $pageTitle);
+           if(!empty($routeUrl)){
+               $rm->updateRoute($values->id, $routeUrl);
+           }
        }
        $this->flashMessage("OK");
        $this->redirect("Content:view", $values->id);

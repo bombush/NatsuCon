@@ -18,7 +18,7 @@
          {/if}
     </div>
     {/if}
-    {if isset($rules) && $rules->editable ==1}
+    {if (!isset($content) && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId ==3 )) || isset($rules) && $rules->editable ==1}
     {control contentForm}
     {else}
         <div class="nav sub-nav">
