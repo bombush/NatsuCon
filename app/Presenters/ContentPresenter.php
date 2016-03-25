@@ -195,6 +195,7 @@ class ContentPresenter extends BasePresenter {
         $this->setPermission($content);
         
         $this->add("contentId", $id);
+        $this->add("content", $content);
         $this->add("pageTitle", "Přílohy k obsahu[$id]");
         $this->prepare();
         
