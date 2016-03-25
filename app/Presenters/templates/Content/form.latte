@@ -1,8 +1,10 @@
 {block content}
+
     {if isset($content) && $content->id}
         <h2>{$content->title}[{$content->id}]</h2>
     {else}
         <h2>Nový obsah</h2>
+        
     {/if}
     
     {if $user->loggedIn}
@@ -30,11 +32,15 @@
 
     {if (!isset($content) && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId ==3 )) || isset($rules) && $rules->writable ==1}
     {control contentForm}
-    {else}
+    {elseif (isset($content))}
         <div class="nav sub-nav">
     <ul>
         <li><a href="{link Content:view $content->id}">&lt;&lt; Zpět na stránku </a></li>
     </ul>    
 </div>   
+    
+
     {/if}
+    
+ 
 {/block}

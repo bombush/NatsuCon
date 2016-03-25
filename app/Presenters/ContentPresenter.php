@@ -308,7 +308,7 @@ class ContentPresenter extends BasePresenter {
         $form = new BaseForm();
         $form->addHidden("id");
         $form->addHidden("userId")->setDefaultValue($this->getUser()->id);
-        $form->addText("sectionId", "Sekce")->setDefaultValue(0);
+        $form->addText("sectionId", "Sekce")->setDefaultValue($this->sectionId);
        
         $form->addText("title", "Název")->setRequired();
         

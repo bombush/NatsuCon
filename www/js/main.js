@@ -4,7 +4,7 @@ $(function(){
     tinyMCE.init({
     selector: ".wysiwyg",
     entity_encoding: "raw",
-    plugins: "code,image,link,media,table,imagetools,visualchars",
+    plugins: "code,image,link,media,table,imagetools,visualchars,autoresize",
     relative_urls: false,
     file_browser_callback: function(field_name, url, type, win) {
         if(type=='image') $('#my_form input').click();
