@@ -485,19 +485,19 @@ Single styles
     margin: auto;
 }
 .program-section .left {
-    width: 75%;
+    width: 60%;
     float: left;
     height: 5em;
 }
 .program-section .right {
-    margin-left: 75%;
-    width: 25%;
+    margin-left: 60%;
+    width: 40%;
     color: black;
     font-size:4em;
    
     text-align: right;
     padding-top: 0.25em;   padding-bottom: 0.25em;
-    background-size: 250%;
+    background-size: 120%;
     background-position: 50% 50%;   
     background-repeat: no-repeat;
     background-color: #EFF5FB;
@@ -822,8 +822,12 @@ Wide styles
     .list-info {font-size: 75%; margin-bottom: 0;padding:0.0045em 0;}
     
     h2 {font-size: 1.5em;}
+   
     
-    .program-list {margin-bottom: 1em;}
+    ul.breadcrumbs {display: none;}
+   /* .sub-nav .nav {display: inline-block;}*/
+   
+    .program-list {margin-bottom: 0.0em; border-bottom: 0.15em solid black;}
     .program-section {font-size: 80%;}
     .program-section .right {background-image: none !important;}
     .list-thumb {background-image: none !important; }
@@ -839,9 +843,12 @@ Wide styles
         background: none;  
     }
     
+     .sub-nav a:hover {color:white;}
+    
     .breadcrumbs li+li:before {
     content: '';
     margin: 0em;
+   
 
 }
     

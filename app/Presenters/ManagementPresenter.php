@@ -39,6 +39,30 @@ class ManagementPresenter  extends BasePresenter {
     }
     
     
+    public function handleSave(){
+    require_once __DIR__ ."/../../vendor/fineuploader/Uploader/handler.php"; 
+    $uploader = new \UploadHandler();
+    $uploader->allowedExtensions = array("jpeg", "jpg", "png", "gif");
+    $result = $uploader->handleUpload(__DIR__ . '/../../www/images/uploaded');
+    $this->sendResponse(new \Nette\Application\Responses\JsonResponse($result));
+
+    }
+    
+    public function createComponentMultiUpload(){
+        $control = new \Nette\Forms\Form;
+        $control->addMultiUpload("upload", "Upload souboru:");
+        $control->addSubmit("save", "Uložit");
+        $control->onSuccess[] = $this->uploadFormSucceeded;
+        
+        return $control;
+        
+    }
+    
+    public function uploadFormSucceeded($form, $values){
+        
+    }
+    
+    
      public function createComponentProgramListControl(){
         $ctl = new \Natsu\Control\ProgramListControl;
         $ctl->setSectionId(2015);

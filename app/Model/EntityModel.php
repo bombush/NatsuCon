@@ -9,7 +9,7 @@ use Nette;
 
 class EntityModel extends \Nette\Object{
     /**
-     * @var DibiConnection
+     * @var \DibiConnection
      */
     public $database;
     public $table;

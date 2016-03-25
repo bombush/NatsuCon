@@ -3,7 +3,10 @@
         "dibi/dibi": "~2.3",
         "radekdostal/nette-datetimepicker": "~2.2",
         "o5/grido": "^2.1",
-        "google/apiclient": "^1.1"
+        "google/apiclient": "^1.1",
+        "ondrs/upload-manager": "^0.3.0",
+        "ixtrum/file-manager": "^1.0",
+        "fineuploader/php-traditional-server": "^1.0"
     },
     "require-dev": {
         "nette/tester": "~1.6"

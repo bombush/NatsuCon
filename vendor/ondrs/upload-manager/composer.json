@@ -1,0 +1,32 @@
+{
+  "name": "ondrs/upload-manager",
+  "type": "library",
+  "description": "Upload manager for Nette framework",
+  "keywords": ["nette", "upload", "file upload"],
+  "homepage": "http://ondraplsek.cz",
+  "license": ["MIT"],
+  "authors": [
+    {
+      "name": "Ondřej Plšek",
+      "homepage": "http://ondraplsek.cz",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "nette/bootstrap": ">=2.2.0",
+    "nette/di": ">=2.2.0",
+    "nette/finder": ">=2.2.0",
+    "nette/http": ">=2.2.0",
+    "nette/neon": ">=2.2.0",
+    "nette/utils":">=2.2.0"
+  },
+  "require-dev": {
+    "nette/tester": "@dev",
+    "janmarek/mockista": "dev-master",
+    "jakub-onderka/php-parallel-lint": "0.*"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  }
+}

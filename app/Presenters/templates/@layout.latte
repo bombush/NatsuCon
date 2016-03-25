@@ -17,7 +17,8 @@
         <link rel="stylesheet" href="{$basePath}/assets/css/font-awesome.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/phoca-flags.css">
 	<link rel="stylesheet" href="{$basePath}/assets/css/phoca-style.css">
-	<link rel="shortcut icon" href="{$basePath}/favicon.ico?v1">
+        <link rel="stylesheet" href="{$basePath}/assets/css/fine-uploader-new.min.css" >
+        <link rel="shortcut icon" href="{$basePath}/favicon.ico?v1">
 
         
        {if $user->loggedIn}
@@ -108,8 +109,11 @@
                 <script type="text/javascript" src="{$basePath}/js/plugins/grido.typeahead.js"></script>
 		<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
                 <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+                
                 {/if}
                 
+                <script src="{$basePath}/js/all.fine-uploader.min.js"></script>
+                <script src="{$basePath}/js/nette.ajax.js"></script>
                 <script src="{$basePath}/js/main.js"></script>
 
 

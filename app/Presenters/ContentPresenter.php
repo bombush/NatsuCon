@@ -79,18 +79,29 @@ class ContentPresenter extends BasePresenter {
         $content = $this->entityModel;
         $content = $this->entityModel->getPrimary($contentId);
         $this->setPermission($content);
-        $rules = $this->data['rules'];
+        $rules = $this->toRender['rules'];
+       
         if(isset($rules) && $rules->deletable == 1){
             $model = $this->entityModel->reflection("content");
             $model->deleteContent($contentId);
+            $this->flashMessage("Deleted");
+            $this->redirect("Homepage:");
             
         }
+        $this->flashMessage("403:Access denied");
+        $this->redirect("Content:view", $contentId);
+        
     }
     
     
     public function actionAttachment($id){
         $this->entityModel->setTable("attachment");
         $this->attachment = $this->entityModel->table($id);
+        
+        $this->entityModel->setTable("content");
+        $content = $this->entityModel->table($id);
+        $this->setPermission($content);
+        
        // $ia = new \Custom\Content\ImageAttachment();
        // $ia->setRow($this->attachment);
        // $ia->run();
@@ -113,6 +124,7 @@ class ContentPresenter extends BasePresenter {
         $roleId = $userId ? $this->getUser()->getIdentity()->roleId : 0;
         $pm->setRoleId($roleId);
         $result = $pm->checkContent($content);
+       // var_dump($pm);
         
        
        
@@ -129,6 +141,14 @@ class ContentPresenter extends BasePresenter {
         $this->permissionId = $permissionId;
         $permissionModel = $this->entityModel->reflection("permission");
         $permissions = $permissionModel->getPermissions($id);
+        
+        $this->entityModel->setTable("content");
+        $content = $this->entityModel->getPrimary($id);
+        
+        if(!$content){
+            throw new \Nette\Application\BadRequestException;
+        }
+        
         $this->add("permissions", $permissions );
         $this->add("contentId", $id);
         $this->prepare();
@@ -142,6 +162,15 @@ class ContentPresenter extends BasePresenter {
         $this->componentId = $componentId;
         $controlsModel = $this->entityModel->reflection("component");
         $controls = $controlsModel->getComponents($id);
+        
+        $this->entityModel->setTable("content");
+        $content = $this->entityModel->getPrimary($id);
+        
+        if(!$content){
+            throw new \Nette\Application\BadRequestException;
+        }
+        
+        
         $this->add("controls", $controls);
         $this->add("contentId", $id);
         $this->prepare();
@@ -158,6 +187,11 @@ class ContentPresenter extends BasePresenter {
         
         $this->entityModel->setTable("content");
         $content = $this->entityModel->getPrimary($id);
+        
+        if(!$content){
+            throw new \Nette\Application\BadRequestException;
+        }
+        
         $this->setPermission($content);
         
         $this->add("contentId", $id);
@@ -169,6 +203,11 @@ class ContentPresenter extends BasePresenter {
     public function actionForm($id = 0){
         if($id){
             $content = $this->entityModel->getPrimary($id);
+
+
+        if(!$content){
+            throw new \Nette\Application\BadRequestException;
+        }
             
             $this->entityModel->setTable("route");
             $routes = $this->entityModel->fetchWhere(array('contentId'=>$id));
@@ -187,7 +226,7 @@ class ContentPresenter extends BasePresenter {
        if(isset($this->toRender['content'])){
         $content = $this->toRender['content'];
         $form = $this['contentForm']->setDefaults($content);
-        print_r($this->toRender['routes']);
+      //  print_r($this->toRender['routes']);
         /* 
         if(isset($this->toRender['routes']) && isset($this->toRender['routes'][0])){
              $this['contentForm']->setDefaults(array('routeUrl' => $this->toRender['routes'][0]->url));
@@ -206,6 +245,10 @@ class ContentPresenter extends BasePresenter {
     public function actionDelete($id = 0){
         $content = $this->entityModel;
         $content = $this->entityModel->getPrimary($id);
+        
+        if(!$content){
+            throw new \Nette\Application\BadRequestException;
+        }
        // print_r($this->attachments);
         $this->setPermission($content);
         $this->add("contentId", $id);
@@ -269,7 +312,7 @@ class ContentPresenter extends BasePresenter {
        
         $form->addText("title", "Název")->setRequired();
         
-     
+       
         $form->addText("author", "Autor");
         $form->addText("pageTitle", "Název stránky");
         $form->addText("anotation", "Krátký text");

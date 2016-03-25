@@ -74,7 +74,8 @@ class SignPresenter extends BasePresenter {
         $emailModel->setTable("emailtemplate");
         $this->factoryForget->setEmailModel($emailModel);
         $form->onSuccess[] = function ($form) {
-            $form->getPresenter()->redirect('Homepage:');
+            $form->getPresenter()->flashMessage("Požadavek o změnu hesla odeslán na e-mail!");
+            $form->getPresenter()->redirect('Sign:forget');
         };
         return $form;
     }

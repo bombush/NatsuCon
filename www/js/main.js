@@ -37,6 +37,20 @@ $(function(){
 		}
 	});
 
+    
+    var galleryUploader = new qq.FineUploader({
+    element: document.getElementById("fine-uploader-gallery"),
+    template: 'qq-template-gallery',
+    request: {
+        endpoint: 'upload?do=save',
+        method: 'POST' // Only for the gh-pages demo website due to Github Pages limitations
+    },
+    validation: {
+        allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
+    },
+    debug: true
+});
+    
     /*
      *@TODO: take data from data attributes
      */

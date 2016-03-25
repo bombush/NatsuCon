@@ -54,7 +54,7 @@ class PermissionFormFactory  extends BaseForm{
     public function create(){
         $form = new \Natsu\Forms\BaseForm;
         $form->addHidden("id");
-        $form->addHidden("contentId");
+        $form->addHidden("contentId")->setValue($this->contentId);
         $form->addSelect("roleId", "Role")->setItems($this->roles);
         $form->addCheckbox("writable", "Zápis");
         $form->addCheckbox("deletable", "Smazani");

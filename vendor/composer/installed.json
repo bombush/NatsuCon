@@ -1603,5 +1603,139 @@
         "keywords": [
             "google"
         ]
+    },
+    {
+        "name": "ondrs/upload-manager",
+        "version": "v0.3.0",
+        "version_normalized": "0.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ondrs/upload-manager.git",
+            "reference": "dfce29c46bb9f4125bedc5c3c15f34bbc400a3cd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ondrs/upload-manager/zipball/dfce29c46bb9f4125bedc5c3c15f34bbc400a3cd",
+            "reference": "dfce29c46bb9f4125bedc5c3c15f34bbc400a3cd",
+            "shasum": ""
+        },
+        "require": {
+            "nette/bootstrap": ">=2.2.0",
+            "nette/di": ">=2.2.0",
+            "nette/finder": ">=2.2.0",
+            "nette/http": ">=2.2.0",
+            "nette/neon": ">=2.2.0",
+            "nette/utils": ">=2.2.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "jakub-onderka/php-parallel-lint": "0.*",
+            "janmarek/mockista": "dev-master",
+            "nette/tester": "@dev"
+        },
+        "time": "2015-10-01 18:29:10",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ondřej Plšek",
+                "homepage": "http://ondraplsek.cz",
+                "role": "Developer"
+            }
+        ],
+        "description": "Upload manager for Nette framework",
+        "homepage": "http://ondraplsek.cz",
+        "keywords": [
+            "file upload",
+            "nette",
+            "upload"
+        ]
+    },
+    {
+        "name": "ixtrum/file-manager",
+        "version": "v1.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ixtrum/file-manager.git",
+            "reference": "951332a686e9a08e738db3a47925e91712099bb2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ixtrum/file-manager/zipball/951332a686e9a08e738db3a47925e91712099bb2",
+            "reference": "951332a686e9a08e738db3a47925e91712099bb2",
+            "shasum": ""
+        },
+        "require": {
+            "ext-bcmath": "*"
+        },
+        "require-dev": {
+            "nette/nette": "2.0.*",
+            "phpunit/phpunit": "3.7.*"
+        },
+        "suggest": {
+            "ext-imagick": "*"
+        },
+        "time": "2013-05-13 13:40:53",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT license"
+        ],
+        "authors": [
+            {
+                "name": "Bronislav Sedlák",
+                "homepage": "https://github.com/bauer01"
+            }
+        ],
+        "description": "Comfortable PHP & AJAX file manager component for Nette framework",
+        "homepage": "http://ixtrum.com",
+        "keywords": [
+            "ajax",
+            "component",
+            "file manager",
+            "nette",
+            "php"
+        ]
+    },
+    {
+        "name": "fineuploader/php-traditional-server",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FineUploader/php-traditional-server.git",
+            "reference": "3ab7e06298cd6caf819d304c18cce8292dd113b3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FineUploader/php-traditional-server/zipball/3ab7e06298cd6caf819d304c18cce8292dd113b3",
+            "reference": "3ab7e06298cd6caf819d304c18cce8292dd113b3",
+            "shasum": ""
+        },
+        "time": "2015-09-17 15:26:08",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Endpoint handler for Fine Uploader's traditional server requests.",
+        "homepage": "http://fineuploader.com"
     }
 ]

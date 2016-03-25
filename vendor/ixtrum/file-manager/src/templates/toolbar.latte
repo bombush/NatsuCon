@@ -1,0 +1,25 @@
+<div class="file-manager">
+    <div n:snippet="toolbar" class="fm-toolbar">
+        <ul>
+            <li>
+                <a n:href="runNewDir!" class="ajax fm-toolbar-item">
+                    <span>{_'New directory'}</span>
+                </a>
+            </li>
+                {foreach $toolbarPlugins as $plugin}
+            <li>
+                <a n:href="runPlugin!, $plugin['name']" class="ajax fm-toolbar-item">
+                    <span>{$plugin['title']}</span>
+                </a>
+            </li>
+                {/foreach}
+                {control control-Clipboard}
+            <li class="fm-theme-roller">
+                {control control-Themes}
+            </li>
+            <li class="fm-view-roller">
+                {control control-ViewSelector}
+            </li>
+        </ul>
+    </div>
+</div>

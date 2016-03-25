@@ -71,13 +71,15 @@ class PermissionModel extends EntityModel {
     public function getAllRules(){
         $rules = new \stdClass;
         $rules->deletable = 1;
-        $rules->editable = 1;
+        $rules->writable = 1;
+        $rules->forbidden = 0;
         return $rules;
     }
     
     private function checkTimeValidity($content){
         $validTo = false;
         $validFrom = false;
+        
         
         if($content->activeFrom == "0000-00-00 00:00:00" || $content->activeFrom == ""){
             $validFrom = true;
@@ -95,7 +97,7 @@ class PermissionModel extends EntityModel {
         
         if($validTo== false){
             if($content->activeUntil->getTimestamp() > time()){
-                 $validFrom = true;
+                 $validTo = true;
             }
         }
         
@@ -168,9 +170,10 @@ class PermissionModel extends EntityModel {
     
     
     public function performUserRules(){
+
         if(!isset($this->rules)){
             return true;
-        }else if($rules->forbidden == 1){
+        }else if($this->rules->forbidden == 1){
             return false;
         }else{
             return true;

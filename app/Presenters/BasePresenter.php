@@ -47,6 +47,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->$key = $var;
         }
     }
+    
+    public function beforeRender() {
+            if($this->user->loggedIn && !isset($this->toRender['pageTitle'])){
+                $this->template->pageTitle= $this->getPresenter()->getName()."->".$this->getPresenter()->getAction();
+                if( $this->getPresenter()->getParameter('id')){
+                     $this->template->pageTitle.= "->".$this->getPresenter()->getParameter('id');
+                }
+            }
+    }
 
     public function createComponentMainMenu(){
         return $this->mainMenuContolFactory->create();
