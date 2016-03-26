@@ -27,11 +27,14 @@ class ManagementPresenter  extends BasePresenter {
     }
     
     public function createComponentProgram(){
+      //  print_r($this->context->parameters); exit;
+      //  print_r(date("Y-m-d G:i:s",$this->context->parameters['programStart']->getTimestamp()); exit;        
+        
         $ctl = new \Natsu\Control\ProgramControl;
-        $ctl->setLocations(array(1,2,3,4));
-        $ctl->setFestivalStart('2015-08-21 18:00:00');
-        $ctl->setFestivalEnd('2015-08-23 17:00:00');
-        $ctl->setSectionId(2015);
+        $ctl->setLocations("1,2,3,4");
+        $ctl->setFestivalStart(date("Y-m-d G:i:s",$this->context->parameters['programStart']->getTimestamp()));
+        $ctl->setFestivalEnd(date("Y-m-d G:i:s",$this->context->parameters['programEnd']->getTimestamp()));
+        $ctl->setSectionId($this->context->parameters['sectionId']);
         $ctl->setEm($this->entityModel);
         return $ctl;
         

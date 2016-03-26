@@ -40,7 +40,7 @@ class ProgramControl extends ContentControl{
     }
     
     public function setLocations($locations){
-        $this->locations = $locations;
+        $this->locations = explode(",",$locations);
     }
     
      public function render(){

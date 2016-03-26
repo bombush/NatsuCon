@@ -63,12 +63,15 @@
                                     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
                                         <div class="main full-width ">
                                         {include content}
+                                         
                                         </div>
                                 
 			</div>
                         </div>
                 {else}
+                    <div class="container">
                     {control paralax}
+                    </div>
                 {/if}    
 		<div class="footer">
 			<span class="container">

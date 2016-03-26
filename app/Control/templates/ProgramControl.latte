@@ -27,7 +27,9 @@
                {foreach $rooms as $room}
                    
                       {var $actualRoom = $room->id}  
-                      {var $ttRoom = $timetable[$actualRoom]}  
+                      {if isset($timetable[$actualRoom])}
+                        {var $ttRoom = $timetable[$actualRoom]}  
+                      {/if}
                       {if isset($ttRoom[$actualSlot])}
                            {var $program = $ttRoom[$actualSlot][0]}
                            <td class="pr-slot"{if $program->length > 1} rowspan="{$program->length}"{/if}>
