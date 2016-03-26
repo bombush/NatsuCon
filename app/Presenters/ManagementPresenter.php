@@ -26,6 +26,13 @@ class ManagementPresenter  extends BasePresenter {
 
     }
     
+    public function startup() {
+        parent::startup();
+        if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->loggedIn && ($this->user->identity->roleId == 2 )))){
+         throw new \Nette\Application\BadRequestException;   
+        }
+    }
+    
     public function createComponentProgram(){
       //  print_r($this->context->parameters); exit;
       //  print_r(date("Y-m-d G:i:s",$this->context->parameters['programStart']->getTimestamp()); exit;        
