@@ -28,7 +28,7 @@ class ManagementPresenter  extends BasePresenter {
     
     public function startup() {
         parent::startup();
-        if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->loggedIn && ($this->user->identity->roleId == 2 )))){
+        if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->identity->roleId == 2 ))){
          throw new \Nette\Application\BadRequestException;   
         }
     }
