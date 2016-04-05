@@ -10,6 +10,10 @@
         <td>{$att->title} </td>
         <td>{$att->mime} </td>
         <td>{$att->url}</td>
+        <td>
+            <a href="../?do=deleteAt&contentId={$att->contentId}&attId={$att->id}"> X SMAZAT</a>
+            
+        </td>
 
     </tr>   
 {/foreach}

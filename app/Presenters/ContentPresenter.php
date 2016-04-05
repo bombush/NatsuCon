@@ -75,6 +75,57 @@ class ContentPresenter extends BasePresenter {
         $this->prepare();
     }
     
+    public function handleDeleteAt($attId, $contentId){
+        $content = $this->entityModel;
+        $content = $this->entityModel->getPrimary($contentId);
+        $this->setPermission($content);
+        $rules = $this->toRender['rules'];
+       //print_r($contentId); print_r($attId); exit;
+        if(isset($rules) && $rules->deletable == 1){
+            
+              $model = $this->entityModel->reflection("content");  
+             $model->deleteAttachment($attId);
+             $this->flashMessage("Successfully deleted attachment!");
+             $this->redirect("Content:attachments", $contentId);
+        }
+        $this->flashMessage("403:Access denied");
+        $this->redirect("Content:view", $contentId);
+    }
+    
+    public function handleDeleteComp($compId, $contentId){
+        $content = $this->entityModel;
+        $content = $this->entityModel->getPrimary($contentId);
+        $this->setPermission($content);
+        $rules = $this->toRender['rules'];
+       //print_r($contentId); print_r($attId); exit;
+        if(isset($rules) && $rules->deletable == 1){
+            
+              $model = $this->entityModel->reflection("content");  
+             $model->deleteComponent($compId);
+             $this->flashMessage("Successfully deleted component relation!");
+             $this->redirect("Content:components", $contentId);
+        }
+        $this->flashMessage("403:Access denied");
+        $this->redirect("Content:view", $contentId);
+    }
+    
+    public function handleDeletePerm($permId, $contentId){
+        $content = $this->entityModel;
+        $content = $this->entityModel->getPrimary($contentId);
+        $this->setPermission($content);
+        $rules = $this->toRender['rules'];
+       //print_r($contentId); print_r($attId); exit;
+        if(isset($rules) && $rules->deletable == 1){
+            
+              $model = $this->entityModel->reflection("content");  
+             $model->deletePermission($permId);
+             $this->flashMessage("Successfully deleted permission!");
+             $this->redirect("Content:permissions", $contentId);
+        }
+        $this->flashMessage("403:Access denied");
+        $this->redirect("Content:view", $contentId);
+    }
+    
     public function handleDelete($contentId){
         $content = $this->entityModel;
         $content = $this->entityModel->getPrimary($contentId);

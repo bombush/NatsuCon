@@ -17,7 +17,7 @@ class ContentModel extends EntityModel {
     static $tableContent = 'content';
     static $tableAttachments = 'attachment';
     static $tablePermission = 'permission';
-    static $tableComponent = 'component';
+    static $tableComponent = 'contentcomponent';
     static $tableProgram = 'program';
     static $tableRoute = 'route';
 
@@ -26,13 +26,25 @@ class ContentModel extends EntityModel {
     
     public function deleteContent($contentId){
         $this->deleteAttachments($contentId);
-        $this->deleteRoute($contentId);
-        $this->deleteProgram($contentId);
+        $this->deleteRoutes($contentId);
+        $this->deletePrograms($contentId);
         $this->deletePermissions($contentId);
         $this->delete($contentId);
         
         
         
+    }
+    
+    public function deleteAttachment($id){
+        $this->database->delete(self::$tableAttachments)->where(array("id" => $id))->execute();
+    }
+    
+    public function deletePermission($id){
+        $this->database->delete(self::$tablePermission)->where(array("id" => $id))->execute();
+    }
+    
+    public function deleteComponent($id){
+        $this->database->delete(self::$tableComponent)->where(array("id" => $id))->execute();
     }
     
     public function delete($contentId){
@@ -44,11 +56,11 @@ class ContentModel extends EntityModel {
         $this->database->delete(self::$tableAttachments)->where(array("contentId" => $contentId))->execute();
     }
     
-    public function deleteRoute($contentId){
+    public function deleteRoutes($contentId){
          $this->database->delete(self::$tableRoute)->where(array("contentId" => $contentId))->execute();
     }
     
-    public function deleteProgram($contentId){
+    public function deletePrograms($contentId){
         $this->database->delete(self::$tableProgram)->where(array("contentId" => $contentId))->execute();
     }
     

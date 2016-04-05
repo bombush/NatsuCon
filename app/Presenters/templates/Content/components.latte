@@ -19,17 +19,21 @@
         <th>Komponenta</th>    
         <th>Třída</th>
         <th>Parametry</th>
-            
+        <th>X SMAZAT</th>    
         </thead>    
         <tbody>
         
-{foreach $controls as $control}
+{foreach $controls as $ctrl}
     <tr>
         <td></td>
-        <td><a href="?componentId={$control->id}">{$control->id}</a></td>
-        <td>{$control->title}</td>
-        <td>{$control->class}</td>
-        <td>{$control->params}</td>
+        <td><a href="?componentId={$ctrl->relationId}">{$ctrl->relationId}</a></td>
+        <td>{$ctrl->title}</td>
+        <td>{$ctrl->class}</td>
+        <td>{$ctrl->params}</td>
+         <td>
+             <a href="../?do=deleteComp&contentId={$ctrl->contentId}&compId={$ctrl->relationId}"> X SMAZAT</a>
+            
+        </td>
     
     </tr>
  {/foreach}

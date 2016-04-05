@@ -11,7 +11,7 @@
 </div>   
 
 
-<h2>Nastavení oprávnění</h2>
+<h2>Nastavení oprávnění pro obsah {$contentId}</h2>
 
 {if count($permissions)}
     <table>
@@ -21,7 +21,7 @@
         <th>Write</th>
         <th>Delete</th>
         <th>Forbidden</th>
-            
+        <th>X</th>    
         </thead>   
         <tbody>
             {foreach $permissions as $p}
@@ -31,6 +31,10 @@
                     <td>{if $p->writable == 1}Ano{else}-{/if}</td>
                     <td>{if $p->deletable ==1}Ano{else}-{/if}</td>
                     <td>{if $p->forbidden == 1}Ano{else}-{/if}</td>
+                      <td>
+             <a href="../?do=deletePerm&contentId={$p->contentId}&permId={$p->id}"> X SMAZAT</a>
+            
+        </td>
                 </tr>    
             {/foreach}   
         </tbody>    

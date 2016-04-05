@@ -9,7 +9,7 @@
     
     {if $user->loggedIn}
     <div class="admin-navi">
-        {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 ))}<span><a class="fa fa-list" href="{link Content:list}"></a></span>{/if}
+        {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 ))}<span><a class="fa fa-list" href="{link Management:pages}"></a></span>{/if}
         {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->id == $content->userId))}
 
             

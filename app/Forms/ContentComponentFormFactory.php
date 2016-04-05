@@ -56,7 +56,7 @@ class ContentComponentFormFactory extends Nette\Object{
     public function create(){
         $form = new \Natsu\Forms\BaseForm;
         $form->addHidden("id");
-        $form->addHidden("contentId");
+        $form->addHidden("contentId")->setDefaultValue($this->contentId);
         $form->addSelect("componentId", "Komponenta")->setItems($this->components)->setRequired();
         $form->addText("params", "Parametry");
         $form->addSubmit("save", "Uložit");
