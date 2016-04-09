@@ -266,6 +266,10 @@ a>img:hover {
     border-color: #003366;
 }
 
+.program-table tbody tr {
+    border-right:1px solid black;
+}
+
 
 /*
 PROGRAM BACKGROUND
@@ -500,7 +504,7 @@ Single styles
 }
 
 .pr-slot{
-    width:auto;
+    width:25%;
     border: 0.05em solid gray;
 }
 
@@ -573,7 +577,7 @@ Single styles
 
 .program-room-icon {
     /*padding-left: 1em;*/
-    padding-top:5em;
+    padding-top:7em;
 }
 .program-room-icon span{
      background-color:rgba(255, 255, 255, 0.7);
@@ -594,11 +598,12 @@ Single styles
 .room-program {
     border: 0.25px solid #4284BA;
     margin: 0.3em;
-    height: 10em;
+    height: 12em;
     float:left;
     width: 20em;
     color: #4284BA;
     background-repeat: no-repeat;
+    background-position: 50% 25%;  
 }
 
 .room-container .left {
@@ -660,7 +665,7 @@ Single styles
 
 .type-container .room-program {
     max-width: 32%;
-    min-width: 21em;
+    min-width: 20em;
     font-size: 0.9em;
 }
 
@@ -910,6 +915,7 @@ Wide styles
     .room-program {
 
         font-size: 0.82em;
+     
     }
     
 }
@@ -939,6 +945,7 @@ Wide styles
     float:none;
 }
 
+
 .room-container .right {
     margin-left: auto;
     padding-top: 2.5em;
@@ -947,6 +954,12 @@ Wide styles
 
 .room-program {
     width: 30em;
+    height: 10em;
+}
+
+
+.program-table a {
+    text-decoration: none;
 }
 
 
@@ -955,7 +968,9 @@ Wide styles
 }
 
 .type-container .room-program {
-    width: 27em;
+    max-width: auto;
+   min-width: 20em;
+   width:auto;
     font-size: 0.9em;
 }
 

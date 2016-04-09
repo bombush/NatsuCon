@@ -48,12 +48,15 @@
                       {elseif isset($ttRoom[$actualSlot])}
                            {var $program = $ttRoom[$actualSlot][0]}
                            <td class="pr-slot"{if $program->length > 1} rowspan="{$program->length}"{/if}>
+                               <a href="{$baseUrl}/{$program->url}"> 
                             <div>
                               
                              
-                              <p><a href="{$baseUrl}/{$program->url}">  <strong>{$program->title} </strong></a><span class="fa {$program->typeIcon}" title="{$program->programType}" ></span></p>  
+                              <p> <strong>{$program->title} </strong><span class="fa {$program->typeIcon}" title="{$program->programType}" ></span></p>  
                               <p><cite>{$program->author}</cite></p>
+                              
                           </div>
+                              </a>
                           </td> 
                        {elseif !isset($map[$actualRoom][$actualSlot])}
                          
