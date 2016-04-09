@@ -288,6 +288,10 @@ PROGRAM BACKGROUND
     background: transparent url("../img/type5.jpg") no-repeat scroll 0 -0.8em;
 }
 
+.program-type-6{
+    background: transparent url("../img/type6.jpg") no-repeat scroll 0 -0.8em;
+}
+
 
 
 
@@ -655,7 +659,8 @@ Single styles
 }
 
 .type-container .room-program {
-    width: 32%;
+    max-width: 32%;
+    min-width: 20em;
     font-size: 0.9em;
 }
 
@@ -821,6 +826,12 @@ Single styles
   
     margin-left: 0.15em ;
 }
+
+.conflict{
+    background-color: black;
+    color:white;
+}
+
 .hp-social-icons a:hover {
     color:#428400;
 }

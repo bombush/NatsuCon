@@ -83,6 +83,7 @@ class ProgramControl extends ContentControl{
     private function fill($container){
         $this->template->slots = $container->slots;
         $this->template->programs = $container->programs;
+       // \Tracy\Debugger::dump($container->map);
         $this->template->rooms = $container->rooms;
         $this->template->timetable = $container->timeTable;
         $this->template->map = $container->map;

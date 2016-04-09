@@ -35,7 +35,7 @@ class ProgramModel extends EntityModel{
                ->leftJoin("attachment", "ON attachment.contentId = content.id AND attachment.mime = \"IMAGE\"")  
                ->where("statusId = 14 AND program.sectionId = ?", $sectionId)
                
-               ->orderBy("program.timeFrom")->groupBy("program.id,content.id,attachment.id");
+               ->orderBy("program.timeFrom")->groupBy("program.id,content.id");
         $programs = $stm->fetchAll();
         foreach($programs as $key => $program){
             $programs[$key]->typeIcon = $this->typeIcon($program->typeId);

@@ -57,28 +57,71 @@ class ProgramContainer {
    
     private function getMap(){
         $map = array();
+        //  Debugger::dump($this->timeTable);
+        $stack = array();
+
         foreach($this->timeTable as $roomId => $roomLineUp){
+            $lastEnd = 0;
+            $lastStart = 0;    
             foreach($roomLineUp as $slotId => $program){
-                
+                $map[$roomId][$slotId][] = $program[0]->id;
               
                
                 
                 $endTs = $program[0]->timeTo->getTimestamp();
-              //  dump($program);
-              //  dump($slotId);
-              //  dump($endTs);
-              //  exit;
+                
+
+                
+
                 $slotBetween = $slotId;
-                while($endTs-1800 > $slotBetween){
-                    
-                $slotBetween = $slotBetween + 1800;    
-                $map[$roomId][$slotBetween] = 2;
-                
-                };
-                
+                while($endTs-1800 > $slotBetween){  
+                    $slotBetween = $slotBetween + 1800;    
+                    $map[$roomId][$slotBetween][] = $program[0]->id;
+                   
+                }; 
+
             }
         }
-       // dump($map);
+        
+    foreach($map as $roomId => $roomLineUp){
+        foreach($roomLineUp as $slotId => $programs){
+            $programs = array_unique($programs);
+            if(count($programs) > 1){
+               $minError = 0;
+               $maxError = 0;
+               foreach($programs as $programId){
+                 //   echo "$roomId ... $programId ---";
+                   $errorProgram = $this->programs[$programId];
+                   $endTs = $errorProgram->timeTo->getTimestamp();
+                   $startTs = $errorProgram->timeFrom->getTimestamp();
+                   $map[$roomId][$startTs][] = $errorProgram->id;
+                   if($endTs > $maxError){$maxError = $endTs;}
+                   if($startTs < $minError){$minError = $startTs;} elseif($minError == 0){$minError = $startTs;}
+                   
+               }   
+               
+                $slotBetween = $minError;  
+                $map[$roomId][$slotBetween] = array_merge($programs,$map[$roomId][$slotBetween]);
+                $map[$roomId][$slotBetween] = array_unique($map[$roomId][$slotBetween]);
+            
+                while($maxError-1800 > $slotBetween){  
+                    $slotBetween = $slotBetween + 1800;
+ 
+                        $map[$roomId][$slotBetween] = array_merge($programs,$map[$roomId][$slotBetween]);
+                        $map[$roomId][$slotBetween] = array_unique($map[$roomId][$slotBetween]);
+                    }
+                    
+                   
+                };
+               }
+            }
+        
+        
+        
+ 
+        
+
+   // Debugger::dump($map);exit;
         return $map;
     }
     

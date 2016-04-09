@@ -23,13 +23,29 @@
            <tr data-id="{$slot}"> 
                <td class="normal-color">{$slot|date:'G:i'}</td>   
                 {var $actualSlot = $slot}
-               {foreach $rooms as $room}
+                {foreach $rooms as $room}
                    
                       {var $actualRoom = $room->id}  
                       {if isset($timetable[$actualRoom])}
                         {var $ttRoom = $timetable[$actualRoom]}  
                       {/if}
-                      {if isset($ttRoom[$actualSlot])}
+                      {if isset($map[$actualRoom][$actualSlot]) && count($map[$actualRoom][$actualSlot]) > 1}
+                         <td class="pr-slot conflict" rowspan="1">
+                          <strong>!!!Konflikt!!!</strong>    
+                         {foreach $map[$actualRoom][$actualSlot] as $programId}
+                              {var $errorProgram = $programs[$programId]}
+                              {$errorProgram->title}[{$errorProgram->id}]<br/>
+                              
+                           {/foreach}   
+                         </td>
+                      {elseif isset($ttRoom[$actualSlot]) && count($ttRoom[$actualSlot]) > 1}
+                          <td class="pr-slot conflict"{if $program->length > 1} rowspan="{$program->length}"{/if}>
+                            <strong>!!!Konflikt!!!</strong>
+                          {foreach $ttRoom[$actualSlot] as $program}
+                             {$program->title} [{$program->id}]<br/> 
+                           {/foreach}   
+                          </td>
+                      {elseif isset($ttRoom[$actualSlot])}
                            {var $program = $ttRoom[$actualSlot][0]}
                            <td class="pr-slot"{if $program->length > 1} rowspan="{$program->length}"{/if}>
                             <div>
@@ -43,9 +59,7 @@
                          
                               
                            <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                      {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 1}
-                           <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                      {elseif isset($map[$actualRoom][$actualSlot]) && $map[$actualRoom][$actualSlot] == 2}     
+                      {elseif isset($map[$actualRoom][$actualSlot]) && count($map[$actualRoom][$actualSlot]) == 1}     
                       {else}
                             <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                       {/if}    
