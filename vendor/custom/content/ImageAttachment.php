@@ -18,8 +18,8 @@ class ImageAttachment {
     //put your code here
     private $_row;
 
-    const THUMB_SMALL = "100x100";
-    const THUMB_LIST = "200x200";
+    const THUMB_SMALL = "200x200";
+    const THUMB_LIST = "400x400";
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';
 
@@ -64,6 +64,7 @@ class ImageAttachment {
         $image =  \Nette\Utils\Image::fromFile($filename);
         $this->thumbResize($image, self::THUMB_LIST);
         $this->thumbResize($image, self::THUMB_SMALL);
+       // $this->thumbResize($image, self::THUMB_PRG);
      //   exit;
         
     }
@@ -85,13 +86,18 @@ class ImageAttachment {
         
         $thumbFileName = $this->thumbFilename($dim);
         $d = explode("x", $dim);
-        $image->resize($d[0], $d[1])->sharpen()->save(self::IMAGE_DIR.self::THUMB_DIR.$thumbFileName);
+        $image->resize($d[0],$d[1])->sharpen()->save(self::IMAGE_DIR.self::THUMB_DIR.$thumbFileName);
         //echo $fileName; exit;
         
     }
 
     private function thumbFile($thumbType, $filePath) {
-        return str_replace(".jpg", "-" . $thumbType . ".jpg", $filePath);
+        if(strstr($filePath, ".jpg")){
+           return str_replace(".jpg", "-" . $thumbType . ".jpg", $filePath);
+        }else if(strstr($filePath, ".png")){
+           return str_replace(".png", "-" . $thumbType . ".png", $filePath); 
+        }
+        
     }
 
     private function file($fileType, $filePath) {

@@ -267,6 +267,30 @@ a>img:hover {
 }
 
 
+/*
+PROGRAM BACKGROUND
+*/
+.program-type-1{
+    background: transparent url("../img/type1.jpg") no-repeat scroll 0 -0.8em;
+}
+.program-type-2{
+    background: transparent url("../img/type2.jpg") no-repeat scroll 0 -0.8em;
+}
+
+.program-type-3{
+    background: transparent url("../img/type3.jpg") no-repeat scroll 0 -0.8em;
+}
+.program-type-4{
+    background: transparent url("../img/type4.jpg") no-repeat scroll 0 -0.8em;
+}
+
+.program-type-5{
+    background: transparent url("../img/type5.jpg") no-repeat scroll 0 -0.8em;
+}
+
+
+
+
 /* -----------------------
 Nav
 ------------------------*/
@@ -482,13 +506,19 @@ Single styles
   
     height: 6.1em;
 
-    margin: auto;
+   margin: auto;
+
 }
 .program-section .left {
     width: 60%;
     float: left;
     height: 5em;
 }
+
+.with-image .fa {
+    visibility: hidden;
+}
+
 .program-section .right {
     margin-left: 60%;
     width: 40%;
@@ -497,8 +527,8 @@ Single styles
    
     text-align: right;
     padding-top: 0.25em;   padding-bottom: 0.25em;
-    background-size: 120%;
-    background-position: 50% 50%;   
+    background-size: 100%;
+    background-position: 50% 35%;   
     background-repeat: no-repeat;
     background-color: #EFF5FB;
 }
@@ -525,6 +555,65 @@ Single styles
     max-width: 100%;
     font-size:0.7em;
    
+}
+
+.program-room-title {
+    background-color:#4284BA;
+    color:white;
+    font-size: 0.9em;
+    padding: 0.25em;
+    font-weight: bold;
+    
+}
+
+
+.program-room-icon {
+    /*padding-left: 1em;*/
+    padding-top:5em;
+}
+.program-room-icon span{
+     background-color:rgba(255, 255, 255, 0.7);
+     padding: 0.4em;
+ 
+}
+
+.program-room-author {
+    background-color:rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+    padding: 0.25em;
+    border-top-color: #4284B0;
+    border-top-style: solid;
+    border-top-width: 0.15em;
+    
+}
+
+.room-program {
+    border: 0.25px solid #4284BA;
+    margin: 0.3em;
+    height: 10em;
+    float:left;
+    width: 20em;
+    color: #4284BA;
+    background-repeat: no-repeat;
+}
+
+.room-container .left {
+    width:31%;
+    float:left;
+}
+
+
+
+.room-container .right {
+    margin-left: 31%;
+    padding-top: 2.5em;
+    overflow: hidden;
+    font-size: 0.85em; 
+        
+}
+
+.room-container .left .pr-slot{
+    width:auto;
 }
 
 
@@ -564,6 +653,12 @@ Single styles
     padding-bottom: 0.25em;
     margin-bottom: 0;
 }
+
+.type-container .room-program {
+    width: 32%;
+    font-size: 0.9em;
+}
+
 
 .list-author{
     color: black;
@@ -709,6 +804,7 @@ Single styles
     background-color: #EFF5FB;
     padding: 0.7em;
     padding-top: 0;
+    padding-right: 0;
 }
 
 
@@ -799,16 +895,61 @@ Wide styles
 
 
 
+@media (max-width: 768px){
+    .room-program {
+
+        font-size: 0.82em;
+    }
+    
+}
+
 @media (max-width: 44em)
 {
+    
+    .program-title {
+        font-size: 1.2em;
+        padding: 0.25em;
+    }
     
     .social-buttons{
         display: none;
     }
     
+    .with-image .fa {
+    visibility:visible;
+}
+    
     .program-time-place .div-left,  .program-time-place .div-right {
         width: 100%;
     }
+    
+  .room-container .left {
+    width:100%;
+    float:none;
+}
+
+.room-container .right {
+    margin-left: auto;
+    padding-top: 2.5em;
+    font-size: 0.9em;
+}
+
+.room-program {
+    width: 30em;
+}
+
+
+.room-container .left .pr-slot {
+    width: 100%;
+}
+
+.type-container .room-program {
+    width: 27em;
+    font-size: 0.9em;
+}
+
+
+    
     
     .program-time-place .div-right {
         text-align: left;
@@ -856,7 +997,7 @@ Wide styles
 
 @media (max-width: 22em)
 {
-    .program-table {font-size: 35%;} 
+    .program-table {font-size: 60%;} 
     
 }
 

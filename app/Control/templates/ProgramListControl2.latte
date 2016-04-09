@@ -1,0 +1,27 @@
+{* Latte template *}
+
+{block content}
+{if $title}
+<h2><span class="fa fa-list"></span>{$title}</h2>
+{/if}
+
+
+<div class="type-container">
+{foreach $programs as $program}
+
+                       <a href="{$basePath}/{$program->url}">
+                       <div class="room-program  {if !$program->image}program-type-{$program->typeId}{/if}" {if $program->image} style="background-image: url('{$basePath}/{$program->image->listFile}')"{/if}>
+                         
+                           <div class="program-room-title">{$program->title|truncate:45}</div>
+                           <div class="program-room-author">{$program->author|truncate:45}</div>
+                           <div class="program-room-icon">
+                               <span class="fa {$program->typeIcon}"></span>{if $program->programGenre != 'NatsuCon' && $program->programType != $program->programGenre}<span>{$program->programGenre}</span>{/if}
+                               
+                           </div>
+                       </div>
+                        </a>
+
+    
+    
+ {/foreach} 
+</div>

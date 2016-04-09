@@ -2,16 +2,16 @@
 
 {block content}
 
+{dump $slots}
 
- 
-   
+<div class="room-container">
+    <div class="left">
+    
+    
 <table class="program-table">
     <thead class="normal-color">
         <th>Čas</th> 
-        {foreach $rooms as $room}
-        <th> {$room->title}</th>   
-            
-        {/foreach}
+        
     </thead>    
     <tbody>
        {foreach $slots as $id => $slot}
@@ -57,14 +57,40 @@
            
             </tr> 
         {/foreach}
-        
+
     </tbody>    
-    
-    
-    
-
 </table>
-
-{control customProgram}
-
-    {/block}
+    </div>
+    <div class="right">
+        {foreach $slots as $id => $slot}
+        {var $actualSlot = $slot}      
+    {foreach $rooms as $room}
+                   
+                      {var $actualRoom = $room->id}  
+                      {if isset($timetable[$actualRoom])}
+                        {var $ttRoom = $timetable[$actualRoom]}  
+                      {/if}
+                      {if isset($ttRoom[$actualSlot])}
+                       {var $program = $ttRoom[$actualSlot][0]}  
+                       {if $program->image}
+                       <a href="{$basePath}/{$program->url}">
+                       <div class="room-program" {if $program->image} style="background-image: url('{$basePath}/{$program->image->listFile}')"{/if}>
+                         
+                           <div class="program-room-title">{$program->title|truncate:45}</div>
+                           <div class="program-room-author">{$program->author|truncate:45}</div>
+                           <div class="program-room-icon">
+                               <span class="fa {$program->typeIcon}"/>
+                               
+                           </div>
+                       </div>
+                        </a>
+                        {/if}       
+                       {/if}
+                       {/foreach}
+                           {/foreach}
+        
+        
+        
+    </div>    
+</div>
+        

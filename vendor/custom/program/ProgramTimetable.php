@@ -48,7 +48,7 @@ class ProgramTimetable {
     
     public function getSlots($startTs, $endTs){
         $slots = array();
-        //print_r($startTs);
+
         $slot = $startTs - 3600;
         do{
            // $slots[] = \Nette\Utils\DateTime::from($slot);
@@ -57,7 +57,7 @@ class ProgramTimetable {
             
         }while($slot < $endTs);
         
-      //  print_r($slots);
+
         
         return $slots;
         

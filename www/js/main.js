@@ -47,6 +47,7 @@ $(function(){
 		}
 	});
 
+    if($("#fine-uploader-gallery").length > 0){
     
     var galleryUploader = new qq.FineUploader({
     element: document.getElementById("fine-uploader-gallery"),
@@ -60,6 +61,7 @@ $(function(){
     },
     debug: true
 });
+    }
     
     /*
      *@TODO: take data from data attributes

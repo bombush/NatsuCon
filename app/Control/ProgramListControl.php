@@ -86,7 +86,7 @@ class ProgramListControl extends BaseControl {
     
     public function render(){
         
-        $templateName = "ProgramListControl";
+        $templateName = "ProgramListControl2";
         if(isset($this->templateName)){
             $templateName = $this->templateName;
         }
@@ -102,6 +102,7 @@ class ProgramListControl extends BaseControl {
     private function prepare(){
         $em = $this->em->reflection("program");
         $programs = $em->getProgramsList($this->sectionId,$this->typeId,$this->roomId);
+       // \Tracy\Debugger::dump($programs);
         $this->template->title = $this->title;
         $this->template->programs = $programs;
     }
