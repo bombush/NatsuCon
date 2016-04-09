@@ -500,7 +500,7 @@ Single styles
 }
 
 .pr-slot{
-    width: 25%;
+    width:auto;
     border: 0.05em solid gray;
 }
 
@@ -660,7 +660,7 @@ Single styles
 
 .type-container .room-program {
     max-width: 32%;
-    min-width: 20em;
+    min-width: 21em;
     font-size: 0.9em;
 }
 

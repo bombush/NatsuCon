@@ -38,6 +38,16 @@ class ProgramTimetable {
         $programs = array();
         foreach($this->programs as $program){
             $program->length = ceil(($program->timeTo->getTimestamp() - $program->timeFrom->getTimestamp())/1800);
+            
+            if(
+                    (date("H", $program->timeFrom->getTimestamp()) >= 20 && date("H", $program->timeFrom->getTimestamp()) <= 23)
+                    &&
+                    (date("H", $program->timeTo->getTimestamp()) >= 0 && date("H",$program->timeTo->getTimestamp()) <= 6))
+                    
+                    {
+                    $program->length =  $program->length+1;
+            }
+            
             $programs[$program->id] = $program;
             
             
