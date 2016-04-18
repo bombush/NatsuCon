@@ -193,9 +193,14 @@ class ProgramEditFormControl extends BaseControl
     {
         if(!empty($values['id'])) {
             $this->programId = $values['id'];
-            $this->update( $values );
+            $success = $this->update( $values );
         }
-        else $this->create($values);
+        else
+            $success = $this->create($values);
+
+        $response = ['success' => $success];
+        echo json_encode($response);
+        exit;
     }
 
     protected function processAttachments($contentId)

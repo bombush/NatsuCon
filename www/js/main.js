@@ -620,7 +620,15 @@ window.ProgramEditForm = (function(){
         $form.on('submit', function (e) {
             e.preventDefault();
             $form.ajaxSubmit({
-                success: ProgramEditGrid.reload
+                success: function(response) {
+                    var response = JSON.parse(response);
+                    if(response.success == true) {
+                        ProgramEditGrid.reload();
+                        $.magnificPopup.close();
+                    } else {
+                        alert('Neznámá chyba');
+                    }
+                }
             });
         });
 
