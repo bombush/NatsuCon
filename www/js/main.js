@@ -319,8 +319,9 @@ $(function () {
                 });
 
                 $req.done(function(response){
-                    var $form = $(response).find('.js-program-edit-form');
-                    $editTd.append($form);
+                    var $formWrapped = $(response).find('.program-edit-form-wrap');
+                    var $form = $formWrapped.find('.js-program-edit-form');
+                    $editTd.append($formWrapped);
 //                    DatePicker.init($form);
 
                     $editTr

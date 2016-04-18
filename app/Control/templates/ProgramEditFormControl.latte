@@ -1,6 +1,8 @@
 <div class="program-edit-form-wrap">
     {if !isset($programId)}
-        <h1>Nový program</h1>
+        <h1>Nový program </h1>
+    {else}
+        {*<h3>{? echo $form['contentTitle']->getValue()}</h3>*}
     {/if}
 {form form}
     <div class="images-wrap">

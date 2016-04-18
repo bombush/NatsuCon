@@ -86,6 +86,7 @@ class ProgramEditFormControl extends BaseControl
             $formDefaults = $this->getFormDefaults();
             $attachments = $formDefaults[ 'attachments' ];
             $attachments = $this->prepareAttachments($attachments);
+            $this->template->programId = $this->programId;
         }
 
         $this->template->attachments = empty($attachments) ? [] : $attachments;
