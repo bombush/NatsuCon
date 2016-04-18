@@ -53,7 +53,10 @@ class ProgramEditFormFactory extends \Nette\Object
         $programModel = $this->em->reflection('Program');
 
         $sectionId = empty($this->sectionId) ? $this->context->getParameters()[ 'sectionId' ] : $this->sectionId;
+        //$from
         $form = new ProgramEditFormControl($sectionId);
+        $form->setDefaultTimeFrom( $this->context->getParameters()[ 'programStart' ] );
+        $form->setDefaultTimeTo( $this->context->getParameters()[ 'programEnd' ] );
         $form->setProgramId($this->programId);
         $form->setEm($programModel, $this->em);
 

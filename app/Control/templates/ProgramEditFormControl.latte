@@ -3,38 +3,43 @@
         <h1>Nový program</h1>
     {/if}
 {form form}
-    {if isset($attachments['IMAGE']) && count($attachments['IMAGE']) != 0}
-        {foreach $attachments['IMAGE'] as $image}
-            {if $image['_data'] && $image['_data']->listFile}
-                <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="remove" data-mime="IMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"
-                   style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"> <img src="{$baseUri}{$image['_data']->listFile}" alt=""/> </a>
-            {/if}
-        {/foreach}
-    {else}
-        <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="add" data-mime="IMAGE" data-attachment-id="0" class="image addimage thumb js-image empty js-empty"
-    style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>
-    {/if}
+    <div class="images-wrap">
+        <div class="label">
+            Obrázky:
+        </div>
+        {if isset($attachments['IMAGE']) && count($attachments['IMAGE']) != 0}
+            {foreach $attachments['IMAGE'] as $image}
+                {if $image['_data'] && $image['_data']->listFile}
+                    <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="remove" data-mime="IMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"
+                       style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"> <img src="{$baseUri}{$image['_data']->listFile}" alt=""/> </a>
+                {/if}
+            {/foreach}
+        {else}
+            <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="add" data-mime="IMAGE" data-attachment-id="0" class="image addimage thumb js-image empty js-empty"
+        style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>
+        {/if}
 
-    {if isset($attachments['IMAGE']) && count($attachments['IMAGE']) != 0}
-        <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="add" data-mime="IMAGE"
-           class="image thumb addimage js-image js-addimage"
-           style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>
-    {/if}
+        {if isset($attachments['IMAGE']) && count($attachments['IMAGE']) != 0}
+            <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="add" data-mime="IMAGE"
+               class="image thumb addimage js-image js-addimage"
+               style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>
+        {/if}
 
-    {if isset($attachments['HEADIMAGE']) && count($attachments['HEADIMAGE']) != 0}
+        {if isset($attachments['HEADIMAGE']) && count($attachments['HEADIMAGE']) != 0}
 
-        {foreach $attachments['HEADIMAGE'] as $image}
-            {if $image['_data'] && $image['_data']->originalFile}
-                <a href="javascript:void(0);" data-size="{$headImageFullSize}" data-action="remove" data-mime="HEADIMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"> <img src="{$baseUri}{$image['_data']->originalFile}"
-                                                                                 alt=""
-                                                                                                                                                                             style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"/> </a>
-            {/if}
-        {/foreach}
-    {else}
-        <a href="javascript:void(0);" data-mime="HEADIMAGE" data-action="add" data-size="{$headImageFullSize}" data-attachment-id="0" class="image thumb addimage js-image empty js-empty" style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"></a>
-    {/if}
-    <!--<a href="javascript:void(0);" data-mime="VIDEO" class="video thumb js-video empty"
-       style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>-->
+            {foreach $attachments['HEADIMAGE'] as $image}
+                {if $image['_data'] && $image['_data']->originalFile}
+                    <a href="javascript:void(0);" data-size="{$headImageFullSize}" data-action="remove" data-mime="HEADIMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"> <img src="{$baseUri}{$image['_data']->originalFile}"
+                                                                                     alt=""
+                                                                                                                                                                                 style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"/> </a>
+                {/if}
+            {/foreach}
+        {else}
+            <a href="javascript:void(0);" data-mime="HEADIMAGE" data-action="add" data-size="{$headImageFullSize}" data-attachment-id="0" class="image thumb addimage js-image empty js-empty" style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"></a>
+        {/if}
+        <!--<a href="javascript:void(0);" data-mime="VIDEO" class="video thumb js-video empty"
+           style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>-->
+    </div>
 
     <div class="inputs-wrap">
         <div class="inputs">

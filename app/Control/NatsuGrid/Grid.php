@@ -57,6 +57,7 @@ class Grid extends Control
                 continue;
             }
 
+
             if(is_numeric($value))
                 $this->dataSource->where($key . " = ?", $value);
             else

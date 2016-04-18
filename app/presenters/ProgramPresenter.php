@@ -25,11 +25,21 @@ class ProgramPresenter extends BasePresenter {
 
     public function actionDefault()
     {
+        if ( !( $this->user->loggedIn && ( $this->user->identity->roleId == 1 || $this->user->loggedIn && ( $this->user->identity->roleId == 2 ) ) ) ) {
+            $this->redirect( 'Sign:in' );
 
+            return;
+        }
     }
 
     public function actionEdit()
     {
+
+        if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->loggedIn && ($this->user->identity->roleId == 2 )))){
+            $this->redirect('Sign:in');
+            return;
+        }
+
         $programId = $this->getParameter('program_id', NULL);
         if($programId)
             $this->programEditComponent->setProgramId($programId);

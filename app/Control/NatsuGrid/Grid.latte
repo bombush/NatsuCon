@@ -3,7 +3,9 @@
         <div class="filters">
             <form name="source-modifiers" method="post" action="{link modifiers!}">
                 {foreach $columns as $column}
-                    {$column['label']}: <input name="natsu_filter[{$column['key']}]" type="text" value="{$filterValues[$column['key']]}" class="js-filter">
+                    <span class="pair {$column['type']}">
+                        {$column['label']}: <input name="natsu_filter[{$column['key']}]" type="text" value="{$filterValues[$column['key']]}" class="js-filter">
+                    </span>
                 {/foreach}
                 <input type="text" class="js-natsu-grid-sort-input" name="natsu_sort" value="" style="display:none">
             </form>
@@ -21,7 +23,7 @@
                 {if $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT }
                     <td>{$row->{$column['key']}}</td>
                 {elseif $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME}
-                    <td class="datetime">{$row->{$column['key']}|date,'Y-m-d H:i:s'}</td>
+                    <td class="datetime">{$row->{$column['key']}|date,'D G:i'}</td>
                 {/if}
             {/foreach}
         </tr>

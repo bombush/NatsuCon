@@ -39,10 +39,40 @@ class ProgramEditFormControl extends BaseControl
 
     protected $sectionId;
 
+    protected $timeFrom;
+
+    protected $timeTo;
+
     public function __construct($sectionId)
     {
         $this->sectionId = $sectionId;
     }
+
+    /**
+     * @param mixed $timeFrom
+     *
+     * @return $this
+     */
+    public function setDefaultTimeFrom( $timeFrom )
+    {
+        $this->timeFrom = $timeFrom;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $timeTo
+     *
+     * @return $this
+     */
+    public function setDefaultTimeTo( $timeTo )
+    {
+        $this->timeTo = $timeTo;
+
+        return $this;
+    }
+
+
 
     public function setEm(ProgramModel $programModel, EntityModel $em)
     {
@@ -71,6 +101,9 @@ class ProgramEditFormControl extends BaseControl
         $this->template->normalFullSize = ImageAttachment::FULL;
         $this->template->headImageFullSize = MainimageAttachment::FULL;
 
+        $this->template->defaultTimeFrom = $this->timeFrom;
+        $this->template->defaultTimeTo = $this->timeTo;
+
         $this->template->setFile(__DIR__ . '/templates/ProgramEditFormControl.latte');
         $this->template->render();
     }
@@ -83,17 +116,23 @@ class ProgramEditFormControl extends BaseControl
                                                     'enctype' => 'multipart/form-data',
                                                     'id' => null]);
 
-        $form->addText( 'contentTitle', 'Název' );
+        $form->addText( 'contentTitle', 'Název' )
+            ->setRequired();
         $form->addSelect( 'typeId', 'Druh programu', $this->programModel->getTypesPairs() );
         $form->addSelect( 'roomId', 'Místnost', $this->programModel->getRoomsPairs( '1,2,3,4,5' ) );
         //$form->addSelect('genre', 'Sekce');
         $form->addText( 'author', 'Autor' );
         $form->addTextArea( 'contentText', 'Anotace' );//anotace
 
-        $form->addText( 'timeFrom', 'Začátek' )
-            ->getControlPrototype()->addAttributes(['class' => 'js-period-start']);
-        $form->addText('timeTo', 'Konec')
-            ->getControlPrototype()->addAttributes( [ 'class' => 'js-period-end' ] );
+        $timeFromInput = $form->addText( 'timeFrom', 'Začátek' );
+        $timeFromInput->getControlPrototype()->addAttributes(['class' => 'js-period-start', 'data' => ['timeFrom' => $this->timeFrom->format('Y-m-d H:i:s') ]]);
+        $timeFromInput->setDefaultValue( $this->timeFrom->format( 'Y-m-d H:i:s' ));
+
+        $timeToInput = $form->addText('timeTo', 'Konec');
+        $timeToInput->getControlPrototype()->addAttributes( [ 'class' => 'js-period-end', 'data' => [ 'timeTo' => $this->timeTo->format( 'Y-m-d H:i:s' ) ] ] );
+        $timeToInput->setDefaultValue( $this->timeTo->format( 'Y-m-d H:i:s' ));
+
+
         $form->addSubmit('submit', 'Odeslat')
             ->getControlPrototype()->addAttributes(['class' => 'btn']);
 

@@ -960,6 +960,42 @@ Wide styles
     }
 }
 
+.natsu-grid {
+    padding-top: 20px;
+}
+.natsu-grid .filters {
+    padding: 20px;
+}
+
+.program-grid .btn {
+    color: white;
+}
+.program-grid .btn a {
+    text-decoration: none;
+}
+.program-grid .btn a:visited {
+    color: white;
+}
+.program-grid .pair {
+    display:inline-block;
+    margin: 4px;
+}
+.program-grid .pair input:not(.btn) {
+    height: 20px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+.program-grid td.datetime {
+    width:100px;
+}
+.program-grid tr {
+    cursor:pointer;
+}
+.program-grid tr:hover {
+    background-color: lightblue;
+}
+
 /**
 * Program edit form
 */
@@ -980,7 +1016,18 @@ Wide styles
 
 .program-edit-form textarea {
     width: 100%;
-    min-height:10em;
+    min-height:16em;
+}
+
+.program-edit-form .pair input:not(.btn) {
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+}
+
+.program-edit-form .pair {
+    margin-bottom: 5px;
 }
 
 .program-edit-form .thumb {
@@ -996,4 +1043,16 @@ Wide styles
     background-repeat: no-repeat;
     background-size: contain;
     background-color:aliceblue;
+}
+.program-edit-form .images-wrap {
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding:0px 20px 20px 20px;
+    margin-bottom: 20px;
+}
+.program-edit-form .images-wrap .label {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: grey;
+    margin-bottom: 10px;
 }

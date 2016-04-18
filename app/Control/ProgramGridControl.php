@@ -62,18 +62,20 @@ class ProgramGridControl extends BaseControl
 
     public function render() {
         $this->template->setFile( __DIR__ . "/templates/ProgramGridControl.latte" );
+
         $this->template->render();
     }
 
     public function createComponentGrid()
     {
         $gridModel = $this->model->getProgramsListForGrid();
+        $gridModel->where("program.timeFrom >= '{$this->programStart->format('Y-m-d 00:00:00')}' AND program.timeFrom <= '{$this->programEnd->format('Y-m-d 23:59:59')}'");
         $minMax = $this->model->getMaxMinTimeForGrid();
 
         $grid = new NatsuGrid\Grid();
 
-        $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'id', 'program_id' );
-        $grid->addColumn(\Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'contentTitle', 'Title');
+        //$grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'id', 'program_id' );
+        $grid->addColumn(\Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'contentTitle', 'Název');
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programGenre', 'Druh programu' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'roomTitle', 'Mistnost' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'author', 'Autor' );
@@ -101,8 +103,11 @@ class ProgramGridControl extends BaseControl
 
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME, 'timeFrom', 'Od-do' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME, 'timeTo', '' );
-        $grid->setFilterDefault('timeFrom', $minMax['minTimeFrom']);
-        $grid->setFilterDefault('timeTo', $minMax['maxTimeFrom']);
+        //$grid->setFilterDefault('timeFrom', $minMax['minTimeFrom']);
+        //$grid->setFilterDefault('timeTo', $minMax['maxTimeFrom']);
+        $grid->setFilterDefault( 'timeFrom', $this->programStart->format( 'Y-m-d 00:00:00' ) );
+        $grid->setFilterDefault( 'timeTo', $this->programEnd->format( 'Y-m-d 23:59:59' ) );
+
         $grid->addFilterSpecific(\Natsu\Control\NatsuGrid\Grid::FILTER_TEXT,'timeFrom', 'Od-do', function($value, $source){
                 $source->where("timeFrom >= '$value'");
         });
