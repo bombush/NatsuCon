@@ -14,13 +14,44 @@ use Nette;
  *
  * @author yasuri
  */
-class ProgramModel extends EntityModel{
-    
-    public function getRooms($sequence){
-        $stm = $this->database->select("*")->from("room")->where("id IN ($sequence)")->orderBy("FIND_IN_SET (id, \"$sequence\")");
+class ProgramModel extends EntityModel {
+
+    public $table = 'program';
+    /**
+     * @param null|string $sequence
+     *
+     * @return \DibiFluent
+     */
+    public function getRoomsFluent($sequence = NULL) {
+        $stm = $this->database->select( "*" )->from( "room" );
+        if ( !is_null( $sequence ) )
+            $stm->where( "id IN ($sequence)" )->orderBy( "FIND_IN_SET (id, \"$sequence\")" );
+
+        return $stm;
+    }
+
+    /**
+     * @param null|string $sequence
+     *
+     * @return array
+     */
+    public function getRooms($sequence = NULL){
+        $stm = $this->getRoomsFluent($sequence);
      //   echo $stm->test();exit;
         return $stm->fetchAll();
         
+    }
+
+    /**
+     * @param null|string $sequence
+     *
+     * @return array
+     */
+    public function getRoomsPairs($sequence = NULL)
+    {
+        $stm = $this->getRoomsFluent($sequence);
+
+        return $stm->fetchPairs('id', 'title');
     }
     
     
@@ -41,18 +72,43 @@ class ProgramModel extends EntityModel{
         return $programs;
         
     }
-    
+
+    /**
+     * @return \DibiFluent
+     */
+    public function getProgramsListFluent() {
+        $stm = $this->database->select( "program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType, programgenre.title AS programGenre, content.title as contentTitle, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
+                  ->from( "program" )
+                  ->leftJoin( "content", "ON program.contentId = content.id" )
+                  ->leftJoin( "route", "ON content.id = route.contentId" )
+                  ->leftJoin( "room", "ON program.roomId = room.id" )
+                  ->leftJoin( "programtype", "ON programtype.id = program.typeId" )
+                  ->leftJoin( "programgenre", "ON programgenre.id = program.genreId" )
+                  ->leftJoin( "attachment", "ON attachment.contentId = content.id AND attachment.mime = \"IMAGE\"" )
+                  //->where( "statusId = 14" )
+        ;
+
+        return $stm;
+    }
+
+    public function getProgramsListForGrid() {
+        $fluent = $this->getProgramsListFluent();
+        $fluent->groupBy('program.id');
+
+        return $fluent;
+    }
+
+    public function getMaxMinTimeForGrid() {
+        $fluent = $this->database->select( 'MIN(a.TimeFrom) AS minTimeFrom, MAX(a.TimeFrom) AS maxTimeFrom')
+            ->from( $this->getProgramsListForGrid())->as('a');
+
+        $res = $fluent->fetchAll();
+        return empty($res) ? ['minTimeFrom' => null , 'maxTimeFrom' => null] : $res[0];
+    }
     
     public function getProgramsList($sectionId = NULL, $typeId = NULL, $roomId = NULL ,$startTime = NULL, $endTime = NULL, $orderBy = "content.title"){
-         $stm = $this->database->select("program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType, programgenre.title AS programGenre, content.title, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs")
-               ->from("program")
-               ->leftJoin("content", "ON program.contentId = content.id")
-               ->leftJoin("route", "ON content.id = route.contentId")
-               ->leftJoin("room", "ON program.roomId = room.id")
-               ->leftJoin("programtype", "ON programtype.id = program.typeId")
-               ->leftJoin("programgenre", "ON programgenre.id = program.genreId")
-               ->leftJoin("attachment", "ON attachment.contentId = content.id AND attachment.mime = \"IMAGE\"")  
-               ->where("statusId = 14");
+         $stm = $this->getProgramsListFluent();
+
           if(isset($sectionId)){
               $stm->where("program.sectionId = $sectionId");
           }
@@ -92,7 +148,8 @@ class ProgramModel extends EntityModel{
                ->from("program")
                ->leftJoin("content", "ON program.contentId = content.id")
                ->leftJoin("route", "ON content.id = route.contentId")
-               ->leftJoin("room", "ON program.roomId = room.id")
+               ->leftJoin("ro
+               om", "ON program.roomId = room.id")
                ->leftJoin("programtype", "ON programtype.id = program.typeId")
                ->leftJoin("programgenre", "ON programgenre.id = program.genreId")
                ->where("statusId = 14 AND program.contentId = ?", $contentId)
@@ -104,7 +161,65 @@ class ProgramModel extends EntityModel{
         return $programs;
         
     }
-    
+
+    /**
+     * Return program row with array of attachments
+     * @param $programId
+     *
+     * @return array
+     */
+    public function getFormDefaults($programId) {
+        $stm = $this->database->select( "program.id as programId, content.title as contentTitle, content.id AS contentId, content.text AS contentText, room.id AS roomId, programgenre.id AS genreId, programtype.id AS typeId, content.author, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
+                                ->select("program.timeFrom, program.timeTo")
+                                ->select("attachment.url AS attachmentUrl, attachment.id AS attachmentId, attachment.mime AS attachmentMime")
+                                ->from( "program" )
+                                ->leftJoin( "content", "ON program.contentId = content.id" )
+            ->leftJoin("room", "ON program.roomId = room.id")
+            ->leftJoin( "programtype", "ON programtype.id = program.typeId" )
+            ->leftJoin( "programgenre", "ON programgenre.id = program.genreId" )
+
+            ->leftJoin( "attachment", "ON attachment.contentId = content.id")
+
+            ->where('program.id = ?', $programId);
+
+        $result = $stm->fetchAll();
+
+        $program = $result[ 0 ]->toArray();
+        $program[ 'attachments' ] = [ ];
+        //can have multiple attachments: flatten
+        if(count($result) > 0) {
+
+            foreach($result as $row) {
+                if(!empty($row['attachmentId'])) {
+                    $program[ 'attachments' ][] = [
+                        'id'   => $row[ 'attachmentId' ],
+                        'url'  => $row[ 'attachmentUrl' ],
+                        'mime' => $row[ 'attachmentMime' ]
+                    ];
+                }
+            }
+        }
+
+
+        return $program;
+    }
+
+    public function getTypesFluent()
+    {
+        $stm = $this->database->select('*')
+                ->from('programtype');
+
+        return $stm;
+    }
+
+    public function getTypesPairs()
+    {
+        $res = $this->getTypesFluent()
+            ->fetchPairs('id', 'title');
+
+        return $res;
+    }
+
     private function typeIcon($typeId){
         $icon = "";
         switch($typeId){

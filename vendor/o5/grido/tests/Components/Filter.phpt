@@ -152,7 +152,7 @@ class FilterTest extends \Tester\TestCase
         Assert::true($grid->hasFilters(FALSE));
     }
 
-    function testAddFilter() //addFilter*()
+    function testAddFilter() //addFilterSpecific*()
     {
         $grid = new Grid;
         $label = 'Filter';

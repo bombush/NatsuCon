@@ -266,6 +266,20 @@ a>img:hover {
     border-color: #003366;
 }
 
+.overlay-wrap {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 90%;
+    transform: translateX(-50%);
+    left: 50%;
+    position: relative;
+}
+
+.mfp-close {
+    color: #4284B0;
+}
+
 
 /* -----------------------
 Nav
@@ -792,6 +806,15 @@ Single styles
     border: 0.1em solid #4284B0;
 }
 
+/*------------------
+Grid
+-----------------*/
+.natsu-grid .top {
+   // position:fixed;
+}
+.natsu-grid .fixed-head {
+    //position:fixed;
+}
 
 /* -----------------------
 Wide styles
@@ -935,4 +958,42 @@ Wide styles
 	.fb-page{
       display:block;
     }
+}
+
+/**
+* Program edit form
+*/
+.program-edit-form textarea {
+    max-width: 800em;
+    height:80px;
+}
+.program-edit-form .inputs {
+    width: 20em;
+    float: left;
+    margin-bottom: 2em;
+}
+.program-edit-form .annotation {
+    min-width: 40em;
+    padding-left:20em;
+    min-height:10em;
+}
+
+.program-edit-form textarea {
+    width: 100%;
+    min-height:10em;
+}
+
+.program-edit-form .thumb {
+    display: inline-block;
+    border: 1px solid black;
+}
+.program-edit-form .thumb img {
+    width: 100%;
+}
+.program-edit-form .addimage {
+    background-image: url('/assets/img/plussquare.png');
+    background-origin: padding-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color:aliceblue;
 }

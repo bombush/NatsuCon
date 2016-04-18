@@ -1,0 +1,30 @@
+<div class="js-natsu-grid-wrap natsu-grid">
+    <div class="top">
+        <div class="filters">
+            <form name="source-modifiers" method="post" action="{link modifiers!}">
+                {foreach $columns as $column}
+                    {$column['label']}: <input name="natsu_filter[{$column['key']}]" type="text" value="{$filterValues[$column['key']]}" class="js-filter">
+                {/foreach}
+                <input type="text" class="js-natsu-grid-sort-input" name="natsu_sort" value="" style="display:none">
+            </form>
+        </div>
+    </div>
+    <table class="js-results results">
+    <thead class="fixed-head">
+        {foreach $columns as $column}
+            <th data-order=""><a class="js-natsu-grid-sort" data-key="{$column->key}" data-order="ASC" href="#">{$column->label}</a></th>
+        {/foreach}
+    </thead>
+    {foreach $data as $row}
+        <tr class="grid-row" data-id="{$row->id}">
+            {foreach $columns as $column}
+                {if $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT }
+                    <td>{$row->{$column['key']}}</td>
+                {elseif $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME}
+                    <td class="datetime">{$row->{$column['key']}|date,'Y-m-d H:i:s'}</td>
+                {/if}
+            {/foreach}
+        </tr>
+    {/foreach}
+    </table>
+</div>

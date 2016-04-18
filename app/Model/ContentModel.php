@@ -7,6 +7,7 @@
  */
 
 namespace Natsu\Model;
+use Nette\Utils\ArrayHash;
 
 /**
  * Description of ContentModel
@@ -38,7 +39,17 @@ class ContentModel extends EntityModel {
     public function delete($contentId){
         $this->database->delete(self::$tableContent)->where(array("id" => $contentId))->execute();
     }
-    
+
+    public function update($values) {
+        $this->database->update(static::$tableContent, $values)->where('id = ?', $values->id)->execute();
+        //$this->database->query( "UPDATE `{static::$tableContent}` SET ", $values, ' WHERE `id`= ?', $values->id );
+    }
+
+    public function insertContent(ArrayHash $values) {
+        $this->database->query("INSERT INTO [". static::$tableContent . "]", $values);
+        return $this->database->getInsertId();
+    }
+
     
     public function deleteAttachments($contentId){
         $this->database->delete(self::$tableAttachments)->where(array("contentId" => $contentId))->execute();

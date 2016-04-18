@@ -47,6 +47,7 @@ services:
 	- Natsu\Forms\RegistrationFormFactory
 	- Natsu\Forms\ContentComponentFormFactory
 	- Natsu\Forms\PermissionFormFactory
+	- Natsu\Forms\ProgramEditFormFactory
 
 	#presenters
 	-

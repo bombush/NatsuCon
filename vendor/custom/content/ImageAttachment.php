@@ -7,6 +7,7 @@
  */
 
 namespace Custom\Content;
+use Nette\Utils\ArrayHash;
 
 /**
  * Description of ImageAttachment
@@ -16,10 +17,12 @@ namespace Custom\Content;
 class ImageAttachment {
 
     //put your code here
-    private $_row;
+    protected $_row;
 
     const THUMB_SMALL = "100x100";
     const THUMB_LIST = "200x200";
+    const FULL = '500x500';
+
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';
 
@@ -28,7 +31,7 @@ class ImageAttachment {
     public $originalFile;
     private $basePath;
 
-    public function setRow($row) {
+    public function setRow(ArrayHash $row) {
         $this->_row = $row;
     }
 
@@ -43,20 +46,28 @@ class ImageAttachment {
     }
     
     public function create(){
+        $finalFilename = $this->generateFinalFilename();
         $this->saveOriginal();
         $this->saveThumbs();
-       // print_r($this->_row); exit;
+
+        return $finalFilename;
     }
     
     private function saveOriginal(){
-        $this->_row->file->move(self::IMAGE_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName());
+        $filename = $this->generateFinalFilename();
+        $this->_row->file->move(self::IMAGE_DIR.$filename);
         
     }
     
     public function saveThumbs(){
-        $originalFile = self::IMAGE_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName();
+        $filename = $this->generateFinalFilename();
+        $originalFile = self::IMAGE_DIR.$filename;
         $this->createThumb($originalFile);
         
+    }
+
+    protected function generateFinalFilename() {
+        return $this->_row->contentId . "-" . $this->_row->file->getSanitizedName();
     }
     
     public function createThumb($filename){
