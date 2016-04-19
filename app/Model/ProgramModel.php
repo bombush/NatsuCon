@@ -180,8 +180,7 @@ class ProgramModel extends EntityModel {
                ->from("program")
                ->leftJoin("content", "ON program.contentId = content.id")
                ->leftJoin("route", "ON content.id = route.contentId")
-               ->leftJoin("ro
-               om", "ON program.roomId = room.id")
+               ->leftJoin("room", "ON program.roomId = room.id")
                ->leftJoin("programtype", "ON programtype.id = program.typeId")
                ->leftJoin("programgenre", "ON programgenre.id = program.genreId")
                ->where("statusId = 14 AND program.contentId = ?", $contentId)
