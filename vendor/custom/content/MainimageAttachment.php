@@ -15,9 +15,9 @@ use Nette\Utils\ArrayHash;
  * @author Josef Hruby
  */
 class MainimageAttachment extends ImageAttachment {
-    const THUMB_SMALL = "1000x70";
+    const THUMB_SMALL = "300x50";
   // const THUMB_LIST= "200x200";
-    const FULL = '1000x70';
+    const FULL = '1200x200';
 
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';

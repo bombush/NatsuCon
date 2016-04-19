@@ -40,6 +40,8 @@ class ProgramPresenter extends BasePresenter {
             return;
         }
 
+
+
         $programId = $this->getParameter('program_id', NULL);
         if($programId)
             $this->programEditComponent->setProgramId($programId);

@@ -21,7 +21,7 @@ class ImageAttachment {
 
     const THUMB_SMALL = "200x200";
     const THUMB_LIST = "400x400";
-    const FULL = '1000x1000';
+    const FULL = '650x650';
 
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';
