@@ -52,9 +52,11 @@ class EntityModel extends \Nette\Object{
     }
 
     public function insert($values){
+        if ( empty( $this->table ) )
+            throw new \Natsu\Model\Exception( 'Cannot insert - missing table name in model class' );
         //return $this->database->lastInsertId($this->table);
         //die('insert');
-        $this->database->query("INSERT INTO $this->table ", $values);
+        $this->database->query("INSERT INTO [$this->table]", $values);
         return $this->database->getInsertId();
         //$context = new Context($this->database);
         //$context->table($this->table)->insert($values);
@@ -62,14 +64,30 @@ class EntityModel extends \Nette\Object{
     }
 
     public function update($values){
+          if(empty($this->table))
+              throw new \Natsu\Model\Exception('Cannot update - missing table name in model class');
           //die('update');
-         $this->database->query("UPDATE $this->table SET ", $values, ' WHERE `id`= ?', $values->id);
+         $this->database->query("UPDATE `$this->table` SET ", $values, ' WHERE `id`= ?', $values->id);
 
 
          // $context = new Nette\Database\Context($this->database);
          // $context->table($this->table)->getPrimary($values->id)->update($values);
       //  $this->table()->wherePrimary($values->id)->update($values);
     }
+
+    /**
+     * @param $id numeric
+     *
+     * @throws Exception
+     */
+    public function deleteId($id) {
+        if(!is_numeric($id))
+            throw new Exception('Wrong DELETE parameter: Non-numeric ID not allowed');
+
+        $this->database->delete($this->table)->where('id = ?', (int)$id)->execute() ;
+    }
+
+
 
 
     /*
@@ -79,11 +97,50 @@ class EntityModel extends \Nette\Object{
      *
      */
 
+    /**
+     * @TODO: pokud neexistuje, vratit instanci EntityModel a nastavit ji nazev tabulky podle $className?
+     * @param $className
+     *
+     * @return mixed
+     */
     public function reflection($className){
         $className = ucfirst($className);
         $className = "\Natsu\Model\\".$className."Model";
         return new $className($this->database);
     }
 
+    /**
+     * Begin transaction
+     * @param null $savepoint
+     *
+     * @throws \DibiException
+     */
+    public function begin($savepoint = NULL) {
+        $this->database->begin($savepoint);
+    }
+
+    /**
+     * Commit transaction
+     *
+     * @param null $savepoint
+     *
+     * @throws \DibiException
+     */
+    public function commit($savepoint = NULL) {
+        $this->database->commit($savepoint);
+    }
+
+    /**
+     * Rollback transaction
+     *
+     * @param null $savepoint
+     *
+     * @throws \DibiException
+     */
+    public function rollback($savepoint = NULL) {
+        $this->database->rollback($savepoint);
+    }
 }
+
+class Exception extends \Exception {};
 ?>

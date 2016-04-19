@@ -196,7 +196,7 @@ Filter can be registered by any callback or lambda function:
 
 ```php
 $latte = new Latte\Engine;
-$latte->addFilter('shortify', function ($s) {
+$latte->addFilterSpecific('shortify', function ($s) {
 	return mb_substr($s, 0, 10); // shortens the text to 10 characters
 });
 ```
@@ -204,7 +204,7 @@ $latte->addFilter('shortify', function ($s) {
 In this case it would be better for the filter to get an extra parameter:
 
 ```php
-$latte->addFilter('shortify', function ($s, $len = 10) {
+$latte->addFilterSpecific('shortify', function ($s, $len = 10) {
 	return mb_substr($s, 0, $len);
 });
 ```

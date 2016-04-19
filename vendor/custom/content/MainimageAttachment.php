@@ -7,29 +7,30 @@
  */
 
 namespace Custom\Content;
+use Nette\Utils\ArrayHash;
 
 /**
  * Description of MainimageAttachment
  *
  * @author Josef Hruby
  */
-class MainimageAttachment {
-    private $_row;
-    const THUMB_SMALL = "1000x700";
+class MainimageAttachment extends ImageAttachment {
+    const THUMB_SMALL = "1000x70";
   // const THUMB_LIST= "200x200";
+    const FULL = '1000x70';
+
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';
-    public $smallFile;
-    public $listFile;
-    public $originalFile;
     
     
-    public function setRow($row) {
+    public function setRow(ArrayHash $row) {
         $this->_row = $row;
     }
     
     public function create(){
+        $finalFilename = $this->generateFinalFilename();
         $this->saveOriginal();
+        return $finalFilename;
     }
     
     private function saveOriginal(){
@@ -37,5 +38,4 @@ class MainimageAttachment {
         //exit;
         
     }
-    
 }
