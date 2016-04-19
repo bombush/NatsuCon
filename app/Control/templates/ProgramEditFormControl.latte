@@ -1,0 +1,87 @@
+<div class="program-edit-form-wrap">
+    {if !isset($programId)}
+        <h1>Nový program </h1>
+    {else}
+        {*<h3>{? echo $form['contentTitle']->getValue()}</h3>*}
+    {/if}
+{form form}
+    <div class="images-wrap">
+        <div class="label">
+            Obrázky:
+        </div>
+        {if isset($attachments['IMAGE']) && count($attachments['IMAGE']) != 0}
+            {foreach $attachments['IMAGE'] as $image}
+                {if $image['_data'] && $image['_data']->listFile}
+                    <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="remove" data-mime="IMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"
+                       style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"> <img src="{$baseUri}{$image['_data']->listFile}" alt=""/> </a>
+                {/if}
+            {/foreach}
+        {else}
+            <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="add" data-mime="IMAGE" data-attachment-id="0" class="image addimage thumb js-image empty js-empty"
+        style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>
+        {/if}
+
+        {if isset($attachments['IMAGE']) && count($attachments['IMAGE']) != 0}
+            <a href="javascript:void(0);" data-size="{$normalFullSize}" data-action="add" data-mime="IMAGE"
+               class="image thumb addimage js-image js-addimage"
+               style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>
+        {/if}
+
+        {if isset($attachments['HEADIMAGE']) && count($attachments['HEADIMAGE']) != 0}
+
+            {foreach $attachments['HEADIMAGE'] as $image}
+                {if $image['_data'] && $image['_data']->originalFile}
+                    <a href="javascript:void(0);" data-size="{$headImageFullSize}" data-action="remove" data-mime="HEADIMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"> <img src="{$baseUri}{$image['_data']->originalFile}"
+                                                                                     alt=""
+                                                                                                                                                                                 style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"/> </a>
+                {/if}
+            {/foreach}
+        {else}
+            <a href="javascript:void(0);" data-mime="HEADIMAGE" data-action="add" data-size="{$headImageFullSize}" data-attachment-id="0" class="image thumb addimage js-image empty js-empty" style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"></a>
+        {/if}
+        <!--<a href="javascript:void(0);" data-mime="VIDEO" class="video thumb js-video empty"
+           style="width:{$normalThumbWidth}px; height:{$normalThumbHeight}px"></a>-->
+    </div>
+
+    <div class="inputs-wrap">
+        <div class="inputs">
+            <div class="pair">
+                {label contentTitle}{/label}
+                {input contentTitle}
+            </div>
+            <div class="pair">
+                {label timeFrom}{/label}
+                {input timeFrom}
+            </div>
+            <div class="pair">
+                {label timeTo}{/label}
+                {input timeTo}
+            </div>
+
+            <div class="pair">
+                {label typeId}{/label}
+                {input typeId}
+            </div>
+
+            <div class="pair">
+                {label roomId}{/label}
+                {input roomId}
+            </div>
+
+            <div class="pair">
+                {label author}{/label}
+                {input author}
+            </div>
+        </div>
+        <div class="annotation">
+                {label contentText}{/label}
+                {input contentText}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="pair">
+        {label submit}{/label}
+        {input submit}
+    </div>
+{/form}
+</div>

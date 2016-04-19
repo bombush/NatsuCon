@@ -137,9 +137,9 @@ button::-moz-focus-inner {
   opacity: 0.65;
   filter: alpha(opacity=65);
   padding: 0 0 18px 10px;
-  color: #FFF;
+  color: #4284B0;
   font-style: normal;
-  font-size: 28px;
+  font-size: 38px;
   font-family: Arial, Baskerville, monospace; }
   .mfp-close:hover,
   .mfp-close:focus {
@@ -149,11 +149,11 @@ button::-moz-focus-inner {
     top: 1px; }
 
 .mfp-close-btn-in .mfp-close {
-  color: #333; }
+  color: #4284B0; }
 
 .mfp-image-holder .mfp-close,
 .mfp-iframe-holder .mfp-close {
-  color: #FFF;
+  color: #4284B0;
   right: -6px;
   text-align: right;
   padding-right: 6px;
