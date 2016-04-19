@@ -88,6 +88,8 @@ class ProgramModel extends EntityModel {
                   //->where( "statusId = 14" )
         ;
 
+        echo $stm; exit;
+
         return $stm;
     }
 
@@ -96,6 +98,18 @@ class ProgramModel extends EntityModel {
         $fluent->groupBy('program.id');
 
         return $fluent;
+    }
+
+    public function getCollisionsFluent() {
+        $stm = $this->database->select("
+            *
+        ")
+        ->from("program")
+        ->leftJoin("program p2", "ON program.id = p2.id")
+        ->where("p2.timeStart < program.timeEnd")
+        ->where("p2.timeEnd > program.timeStart");
+
+        return $stm;
     }
 
     public function getMaxMinTimeForGrid() {
