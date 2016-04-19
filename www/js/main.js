@@ -473,7 +473,8 @@ $(function () {
                     hours: true,
                     minutes: true,
                     seconds: false,
-                    ampm: true
+                    ampm: false,
+                    steps: [1, 30, 2, 1]
                 },
                 cells: [1, 1],
                 //withoutBottomPanel: true,
@@ -650,7 +651,9 @@ window.ProgramEditForm = (function(){
                 hours: true,
                 minutes: true,
                 seconds: false,
-                ampm: true
+                ampm: false,
+                steps: [1, 30, 2, 1],
+                twelveHoursFormat: false
             },
             //formatDate: 'DD.MM.YYYY',
             cells: [1, 1],
