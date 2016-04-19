@@ -22,6 +22,17 @@ class RouterFactory
 	public static function createRouter(\DibiConnection $database = null)
 	{
 		$router = new RouteList;
+                
+                   $router[] = new Route('2013', array(
+    'presenter' => 'Content',
+    'action' => 'view',
+    'id' => 28
+));
+                 $router[] = new Route('2014', array(
+    'presenter' => 'Content',
+    'action' => 'view',
+    'id' => 27
+));    
 
 
                 
@@ -61,6 +72,9 @@ class RouterFactory
                $pageRoute->database = $database;
 
                 $router[] = $pageRoute;
+                
+               
+
                
                  
 
