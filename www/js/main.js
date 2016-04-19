@@ -50,20 +50,20 @@ $(function(){
 		}
 	});
 
-    if($("#fine-uploader-gallery").length > 0){
+    if(typeof(qq) !== 'undefined' && $("#fine-uploader-gallery").length > 0){
     
     var galleryUploader = new qq.FineUploader({
-    element: document.getElementById("fine-uploader-gallery"),
-    template: 'qq-template-gallery',
-    request: {
-        endpoint: 'upload?do=save',
-        method: 'POST' // Only for the gh-pages demo website due to Github Pages limitations
-    },
-    validation: {
-        allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
-    },
-    debug: true
-});
+        element: document.getElementById("fine-uploader-gallery"),
+        template: 'qq-template-gallery',
+        request: {
+            endpoint: 'upload?do=save',
+            method: 'POST' // Only for the gh-pages demo website due to Github Pages limitations
+        },
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
+        },
+        debug: true
+    });
     }
     
     /*
@@ -72,21 +72,6 @@ $(function(){
     $('.datepicker').datepicker({
         dateFormat: 'dd.mm.yy'
     });
-
-    if(typeof(qq) !== 'undefined') {
-        var galleryUploader = new qq.FineUploader({
-            element: document.getElementById("fine-uploader-gallery"),
-            template: 'qq-template-gallery',
-            request: {
-                endpoint: 'upload?do=save',
-                method: 'POST' // Only for the gh-pages demo website due to Github Pages limitations
-            },
-            validation: {
-                allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
-            },
-            debug: true
-        });
-    }
 
     //DatePicker.init(window);
     
