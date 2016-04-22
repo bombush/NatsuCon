@@ -72,6 +72,10 @@ a:focus { color: black; }
 a:hover { color: purple; }
 a:active { color: #2087A9; }
 
+input {
+    font-size: 14px;
+}
+
 /**
  * responsive video
  */
@@ -414,6 +418,15 @@ Single styles
 	border: 1px solid transparent;
 	border-radius: .2em;
 	text-decoration: none;
+}
+a.btn{
+    font-size: 14px;
+}
+
+a.btn-trans {
+    border: 1px black solid;
+    background: none;
+    color: black !important ;
 }
 
 .btn:hover
