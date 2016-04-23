@@ -25,7 +25,8 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
                 COLUMN_TITLE = 'title',
 		COLUMN_PASSWORD_HASH = 'password',
                 COLUMN_STATUS = 'statusId',
-		COLUMN_ROLE = 'roleId';
+		COLUMN_ROLE = 'roleId',
+                COLUMN_HASH = 'requesthash';
 
 
 	/** @var \DibiConnection */
@@ -90,6 +91,20 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
                 return false;
             }
 
+        }
+        
+        
+        public function identifyHash($hash){
+            try {
+                $row = $this->database->select('*')->from(self::TABLE_NAME)->where(self::COLUMN_HASH . ' = ?', $hash)->fetch();
+                if(!$row){
+                    return false;
+                }else{
+                    return $row;
+                }
+            }catch(\Exception $e){
+                return false;
+            }
         }
 
         public function getAccount($userId){

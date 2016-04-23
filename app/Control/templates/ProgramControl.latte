@@ -2,7 +2,7 @@
 
 {block content}
 
-
+{dump $timetable}
 
  
    
@@ -28,7 +28,9 @@
                    
                       {var $actualRoom = $room->id}  
                       {if isset($timetable[$actualRoom])}
-                        {var $ttRoom = $timetable[$actualRoom]}  
+                        {var $ttRoom = $timetable[$actualRoom]} 
+                      {else} 
+                          {var $ttRoom = null}   
                       {/if}
                       {if isset($map[$actualRoom][$actualSlot]) && count($map[$actualRoom][$actualSlot]) > 1}
                          <td class="pr-slot conflict" rowspan="1">
@@ -51,8 +53,8 @@
                            <td class="pr-slot"{if $program->length > 1} rowspan="{$program->length}"{/if}>
                             <div>
                               
-                             
-                              <p><a href="{$baseUrl}/{$program->url}">  <strong>{$program->title} </strong></a><span class="fa {$program->typeIcon}" title="{$program->programType}" ></span></p>  
+                                {dump $ttRoom}
+                                <p><a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}">  <strong>{$program->title} </strong></a><span class="fa {$program->typeIcon}" title="{$program->programType}" ></span></p>  
                               <p><cite>{$program->author}</cite></p>
                           </div>
                           </td> 
@@ -66,8 +68,7 @@
                       {/if}    
                     
                       
-                   
-                       
+
                 {/foreach}   
            
             </tr> 

@@ -43,6 +43,19 @@ class ProgramContainer {
         $this->programs = $this->loader->getPrograms();
         
         
+        if($this->festivalStart == null){
+           $min = reset($this->programs);
+           $this->festivalStart = date("Y-m-d G:i:s",$min->timeFrom->getTimestamp());
+        }
+        
+         if($this->festivalEnd == null){ 
+           $max = end($this->programs);
+         //  dump($max);
+           $this->festivalEnd = date("Y-m-d G:i:s",$max->timeTo->getTimestamp());
+         } 
+        
+         //dump($this->festivalEnd);
+         
         $tt = new ProgramTimetable;
         $tt->programs = $this->programs;
         $this->timeTable = $tt->getTable();

@@ -57,12 +57,14 @@ class ForgetFormFactory extends \Nette\Application\UI\Form{
 	{
             $row = $this->userManager->identify($values->username);
             if($row === false){
-                $form->addError("Nenalezen uživatel. Zkuste znovu.");
+                $form->addError("Nenalezen uživatel.");
             }else{
                 $hash = $this->userManager->createRequest($row);
                 $template = $this->emailModel->getTemplate(emailModel::FORGET_PASSWD);
-                $template->body = $this->emailModel->replace(array("%hash%", $hash), $template->body);
-                $from="web@natsucon.cz";
+                dump($hash);
+                $template->body = $this->emailModel->replace(array("%HASH%" => $hash), $template->body);
+                dump($template->body);
+                $from=  \Natsu\Model\EmailModel::FROM;
                 $to=$row->username;
                 $this->emailModel->sendEmail($from, $to, $template);
 

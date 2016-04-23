@@ -11,7 +11,7 @@ class EmailModel extends EntityModel {
             REGISTER_CMPL = "REGISTER_CMPL",
             FORGET_PASSWD = "FORGET_PASSWD",
             TICKET_CMPL = "TICKET_CMPL",
-            FROM = "info@natsucon.cz",
+            FROM = "butaneko@natsucon.cz",
             PAYMENT_CMFR = "PAYMENT_CMFR";
 
     public function getTemplate($code) {
@@ -32,7 +32,8 @@ class EmailModel extends EntityModel {
                 ->addTo($to)
                 ->setSubject($template->subject)
                 ->setHtmlBody($template->body);
-
+         
+       // dump($from); dump($to); dump($template); exit;
         $mailer = new SendmailMailer;
         $mailer->send($mail);
     }

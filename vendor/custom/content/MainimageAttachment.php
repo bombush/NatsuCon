@@ -17,25 +17,32 @@ use Nette\Utils\ArrayHash;
 class MainimageAttachment extends ImageAttachment {
     const THUMB_SMALL = "1000x70";
   // const THUMB_LIST= "200x200";
-    const FULL = '1000x70';
+    const FULL = '1200x70';
 
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';
     
     
-    public function setRow(ArrayHash $row) {
+    public function setRow($row) {
         $this->_row = $row;
     }
     
     public function create(){
         $finalFilename = $this->generateFinalFilename();
         $this->saveOriginal();
+        $this->copyToThumbs(self::IMAGE_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName());
         return $finalFilename;
+        
     }
     
     private function saveOriginal(){
         $this->_row->file->move(self::IMAGE_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName());
-        //exit;
-        
+  
     }
+    
+    private function copyToThumbs($filename){
+        copy(self::IMAGE_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName(), self::IMAGE_DIR.self::THUMB_DIR.$this->_row->contentId."-".$this->_row->file->getSanitizedName());
+    }
+    
+
 }

@@ -8,8 +8,8 @@ php:
 
 
 parameters:
-  sectionId: 2015
-  programStart: 2014-08-19 17:00:00
+  sectionId: 2016
+  programStart: 2016-08-19 17:00:00
   programEnd: 2016-08-21 17:00:00
 
 application:

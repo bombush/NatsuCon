@@ -32,6 +32,16 @@ class ProgramPresenter extends BasePresenter {
         }
     }
 
+    public function actionPreview($id = 0){
+        $pm = $this->entityModel->reflection("program");
+        $data = $pm->getFormDefaults($id);
+       // dump($data); exit;
+        if(isset($data['contentId'])){
+            $this->redirect("Content:view", $data['contentId']);
+        }
+        
+    }
+    
     public function actionEdit()
     {
 

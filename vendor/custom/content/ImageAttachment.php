@@ -31,7 +31,7 @@ class ImageAttachment {
     public $originalFile;
     private $basePath;
 
-    public function setRow(ArrayHash $row) {
+    public function setRow($row) {
         $this->_row = $row;
     }
 

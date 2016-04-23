@@ -129,7 +129,7 @@ class SignPresenter extends BasePresenter {
 
         $form->onSuccess[] = function ($form) {
             $form->getPresenter()->flashMessage("Heslo změněno!");
-            $form->getPresenter()->redirect('in');
+            $form->getPresenter()->redirect('Homepage:');
         };
         return $form;
     }
@@ -191,6 +191,12 @@ class SignPresenter extends BasePresenter {
 
     public function actionNewpass($id) {
         $this->code = $id;
+        $row = $this->userManager->identifyHash($id);
+       // dump($row);
+        if(empty($id) || $row === false){
+            throw new Nette\Application\BadRequestException;
+        }
+        
         //  print_r($this->code); exit;
     }
 
@@ -201,6 +207,10 @@ class SignPresenter extends BasePresenter {
     }
 
     public function renderMyaccount() {
+        if(!$this->user->loggedIn){
+            throw new Nette\Application\BadRequestException;
+        }
+        
         $this->add("pageTitle", "Můj účet");
         $this->prepare();
     }

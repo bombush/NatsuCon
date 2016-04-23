@@ -53,10 +53,27 @@ class NewPassFormFactory {
                 $form->addError("Hesla musí být shodná");
                 return;
             }
+            
+           // dump($values);exit;
+            
+            if($form->getPresenter()->getUser()->loggedIn){
+                $values->id = $form->getPresenter()->getUser()->getId();
+            }elseif(!empty ($values->code)){
+                $row = $this->userManager->identifyHash($values->code);
+                if($row !== false){
+                    $values->id = $row->id;
+                }else{
+                    $form->addError("Neni mozne zmenit heslo!");
+                } 
+            }else{
+                    $form->addError("Neni mozne zmenit heslo!");
+            }            
             unset($values->code);
             unset($values->confirm_password);
-            $values->id = $form->getPresenter()->getUser()->getId();
             
+          //  dump($values); exit;
+            
+            $values->requesthash= ""; 
             $values->password = md5($values->password);
             $this->userManager->update($values);
         }
