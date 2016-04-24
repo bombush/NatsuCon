@@ -17,6 +17,7 @@ use Nette;
 class ProgramModel extends EntityModel {
 
     public $table = 'program';
+    const STATUS_APPROVED = 14;
     /**
      * @param null|string $sequence
      *
@@ -121,7 +122,7 @@ class ProgramModel extends EntityModel {
         return empty($res) ? ['minTimeFrom' => null , 'maxTimeFrom' => null] : $res[0];
     }
     
-    public function getProgramsList($sectionId = NULL, $typeId = NULL, $roomId = NULL ,$startTime = NULL, $endTime = NULL, $orderBy = "content.title"){
+    public function getProgramsList($sectionId = NULL, $typeId = NULL, $roomId = NULL ,$startTime = NULL, $endTime = NULL, $orderBy = "content.title", $statusId = self::STATUS_APPROVED){
          $stm = $this->getProgramsListFluent();
 
           if(isset($sectionId)){
@@ -144,6 +145,10 @@ class ProgramModel extends EntityModel {
            if(isset($endTime)){
               $endTimeTs = strtotime($endTime);
               $stm->where("UNIX_TIMESTAMP(program.end_time) >= $endTimeTs");
+          }
+          
+           if(isset($statusId)){
+              $stm->where("statusId = $statusId");
           }
           
           $stm->groupBy("content.id,attachment.id");

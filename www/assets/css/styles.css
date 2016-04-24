@@ -1091,7 +1091,9 @@ Wide styles
         padding: 0.5em 0em;
         position: fixed;
     }
-	.content { padding: 3em 4em; }
+	.content { padding: 3em 2em; max-width: 60em; margin: auto; }
+        
+        .
 
     .header-image {
         display: block;

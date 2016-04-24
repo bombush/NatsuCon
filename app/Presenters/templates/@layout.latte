@@ -59,7 +59,8 @@
         {control mainMenu}
        
         {if $presenter->name != "Homepage"}
-        <div class="content">
+      <div class="container">      
+       <div class="content"> 
 			<div class="container">
 				<!-- Flash messages -->
                                     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
@@ -69,7 +70,9 @@
                                         </div>
                                 
 			</div>
-                        </div>
+        </div>
+        </div>
+                                        
                 {else}
                     <div class="container">
                     {control paralax}
