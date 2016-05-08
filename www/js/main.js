@@ -307,6 +307,7 @@ $(function () {
         var $wrap = $('.program-grid');
         var columns = $wrap.find('tbody tr').find('td').length;
 
+        // expand grid row and load program edit form
         $wrap.on('click', 'tr.grid-row', function () {
                 var $programTr = $(this);
 
@@ -319,6 +320,8 @@ $(function () {
                 var $editTr = $('<tr class="js-program-form-row">');
                 var $editTd = $('<td>').attr('colspan', columns);
 
+
+                // load form
                 var $req = $.ajax({
                     method : 'GET',
                     data : {'program_id' : $programTr.data('id') },
@@ -338,7 +341,17 @@ $(function () {
                         .insertAfter($programTr)
                         .slideDown(2000);
 
-                    ProgramEditForm.init($form);
+                    function formSuccess() {
+                        var promise = reloadWithModifiers();
+                        promise.success(function () {
+                            $(html, body).animate({
+                                //@TODO: afterscroll
+                                //scrollTop: $programTr
+                            });
+                            $programTr;
+                        });
+                    }
+                    ProgramEditForm.init($form, formSuccess);
                 });
 
 
@@ -420,12 +433,17 @@ $(function () {
 
         function reloadWithModifiers()
         {
+            var defer = $.Deferred();
             $natsuGridWrap.find('form[name="source-modifiers"]')
                 .ajaxSubmit({
                     success: function (response) {
                         replaceCurrentGrid().with(findGrid(response));
+                        defer.resolve(true);
                     }
                 });
+
+            var promise = defer.promise();
+            return promise;
         }
 
         $natsuGridWrap.on('keyup', '.filters input', function(){
@@ -618,31 +636,59 @@ window.FormImageInput = new function(){
     }
 }
 
+/**
+ * ProgramEditForm - edit/add single program record
+ *
+ * init: ProgramEditForm.init($form, [onSuccess])
+ * attachEventHandlerOnSuccess: handler accepts arguments (HtmlElement|jQuery form, Object submitResponse)
+ *
+ * @type {{init, attachEventHandlerOnSuccess}}
+ */
 window.ProgramEditForm = (function(){
-    var _init = function(form) {
-        if($(form).prop('tagName').toLowerCase() != 'form')
-            throw new Error('The selected element is not a FORM');
 
-        var $form = $(form);
-        FormImageInput.init($form);
+    //handled onsuccess events
+    var _OnSuccess = {
+        ON_SUCCESS_ATTRIBUTE : 'programEditForm-onsuccess',
 
-        $form.on('submit', function (e) {
+        initOnSuccessArray : function (form) {
+            $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE, []);
+        },
+        attachEventHandlerOnSuccess : function (form, handler) {
+
+            $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE).push(handler);
+        },
+
+        callOnSuccessHandlers : function (form, arg) {
+            var onSuccessHandlers = $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE);
+            for (var i in onSuccessHandlers)
+                onSuccessHandlers[i]($(form), response);
+        }
+    };
+
+    var _OnSubmit = {
+        submitted : function(e) {
             e.preventDefault();
             $form.ajaxSubmit({
-                success: function(response) {
+                success: function (response) {
+                    // @TODO: desynchronize
                     var response = JSON.parse(response);
-                    if(response.success == true) {
-                        ProgramEditGrid.reload();
+                    if (response.success == true) {
                         $.magnificPopup.close();
+                        _OnSuccess.callOnSuccessHandlers($form, response);
+
                     } else {
                         alert('Neznámá chyba');
                     }
                 }
             });
-        });
+        }
+    };
+
+    var _initPeriodpicker = function(form){
+        var $form = $(form);
 
         $form.find('input.js-period-start').periodpicker({
-            norange : true,
+            norange: true,
             timepicker: true,
             showTimepickerInputs: true,
             timepickerOptions: {
@@ -684,6 +730,26 @@ window.ProgramEditForm = (function(){
         });
     }
 
+    /**
+     *
+     * @param form
+     * @param onSuccessHandler Callback accepting arguments (HtmlElement|jQuery form, Object submitResponse)
+     * @private
+     */
+    var _init = function(form, onSuccessHandler) {
+        if($(form).prop('tagName').toLowerCase() != 'form')
+            throw new Error('The selected element is not a FORM');
+
+        var $form = $(form);
+        _OnSuccess.initOnSuccessArray($form);
+        FormImageInput.init($form);
+        $form.on('submit', _OnSubmit.submitted);
+        _initPeriodpicker($form);
+
+        if(typeof(onSuccessHandler) != 'undefined')
+            _OnSuccess.attachEventHandlerOnSuccess($form, onSuccessHandler);
+    }
+
     return {
         init : _init
     }
@@ -707,7 +773,8 @@ window.DatePicker = new function(){
     }
 
     return {
-        init : _init
+        init : _init,
+        registerOnSuccess : _registerOnSuccess
     }
 }
 
