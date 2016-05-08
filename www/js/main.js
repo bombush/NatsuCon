@@ -178,7 +178,18 @@ function demoBasic() {
     });
 }
 
+/**
+ * Select file and open in overlay for editing
+ *
+ * @type {CroppieOverlay}
+ */
 CroppieOverlay = new function(){
+
+    // entity to return
+    var _CroppedImage = {
+        original : null,
+        cropped: null
+    }
 
     var _clear = function() {
         throw new Error('CroppieOverlay.clear not implemented');
@@ -226,6 +237,8 @@ CroppieOverlay = new function(){
     }
 
     var _openEditor = function(file, x, y) {
+        var resultObject = Object.create(CroppieOverlay.CroppedImage);
+
         var $croppieHtml = $('<div class="croppie_canvas"><div class="croppie-wrap"></div><a class="btn js-croppie-commit">Potvrdit</a></div>');
         var $croppieElement = $croppieHtml.find('.croppie-wrap');
         var $commitButton = $croppieHtml.find('.js-croppie-commit');
@@ -247,6 +260,8 @@ CroppieOverlay = new function(){
 
         var reader = new FileReader();
         reader.onload = function (e) {
+            resultObject.original = e.target.result;
+
             $uploadCrop.croppie('bind', {url: e.target.result});
         };
         reader.readAsDataURL(file);
@@ -263,7 +278,9 @@ CroppieOverlay = new function(){
                 size: 'viewport'
 
             }).then(function(base64){
-                deferred.resolve(base64);
+                resultObject.cropped = base64;
+
+                deferred.resolve(resultObject);
                 closePopupCallback();
             });
         });
@@ -287,10 +304,11 @@ CroppieOverlay = new function(){
             if (e.target.files.length == 0) {
                 _clear();
                 deferred.resolve();
+
             } else {
                 var promise = _openEditor(e.target.files[0], x, y);
-                promise.done(function(base64) {
-                    deferred.resolve(base64, filenameFromPath(e.target.value));
+                promise.done(function(resultObject) {
+                    deferred.resolve(resultObject, filenameFromPath(e.target.value));
                 });
             }
         })
@@ -299,7 +317,10 @@ CroppieOverlay = new function(){
         return promise
     };
 
-    return { open : _open};
+    return {
+        open : _open,
+        CroppedImage : _CroppedImage
+    };
 };
 
 $(function () {
@@ -366,35 +387,9 @@ $(function () {
 
         $wrap.on('click', '.js-new', function(event){
             event.preventDefault();
-
-            var req = $.ajax({
-                method : 'GET',
-                url : $(this).attr('href'),
-            });
-
-            req.done(function(resp) {
-                $overlayWrap = $('<div class="overlay-wrap"></div>');
-                $wrappedForm = $(resp).find('.program-edit-form-wrap');
-
-                $overlayWrap.append($wrappedForm);
-
-                $.magnificPopup.open({
-                    items: {
-                        src: $overlayWrap
-                    },
-                    callbacks : {
-                        'afterClose' : function(){
-                            $.magnificPopup.instance.content = null;
-                        }
-                    }
-                });
-                ProgramEditForm.init($wrappedForm.find('form'));
-                /*$wrappedForm.find('input[type="submit"]').click(function(){
-                    $(this).closest('form').submit();
-                });*/
-
-                //show in overlay
-            });
+            var loadUrl = $(this).attr('href');
+            var finishedPromise = OverlayManager.openProgramEditForm(loadUrl);
+            finishedPromise.always(ProgramEditGrid.reload);
         });
 
         var $grid = $('.program-grid');
@@ -437,7 +432,10 @@ $(function () {
             $natsuGridWrap.find('form[name="source-modifiers"]')
                 .ajaxSubmit({
                     success: function (response) {
-                        replaceCurrentGrid().with(findGrid(response));
+                        var newGrid = findGrid(response);
+                        replaceCurrentGrid().with(newGrid);
+                        ProgramEditGrid.init(newGrid);
+
                         defer.resolve(true);
                     }
                 });
@@ -587,7 +585,8 @@ window.FormImageInput = new function(){
                 $sizes = $triggerInput.data('size').split('x');
                 var imagePromise = CroppieOverlay.open($sizes[0], $sizes[1]);
 
-                imagePromise.done(function (b64Image, filename) {
+                imagePromise.done(function (resultObject, filename) {
+                    var b64Image = resultObject.cropped;
                     var newInput = _addBase64($form, $triggerInput, b64Image, filename);
 
                     $newImageInput = $triggerInput.clone();
@@ -620,7 +619,8 @@ window.FormImageInput = new function(){
                 $sizes = $triggerInput.data('size').split('x');
                 var imagePromise = CroppieOverlay.open($sizes[0], $sizes[1]);
 
-                imagePromise.done(function (b64Image) {
+                imagePromise.done(function (resultObject) {
+                    var b64Image = resultObject.cropped;
                     var newInput = _addBase64($form, $triggerInput, b64Image);
                     $triggerInput.find('img').remove();
                     $triggerInput.append(_base64ToImg(b64Image));
@@ -654,26 +654,30 @@ window.ProgramEditForm = (function(){
             $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE, []);
         },
         attachEventHandlerOnSuccess : function (form, handler) {
-
+            var onSuccessHandlers = $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE);
+            debugger;
             $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE).push(handler);
         },
 
-        callOnSuccessHandlers : function (form, arg) {
+        callOnSuccessHandlers : function (form, response) {
             var onSuccessHandlers = $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE);
+            debugger;
             for (var i in onSuccessHandlers)
                 onSuccessHandlers[i]($(form), response);
         }
     };
 
     var _OnSubmit = {
+        // form element on submit handler
         submitted : function(e) {
+            var $form = $(this);
+
             e.preventDefault();
             $form.ajaxSubmit({
                 success: function (response) {
                     // @TODO: desynchronize
                     var response = JSON.parse(response);
                     if (response.success == true) {
-                        $.magnificPopup.close();
                         _OnSuccess.callOnSuccessHandlers($form, response);
 
                     } else {
@@ -777,4 +781,46 @@ window.DatePicker = new function(){
         //registerOnSuccess : _registerOnSuccess
     }
 }
+
+window.OverlayManager = new function(){
+    var _close = function() {
+        $.magnificPopup.close();
+    };
+
+    var _openProgramEditForm = function(loadUrl, formSuccessCallback) {
+        var req = $.ajax({
+            method: 'GET',
+            url: loadUrl,
+        });
+
+        var formDeferred = $.Deferred();
+        req.done(function (resp) {
+            $overlayWrap = $('<div class="overlay-wrap"></div>');
+            $wrappedForm = $(resp).find('.program-edit-form-wrap');
+
+            $overlayWrap.append($wrappedForm);
+
+            $.magnificPopup.open({
+                items: {
+                    src: $overlayWrap
+                },
+                callbacks: {
+                    'afterClose': function () {
+                        $.magnificPopup.instance.content = null;
+                    }
+                }
+            });
+            ProgramEditForm.init($wrappedForm.find('form'), function(){
+                formDeferred.resolve();
+                _close();
+            });
+        });
+
+        return formDeferred.promise();
+    };
+
+    return {
+        openProgramEditForm : _openProgramEditForm
+    };
+};
 
