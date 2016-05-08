@@ -774,7 +774,7 @@ window.DatePicker = new function(){
 
     return {
         init : _init,
-        registerOnSuccess : _registerOnSuccess
+        //registerOnSuccess : _registerOnSuccess
     }
 }
 
