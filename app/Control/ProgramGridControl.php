@@ -103,8 +103,7 @@ class ProgramGridControl extends BaseControl
 
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME, 'timeFrom', 'Od-do' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME, 'timeTo', '' );
-        //$grid->setFilterDefault('timeFrom', $minMax['minTimeFrom']);
-        //$grid->setFilterDefault('timeTo', $minMax['maxTimeFrom']);
+
         $grid->setFilterDefault( 'timeFrom', $this->programStart->format( 'Y-m-d 00:00:00' ) );
         $grid->setFilterDefault( 'timeTo', $this->programEnd->format( 'Y-m-d 23:59:59' ) );
 
@@ -119,54 +118,6 @@ class ProgramGridControl extends BaseControl
 
 
         $grid->setDataSource($gridModel);
-
-        /*$grid = new Grid( $this, 'grid' );
-        $grid->setRowCallback(function($parm){
-            $row = Html::el('tr')->addAttributes(
-                [
-                    'class' => ['grid-row', 'grid-row-' . $parm->id],
-                    'data-id' => $parm->id
-            ]);
-            return $row;
-        });
-
-        $grid->setDefaultPerPage( 2000 );
-
-        $grid->setModel( $gridModel);
-        $data = $gridModel->fetchAll();
-        //$this->template->data = $data;
-        //$grid->setModel([['id' => 1 ]]);
-        $grid->addColumnText('id', 'ID');
-
-        $grid->addColumnText('contentTitle', 'Name')
-            ->setFilterText()
-                ->setWhere(function($value, $source) {
-                    $source->where('content.title')
-                        ->like('%s', '%' . $value . '%');
-            });
-        $grid->addColumnText('programGenre', 'Druh programu')
-            ->setFilterText();
-        $grid->addColumnText('roomTitle', 'Místnost')
-            ->setFilterText();
-        $grid->addColumnText('author', 'autor')
-            ->setSortable()
-            ->setFilterText();
-        $grid->addColumnDate('startTs', 'Začátek')
-            ->setCustomRender(
-                function ( $model ) {
-                    return $model->timeFrom->format( 'H:i' );
-                }
-            )
-            ->setFilterDate();
-        $grid->addColumnText('programDay', 'Den')
-            ->setCustomRender(function($model) {
-                return $model->timeFrom->format('l');
-            })
-            ->setFilterText()
-                ->setWhere(function($value, $source) {
-                    $source->where('content.title')
-                        ->like('%s', '%' . $value . '%');
-            });*/
 
 
         return $grid;
