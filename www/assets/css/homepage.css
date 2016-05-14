@@ -247,7 +247,7 @@ li .whitespace {
      .mapa-mobile {display: block;}
      .left-scr .sub-nav .nav, .right-scr .sub-nav .nav{line-height: 1.12em;}
      
-    .ill_01 .left-scr {width:0; visibility: hidden;}
+    .ill_01 .left-scr { display:none;}
     .ill_01 .right-scr {margin-left: 0;margin: 0.25em.5em;}
     .ill_01 .right-scr p{text-align: left;}
     .ill_01 .right-scr .center{text-align: center;}
