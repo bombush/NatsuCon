@@ -59,7 +59,7 @@
         {control mainMenu}
        
         {if $presenter->name != "Homepage"}
-      <div class="container">      
+
        <div class="content"> 
 			<div class="container">
 				<!-- Flash messages -->
@@ -71,11 +71,13 @@
                                 
 			</div>
         </div>
-        </div>
                                         
                 {else}
+                    
+                    <div class="content">
                     <div class="container">
                     {control paralax}
+                    </div>
                     </div>
                 {/if}    
 		<div class="footer">

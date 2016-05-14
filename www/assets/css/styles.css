@@ -1,4 +1,4 @@
-@import "//fonts.googleapis.com/css?family=Bangers";
+@import "//fonts.googleapis.com/css?family=Orbitron:500,700";
 /* -----------------------
 Base styles
 ------------------------*/
@@ -766,15 +766,16 @@ a.btn-trans {
 
 .time-to {
   text-align: center;
-  font-family: Bangers;
+  font-family: Orbitron;
   color: #4284B0;
   font-size: 2em;
   letter-spacing: 2px;
 }
 .time-to span {
   display: block;
-  font-size:2.5em;
-  color: #e60000;
+  font-weight: bold;
+  font-size:1.8em;
+  color: #4284B0;
 }
 
 
