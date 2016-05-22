@@ -1,27 +1,31 @@
 {block content}
    
     {if $programs}
-   
-        
-     <div class="program-header">   
-        {if $mainImage}
-            <div class="program-image" ><img class="img-responsive" src="{$baseUri}{$mainImage}"/></div>
-        {/if}    
-        <div class="program-title">{$content->title}</div>
-        <div class="program-author">{$content->author}</div>
-     </div>
-     {var $program = $programs[0]}
-     <div class="program-time-place">
-         <div class="div-left"><span class="fa {$program->typeIcon}"></span>&nbsp; <strong>{$program->type}</strong> {if !empty($program->genre) && $program->genre != $program->type}({$program->genre}){/if}</div> 
-         <div class="div-right">
-             {foreach $programs as $slot}
-             <div><span class="fa fa-clock-o"></span> <strong> {$slot->roomTitle} - {$slot->timeFrom|date:'D'}    {$slot->timeFrom|date:'G:i'} - {$slot->timeTo|date:'G:i'} {if $slot->reprise} (repríza){/if}</strong></div>
-             {/foreach}
-             
-         </div> 
-                   
-     </div> 
-   
+        {var $program = $programs[0]}
+
+        <div class="js-program-info">
+             <div class="program-header">
+                {if $mainImage}
+                    <div class="program-image" ><img class="img-responsive" src="{$baseUri}{$mainImage}"/></div>
+                {/if}
+                <div class="program-title">{$content->title} <a href="javascript:void(0);"
+                                                                 class="js-overlay-programEdit fa fa-edit program-edit-btn"
+                                                                 data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
+                                                                data-overlay-reload-selector=".main"></a>
+                </div>
+                <div class="program-author">{$content->author}</div>
+             </div>
+             <div class="program-time-place">
+                 <div class="div-left"><span class="fa {$program->typeIcon}"></span>&nbsp; <strong>{$program->type}</strong> {if !empty($program->genre) && $program->genre != $program->type}({$program->genre}){/if}</div>
+                 <div class="div-right">
+                     {foreach $programs as $slot}
+                     <div><span class="fa fa-clock-o"></span> <strong> {$slot->roomTitle} - {$slot->timeFrom|date:'D'}    {$slot->timeFrom|date:'G:i'} - {$slot->timeTo|date:'G:i'} {if $slot->reprise} (repríza){/if}</strong></div>
+                     {/foreach}
+
+                 </div>
+
+             </div>
+        </div>
                    
 
              {/if} 
