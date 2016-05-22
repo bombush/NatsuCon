@@ -655,13 +655,11 @@ window.ProgramEditForm = (function(){
         },
         attachEventHandlerOnSuccess : function (form, handler) {
             var onSuccessHandlers = $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE);
-            debugger;
             $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE).push(handler);
         },
 
         callOnSuccessHandlers : function (form, response) {
             var onSuccessHandlers = $(form).data(_OnSuccess.ON_SUCCESS_ATTRIBUTE);
-            debugger;
             for (var i in onSuccessHandlers)
                 onSuccessHandlers[i]($(form), response);
         }
@@ -723,7 +721,7 @@ window.ProgramEditForm = (function(){
                 hours: true,
                 minutes: true,
                 seconds: false,
-                ampm: true
+                ampm: false
             },
             //formatDate: 'DD.MM.YYYY',
             cells: [1, 1],
@@ -787,7 +785,7 @@ window.OverlayManager = new function(){
         $.magnificPopup.close();
     };
 
-    var _openProgramEditForm = function(loadUrl, formSuccessCallback) {
+    var _openProgramEditForm = function(loadUrl) {
         var req = $.ajax({
             method: 'GET',
             url: loadUrl,
@@ -824,3 +822,23 @@ window.OverlayManager = new function(){
     };
 };
 
+// onload
+$(function(){
+    $(document).on('click', '.js-overlay-conflict',
+        function(e){
+            var target = e.target;
+            OverlayManager.openProgramEditForm(
+                $(target).data('overlay-load-url')
+            )
+            .then(function () {
+                var reloadSelector = $(target).data('overlay-reload-selector')
+                if(reloadSelector) {
+                    $.ajax({url: document.URL})
+                        .then(function (result) {
+                            $(reloadSelector).replaceWith($(result).find(reloadSelector));
+                        });
+                }
+            });
+        }
+    );
+});
