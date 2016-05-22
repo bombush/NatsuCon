@@ -824,21 +824,22 @@ window.OverlayManager = new function(){
 
 // onload
 $(function(){
-    $(document).on('click', '.js-overlay-conflict',
-        function(e){
-            var target = e.target;
-            OverlayManager.openProgramEditForm(
-                $(target).data('overlay-load-url')
-            )
-            .then(function () {
-                var reloadSelector = $(target).data('overlay-reload-selector')
-                if(reloadSelector) {
-                    $.ajax({url: document.URL})
-                        .then(function (result) {
-                            $(reloadSelector).replaceWith($(result).find(reloadSelector));
-                        });
-                }
-            });
-        }
-    );
+    $(document)
+        .on('click', '.js-overlay-programEdit',
+            function(e){
+                var target = e.target;
+                OverlayManager.openProgramEditForm(
+                    $(target).data('overlay-load-url')
+                )
+                .then(function () {
+                    var reloadSelector = $(target).data('overlay-reload-selector')
+                    if(reloadSelector) {
+                        $.ajax({url: document.URL})
+                            .then(function (result) {
+                                $(reloadSelector).replaceWith($(result).find(reloadSelector));
+                            });
+                    }
+                });
+            }
+        )
 });

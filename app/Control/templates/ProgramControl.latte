@@ -38,7 +38,7 @@
                          {foreach $map[$actualRoom][$actualSlot] as $programId}
                               {var $errorProgram = $programs[$programId]}
                               <a href="javascript:void(0)"
-                                 class="js-overlay-conflict"
+                                 class="js-overlay-programEdit"
                                  data-overlay-load-url="{plink Program:edit program_id=>$programId}"
                                  data-overlay-reload-selector=".program-table">
                                   {$errorProgram->title}[{$errorProgram->id}]
@@ -47,7 +47,7 @@
                            {/foreach}   
                          </td>
                       {elseif isset($ttRoom[$actualSlot]) && count($ttRoom[$actualSlot]) > 1}
-                          <td class="pr-slot conflict .js-overlay-conflict" data-overlay-load-url="{plink Program:edit program_id=>$program->id}" {if $program->length > 1} rowspan="{$program->length}"{/if}>
+                          <td class="pr-slot conflict .js-overlay-programEdit" data-overlay-load-url="{plink Program:edit program_id=>$program->id}" {if $program->length > 1} rowspan="{$program->length}"{/if}>
                             <strong>!!!Konflikt!!!</strong>
                           {foreach $ttRoom[$actualSlot] as $program}
                              <a href="javascript:void(0);"
