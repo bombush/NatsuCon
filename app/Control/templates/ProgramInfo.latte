@@ -8,10 +8,14 @@
                 {if $mainImage}
                     <div class="program-image" ><img class="img-responsive" src="{$baseUri}{$mainImage}"/></div>
                 {/if}
-                <div class="program-title">{$content->title} <a href="javascript:void(0);"
-                                                                 class="js-overlay-programEdit fa fa-edit program-edit-btn"
-                                                                 data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
-                                                                data-overlay-reload-selector=".main"></a>
+                <div class="program-title">
+                    {$content->title}
+                    {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2)}
+                        <a href="javascript:void(0);"
+                          class="js-overlay-programEdit fa fa-edit program-edit-btn"
+                          data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
+                          data-overlay-reload-selector=".main"></a>
+                    {/if}
                 </div>
                 <div class="program-author">{$content->author}</div>
              </div>

@@ -101,8 +101,8 @@ class ProgramEditFormControl extends BaseControl
         $this->template->normalThumbWidth = $normalThumbWidth;
         $this->template->normalThumbHeight = $normalThumbHeight;
 
-        $this->template->normalFullSize = ImageAttachment::FULL;
-        $this->template->headImageFullSize = MainimageAttachment::FULL;
+        $this->template->normalFullSize = ImageAttachment::THUMB_PROTOTYPE;
+        $this->template->headImageFullSize = MainimageAttachment::THUMB_PROTOTYPE;
 
         $this->template->defaultTimeFrom = $this->timeFrom;
         $this->template->defaultTimeTo = $this->timeTo;
@@ -272,19 +272,24 @@ class ProgramEditFormControl extends BaseControl
 
     protected function resolveAddAttachments(EntityModel $modelAttachment, array $actions, $contentId) {
         foreach($actions as $uploadName) {
-            $image = $_POST[$uploadName];
-
-            $filename = $_POST[$uploadName . '_meta']['filename'];
-            $row = [
-                'contentId' => $contentId,
-                'file'      => ImageBase64Upload::saveTmp( $image, $filename )
-            ];
-
             $metaUploadName = $uploadName . '_meta';
             if ( !isset( $_POST[ $metaUploadName ] ) || !is_array( $_POST[ $metaUploadName ] ) )
                 throw new \Exception( 'Upload is missing meta inputs' );
             $meta = $_POST[ $metaUploadName ];
             $mime = $meta[ 'mime' ];
+
+            $filename = $_POST[ $uploadName . '_meta' ][ 'filename' ];
+
+            $thumbPrototypeB64 = $_POST[ $uploadName . '_thumbPrototype' ];
+            $thumbPrototype = ImageBase64Upload::saveTmp( $thumbPrototypeB64, 'thumbPrototype_' . $filename );
+            $fullImageB64 = $_POST[ $uploadName ];
+            //if headimage, use thumb prototype as full size image
+            $fullImage = ($mime == 'HEADIMAGE' ? ImageBase64Upload::saveTmp($thumbPrototypeB64, $filename) : ImageBase64Upload::saveTmp($fullImageB64, $filename));
+
+            $row = [
+                'contentId' => $contentId,
+                'file'      => $fullImage
+            ];
 
 
             if ( $mime == 'IMAGE' )
@@ -295,7 +300,9 @@ class ProgramEditFormControl extends BaseControl
                 throw new \Exception( 'Unknown mime: ' . $mime );
 
             $attachment->setRow( ArrayHash::from( $row ) );
+            $attachment->setThumbPrototypeFullPath($thumbPrototype->getFullTmpFilePath());
             $url = $attachment->create();
+            $thumbPrototype->unlink();
 
 
             $attachmentData = [

@@ -37,7 +37,7 @@
                           <strong>!!!Konflikt!!!</strong>
                          {foreach $map[$actualRoom][$actualSlot] as $programId}
                               {var $errorProgram = $programs[$programId]}
-                              <a href="javascript:void(0)"
+                              <a href="{if !empty($errorProgram->url)}{$baseUrl}/{$errorProgram->url}{else}{$basePath}/content/view/{$errorProgram->contentId}{/if}"
                                  class="js-overlay-programEdit"
                                  data-overlay-load-url="{plink Program:edit program_id=>$programId}"
                                  data-overlay-reload-selector=".program-table">
@@ -50,12 +50,13 @@
                           <td class="pr-slot conflict .js-overlay-programEdit" data-overlay-load-url="{plink Program:edit program_id=>$program->id}" {if $program->length > 1} rowspan="{$program->length}"{/if}>
                             <strong>!!!Konflikt!!!</strong>
                           {foreach $ttRoom[$actualSlot] as $program}
-                             <a href="javascript:void(0);"
+                             <a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}"
                                 class="js-overlay-conflict"
                                 data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
                                 data-overlay-reload-selector=".program-table">
                                  {$program->title} [{$program->id}]
-                             </a><br/>
+                             </a>
+                              <br/>
                            {/foreach}   
                           </td>
                       {elseif isset($ttRoom[$actualSlot])}
@@ -64,7 +65,18 @@
                             <div>
                               
                                 {dump $ttRoom}
-                                <p><a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}">  <strong>{$program->title} </strong></a><span class="fa {$program->typeIcon}" title="{$program->programType}" ></span></p>  
+                                <p>
+                                    <a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}">
+                                        <strong>{$program->title} </strong>
+                                    </a>
+                                    <span class="fa {$program->typeIcon}" title="{$program->programType}" ></span>
+                                   {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2)}
+                                       <a href="javascript:void(0);"
+                                          class="js-overlay-programEdit fa fa-edit program-edit-btn"
+                                          data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
+                                          data-overlay-reload-selector=".program-table"></a>
+                                   {/if}
+                                </p>
                               <p><cite>{$program->author}</cite></p>
                           </div>
                           </td> 

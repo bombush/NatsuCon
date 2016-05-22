@@ -364,7 +364,7 @@ $(function () {
 
                     function formSuccess() {
                         var promise = reloadWithModifiers();
-                        promise.success(function () {
+                        promise.done(function () {
                             $(html, body).animate({
                                 //@TODO: afterscroll
                                 //scrollTop: $programTr
@@ -434,7 +434,7 @@ $(function () {
                     success: function (response) {
                         var newGrid = findGrid(response);
                         replaceCurrentGrid().with(newGrid);
-                        ProgramEditGrid.init(newGrid);
+                        //ProgramEditGrid.init(newGrid);
 
                         defer.resolve(true);
                     }
@@ -537,11 +537,17 @@ window.FormImageInput = new function(){
         $filenameInput.val(filename);
 
         return [$mimeInput[0], $filenameInput[0]];
-    }
+    };
+
+    var _createThumbPrototypeInput = function(newInput, resultObject){
+        var $input = $('<input type="hidden" name="' + $(newInput).attr('name') + '_thumbPrototype">')
+
+        return $input;
+    };
 
     var _addToForm = function (form, input) {
         $(form).append(input);
-    }
+    };
 
     var _base64ToImg = function(base64) {
         var img = document.createElement('img');
@@ -557,7 +563,7 @@ window.FormImageInput = new function(){
         return actionInput;
     }
 
-    var _addBase64 = function(form, triggerInput, b64Image, filename) {
+    var _addBase64 = function(form, triggerInput, resultObject, filename) {
         var $form = $(form);
         var $triggerInput = $(triggerInput);
 
@@ -565,7 +571,12 @@ window.FormImageInput = new function(){
         $newInput = $newInput
             .hide()
             .appendTo($form)
-            .val(b64Image);
+            .val(resultObject.original);
+
+        var $thumbPrototypeInput = $(_createThumbPrototypeInput($newInput));
+        $thumbPrototypeInput.hide().appendTo($form).val(resultObject.cropped);
+
+        //var $newFullInput = $();
 
         var metaInputs = _createMetaInputs($newInput, $triggerInput, filename);
         metaInputs.forEach(_addToForm.bind(null, $form));
@@ -586,12 +597,12 @@ window.FormImageInput = new function(){
                 var imagePromise = CroppieOverlay.open($sizes[0], $sizes[1]);
 
                 imagePromise.done(function (resultObject, filename) {
-                    var b64Image = resultObject.cropped;
-                    var newInput = _addBase64($form, $triggerInput, b64Image, filename);
+                    var thumbPrototype = resultObject.cropped;
+                    var newInput = _addBase64($form, $triggerInput, resultObject, filename);
 
                     $newImageInput = $triggerInput.clone();
                     $newImageInput.find('img').remove();
-                    $newImageInput.append(_base64ToImg(b64Image));
+                    $newImageInput.append(_base64ToImg(thumbPrototype));
                     $newImageInput.insertBefore($triggerInput);
 
                     $newImageInput.attr('data-action', 'none');
@@ -620,10 +631,10 @@ window.FormImageInput = new function(){
                 var imagePromise = CroppieOverlay.open($sizes[0], $sizes[1]);
 
                 imagePromise.done(function (resultObject) {
-                    var b64Image = resultObject.cropped;
-                    var newInput = _addBase64($form, $triggerInput, b64Image);
+                    var thumbPrototype = resultObject.cropped;
+                    var newInput = _addBase64($form, $triggerInput, resultObject);
                     $triggerInput.find('img').remove();
-                    $triggerInput.append(_base64ToImg(b64Image));
+                    $triggerInput.append(_base64ToImg(thumbPrototype));
                     _addAction(form, 'edit', $triggerInput.data('attachment-id') + ":" + $(newInput).attr('name'));
                 });
             }
@@ -828,6 +839,9 @@ $(function(){
         .on('click', '.js-overlay-programEdit',
             function(e){
                 var target = e.target;
+                e.preventDefault();
+                e.stopPropagation();
+
                 OverlayManager.openProgramEditForm(
                     $(target).data('overlay-load-url')
                 )

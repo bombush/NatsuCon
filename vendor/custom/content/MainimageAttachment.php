@@ -18,7 +18,7 @@ class MainimageAttachment extends ImageAttachment {
     const THUMB_SMALL = "300x50";
   // const THUMB_LIST= "200x200";
 
-    const FULL = '1200x200';
+    const THUMB_PROTOTYPE = '1200x200'; // used as full size image
 
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';

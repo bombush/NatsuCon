@@ -70,6 +70,22 @@ class ImageBase64Upload
     {
         return $this->filename;
     }
+
+    public function getFullTmpFilePath()
+    {
+        return $this->fullTmpFilePath;
+    }
+
+    public function unlink()
+    {
+        if(!$this->getFullTmpFilePath())
+            throw new Base64UploadException('No full tmp path to unlink');
+
+        $unlinkOk = unlink( $this->getFullTmpFilePath());
+
+        if(!$unlinkOk)
+            throw new Base64UploadException('Unlink failed: ' . error_get_last());
+    }
 }
 
 class Base64UploadException extends \Exception {}

@@ -19,16 +19,18 @@ class ImageAttachment {
     //put your code here
     protected $_row;
 
-    const THUMB_SMALL = "200x200";
-    const THUMB_LIST = "400x400";
-    const FULL = '650x650';
+    const THUMB_SMALL     = "200x200";
+    const THUMB_LIST      = "400x400";
+    const THUMB_PROTOTYPE = '650x650';
 
     const IMAGE_DIR = 'images/uploaded/attachment/';
     const THUMB_DIR = 'thumbs/';
 
     public $smallFile;
     public $listFile;
+    public $thumbPrototypeFullPath;
     public $originalFile;
+
     private $basePath;
 
     public function setRow($row) {
@@ -62,7 +64,11 @@ class ImageAttachment {
     public function saveThumbs(){
         $filename = $this->generateFinalFilename();
         $originalFile = self::IMAGE_DIR.$filename;
-        $this->createThumb($originalFile);
+
+        if(NULL !== $this->thumbPrototypeFullPath)
+            $this->createThumb($this->thumbPrototypeFullPath);
+        else
+            $this->createThumb($originalFile);
         
     }
 
@@ -71,7 +77,7 @@ class ImageAttachment {
     }
     
     public function createThumb($filename){
-        
+
         $image =  \Nette\Utils\Image::fromFile($filename);
         $this->thumbResize($image, self::THUMB_LIST);
         $this->thumbResize($image, self::THUMB_SMALL);
@@ -120,6 +126,13 @@ class ImageAttachment {
             // echo "ko";
             $this->{$fileType} = NULL;
         }
+    }
+
+    /**
+     * @param string $thumbPrototypeFile path to file
+     */
+    public function setThumbPrototypeFullPath($thumbPrototypeFullPath) {
+        $this->thumbPrototypeFullPath = $thumbPrototypeFullPath;
     }
 
 }
