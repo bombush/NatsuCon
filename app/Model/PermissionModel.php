@@ -223,7 +223,7 @@ class PermissionModel extends EntityModel {
 
         /*$this->database
             ->insert($this->tableName, $values)
-            ->query();*/ //<---- WHY WON'T THIS WORK????
+            ->query();*/ // @TODO <---- WHY WON'T THIS WORK????
         $this->database->query( "INSERT INTO [" . $this->tableName . "]", $values );
 
         return $this->database->getInsertId();

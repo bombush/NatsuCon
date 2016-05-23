@@ -30,6 +30,17 @@ class RouteModel extends EntityModel {
             $this->insert($this->newRoute($contentId, $url));
         }
     }
+
+    public function createRouteProgram( $contentId, $sectionId, $pageTitle )
+    {
+        $url = 'program/' . $sectionId . '/' . \Nette\Utils\Strings::webalize( substr( $pageTitle, 0, 50 ) );
+        $route = $this->getRoute( $contentId );
+        if ( !$route ) {
+            $this->setTable( $this->tableName );
+            $url = $this->getUnique( $contentId, $url );
+            $this->insert( $this->newRoute( $contentId, $url ) );
+        }
+    }
     
     public function updateRoute($contentId, $routeUrl){
         

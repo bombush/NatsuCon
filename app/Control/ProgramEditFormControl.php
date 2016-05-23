@@ -14,6 +14,7 @@ use Natsu\Model\EntityModel;
 use Natsu\Model\Exception;
 use Natsu\Model\PermissionModel;
 use Natsu\Model\ProgramModel;
+use Natsu\Model\RouteModel;
 use Nette\Application\UI\Form;
 use Nette\NotImplementedException;
 use Nette\Utils\ArrayHash;
@@ -434,6 +435,9 @@ class ProgramEditFormControl extends BaseControl
             ];
             $permissionModel->insert($permissionValues);
 
+
+            $routeModel = $this->em->reflection('Route');
+            $routeModel->createRouteProgram($contentId, $this->sectionId, $values['contentTitle']);
 
             $programValues = [
                 'typeId'    => $values[ 'typeId' ],
