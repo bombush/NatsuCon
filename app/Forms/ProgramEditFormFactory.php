@@ -56,7 +56,7 @@ class ProgramEditFormFactory extends \Nette\Object
         //$from
         $form = new ProgramEditFormControl($sectionId);
         $form->setDefaultTimeFrom( $this->context->getParameters()[ 'programStart' ] );
-        $form->setDefaultTimeTo( $this->context->getParameters()[ 'programEnd' ] );
+        $form->setDefaultTimeTo( $this->context->getParameters()[ 'programStart' ] );
         $form->setProgramId($this->programId);
         $form->setEm($programModel, $this->em);
 
