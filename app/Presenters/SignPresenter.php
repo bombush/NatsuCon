@@ -155,26 +155,44 @@ class SignPresenter extends BasePresenter {
 
     public function actionGoogle() {
         $client_id = '889446373278-48us44fdiupdpadch01o1hvrpeu5nffn.apps.googleusercontent.com';
-        $client_secret = 'Xqg4shO2IaYqOdvj2p6kMrV2 ';
+        $client_secret = 'xJssYZ7os_QnLOVYYJiRMke1';
         $redirect_uri = 'http://www.natsucon.cz/sign/google';
+        
+        @session_start();
 
         $client = new \Google_Client();
         $client->setClientId($client_id);
         $client->setClientSecret($client_secret);
         $client->setRedirectUri($redirect_uri);
         $client->addScope("email");
-        $client->addScope("profile");
+      //  $client->addScope("profile");
+        
+       
+      //  exit;
 
         $service = new \Google_Service_Oauth2($client);
         if (isset($_GET['code'])) {
+            
+        
+            try{
             $client->authenticate($_GET['code']);
+            }catch(\Exception $e){
+                echo $e->getMessage();
+                exit;
+                
+            }
             $_SESSION['access_token'] = $client->getAccessToken();
+            
+          //  echo $client->getAccessToken();exit;
+            
             header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
             exit;
+            
         }
 
 //if we have access_token continue, or else get login URL for user
         if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
+            
             $client->setAccessToken($_SESSION['access_token']);
         } else {
             $authUrl = $client->createAuthUrl();
@@ -184,8 +202,10 @@ class SignPresenter extends BasePresenter {
             $this->redirectUrl($authUrl);
         } else {
             $user = $service->userinfo->get();
-            print_R($user);
-            exit;
+            $email = $user->getEmail();
+            $this->user->login($email, "**********GoogleApproved*************");
+            $this->flashMessage("Logged via Google");
+            $this->redirect("Homepage:");
         }
     }
 

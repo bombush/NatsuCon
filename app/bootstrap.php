@@ -7,8 +7,8 @@ use RadekDostal\NetteComponents\DateTimePicker\DatePicker;
 
 $configurator = new Nette\Configurator;
 
-//$configurator->setDebugMode('23.75.345.200'); // enable for your remote IP
-$configurator->setDebugMode(array());
+$configurator->setDebugMode('23.75.345.200'); // enable for your remote IP
+//$configurator->setDebugMode(array());
 $configurator->enableDebugger(__DIR__ . '/../log');
 
 $configurator->setTempDirectory(__DIR__ . '/../temp');
