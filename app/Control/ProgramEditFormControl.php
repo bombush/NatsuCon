@@ -12,6 +12,7 @@ use Custom\Content\ImageAttachment;
 use Natsu\Forms\BaseForm;
 use Natsu\Model\EntityModel;
 use Natsu\Model\Exception;
+use Natsu\Model\PermissionModel;
 use Natsu\Model\ProgramModel;
 use Nette\Application\UI\Form;
 use Nette\NotImplementedException;
@@ -124,7 +125,7 @@ class ProgramEditFormControl extends BaseControl
         $form->addSelect( 'typeId', 'Druh programu', $this->programModel->getTypesPairs() );
         $form->addSelect('genreId', 'Sekce', $this->programModel->getGenresPairs());
         $form->addSelect( 'roomId', 'Místnost', $this->programModel->getRoomsPairs( '1,2,3,4,5' ) );
-      
+
         $form->addText( 'author', 'Autor' );
         $form->addTextArea( 'contentText', 'Anotace' );//anotace
 
@@ -356,11 +357,11 @@ class ProgramEditFormControl extends BaseControl
 
             $this->programModel->update( ArrayHash::from( $programValues ) );
             $this->programModel->log($this->getParent()->getUser()->getId(), ['entity' => 'program', 'entityId' => $values['id'], 'column' => 'UPDATE', 'value' => 'OK']);
-             
+
 
             $contentId = $this->getFormDefaults()[ 'contentId' ];
             $contentModel = $this->em->reflection( 'Content' );
-           
+
             $contentValues = [
                 'id'   => (int)$contentId,
                 'text' => $values[ 'contentText' ],
@@ -401,11 +402,11 @@ class ProgramEditFormControl extends BaseControl
             ];
             $contentId = $contentModel->insertContent( ArrayHash::from( $contentValues ) );
             $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'content', 'entityId' => $contentId, 'column' => 'INSERT', 'value' => 'OK']);
-            
+
             $routeModel = $this->em->reflection('Route');
             $routeModel->createRoute($contentId, $values[ 'contentTitle' ], 'program/'.$this->sectionId."/");
             $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'route', 'entityId' => $contentId, 'column' => 'INSERT', 'value' => 'OK']);
-            
+
 
             $permissionModel = $this->em->reflection('Permission');
             $permissionModel->setTable("permission");
@@ -416,7 +417,7 @@ class ProgramEditFormControl extends BaseControl
                 'contentId' => $contentId
             ];
             $permissionModel->insert($permissionValues);
-            
+
             $permissionValues = [
                 'roleId' => \Natsu\Model\PermissionModel::EDITOR_ROLE,
                 'writable' => 1,
@@ -424,7 +425,7 @@ class ProgramEditFormControl extends BaseControl
                 'contentId' => $contentId
             ];
             $permissionModel->insert($permissionValues);
-            
+
             $permissionValues = [
                 'roleId' => \Natsu\Model\PermissionModel::SUPERVISOR_ROLE,
                 'writable' => 1,
@@ -432,7 +433,7 @@ class ProgramEditFormControl extends BaseControl
                 'contentId' => $contentId
             ];
             $permissionModel->insert($permissionValues);
-            
+
 
             $programValues = [
                 'typeId'    => $values[ 'typeId' ],
@@ -440,7 +441,7 @@ class ProgramEditFormControl extends BaseControl
                 'roomId'    => $values[ 'roomId' ],
                 'timeFrom'  => $values[ 'timeFrom' ],
                 'timeTo'    => $values[ 'timeTo' ],
-                
+
                 'statusId' => 14,
                 'contentId' => $contentId,
                 'sectionId' => $this->sectionId
@@ -448,9 +449,10 @@ class ProgramEditFormControl extends BaseControl
 
             $programId = $this->programModel->insert( $programValues );
             $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'program', 'entityId' => $programId, 'column' => 'INSERT', 'value' => 'OK']);
+
         } catch (\Exception $e) {
             $this->em->rollback();
-            echo $e->getMessage(); exit;    
+            echo $e->getMessage(); exit;
 
             return FALSE;
         }

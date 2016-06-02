@@ -197,7 +197,36 @@ class PermissionModel extends EntityModel {
         }
         
         return $o;
-        
+    }
+
+    /**
+     * @param $contentId
+     * @param $userId
+     * @param $roleId
+     * @param $writable
+     * @param $deletable
+     * @param $forbidden
+     *
+     * @return int
+     * @throws \DibiException
+     */
+    public function addPermission($contentId, $userId, $roleId, $writable, $deletable, $forbidden)
+    {
+        $values = [
+            'contentId' => intval($contentId),
+            'userId' => intval($userId),
+            'roleId' => intval($roleId),
+            'writable' => intval($writable),
+            'deletable' => intval($deletable),
+            'forbidden' => intval($forbidden)
+        ];
+
+        /*$this->database
+            ->insert($this->tableName, $values)
+            ->query();*/ //<---- WHY WON'T THIS WORK????
+        $this->database->query( "INSERT INTO [" . $this->tableName . "]", $values );
+
+        return $this->database->getInsertId();
     }
 
 }
