@@ -31,9 +31,6 @@ class ContentModel extends EntityModel {
         $this->deletePrograms($contentId);
         $this->deletePermissions($contentId);
         $this->delete($contentId);
-        
-        
-        
     }
     
     public function deleteAttachment($id){

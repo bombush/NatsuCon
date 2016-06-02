@@ -41,7 +41,10 @@ class ProgramPresenter extends BasePresenter {
         }
         
     }
-    
+
+    /**
+     * @TODO: make this a tiny bit more obvious
+     */
     public function actionEdit()
     {
 
