@@ -128,7 +128,8 @@ class ProgramEditFormControl extends BaseControl
         $form->addSelect( 'roomId', 'Místnost', $this->programModel->getRoomsPairs( '1,2,3,4,5' ) );
 
         $form->addText( 'author', 'Autor' );
-        $form->addTextArea( 'contentText', 'Anotace' );//anotace
+        $form->addTextArea( 'contentText', 'Anotace' )
+            ->setAttribute('class','wysiwyg');//anotace
 
         $timeFromInput = $form->addText( 'timeFrom', 'Začátek' );
         $timeFromInput->getControlPrototype()->addAttributes(['class' => 'js-period-start', 'data' => ['timeFrom' => $this->timeFrom->format('Y-m-d H:i:s') ]]);
@@ -138,6 +139,8 @@ class ProgramEditFormControl extends BaseControl
         $timeToInput->getControlPrototype()->addAttributes( [ 'class' => 'js-period-end', 'data' => [ 'timeTo' => $this->timeTo->format( 'Y-m-d H:i:s' ) ] ] );
         $timeToInput->setDefaultValue( $this->timeTo->format( 'Y-m-d H:i:s' ));
 
+        $form->addCheckbox('isDraft','Draft')
+            ->setDefaultValue(TRUE);
 
         $form->addSubmit('submit', 'Odeslat')
             ->getControlPrototype()->addAttributes(['class' => 'btn']);
@@ -393,6 +396,12 @@ class ProgramEditFormControl extends BaseControl
         try {
             $contentModel = $this->em->reflection( 'Content' );
             $contentValues = [
+                'userId' => $this->presenter->getUser()->getId(),
+                'sectionId' => $this->sectionId,
+                'isDraft' => $values['isDraft'],
+                'isNews' => 0,
+                'isSticky' => 0,
+
                 'text'      => $values[ 'contentText' ],
                 'pageTitle' => $values[ 'contentTitle' ],
                 'title'     => $values[ 'contentTitle' ],

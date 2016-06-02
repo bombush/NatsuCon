@@ -2,16 +2,8 @@ $(function(){
 
 
     if($(".wysiwyg").length > 0){
-    tinyMCE.init({
-    selector: ".wysiwyg",
-    entity_encoding: "raw",
-    plugins: "code,image,link,media,table,imagetools,visualchars,autoresize",
-    relative_urls: false,
-    file_browser_callback: function(field_name, url, type, win) {
-        if(type=='image') $('#my_form input').click();
+        initTinyMce();
     }
-    });
-}
     
 
 
@@ -133,6 +125,24 @@ $(function(){
         }]);
 }.call(this));
 
+var initTinyMce = (function() {
+    var inited = false;
+
+    return function() {
+        if(!inited) {
+            tinyMCE.init({
+                selector: "textarea",
+                entity_encoding: "raw",
+                plugins: "code,image,link,media,table,imagetools,visualchars,autoresize",
+                relative_urls: false,
+                file_browser_callback: function (field_name, url, type, win) {
+                    if (type == 'image') $('#my_form input').click();
+                }
+            });
+            inited = true;
+        }
+    }
+})();
 
 function readFile(input) {
         if (input.files && input.files[0]) {
@@ -365,11 +375,11 @@ $(function () {
                     function formSuccess() {
                         var promise = reloadWithModifiers();
                         promise.done(function () {
-                            $(html, body).animate({
+                            /*$(html, body).animate({
                                 //@TODO: afterscroll
                                 //scrollTop: $programTr
                             });
-                            $programTr;
+                            $programTr;*/
                         });
                     }
                     ProgramEditForm.init($form, formSuccess);
@@ -657,6 +667,14 @@ window.FormImageInput = new function(){
  */
 window.ProgramEditForm = (function(){
 
+    var _yieldTinyMceId = (function(){
+        var currentId = -1;
+
+        return function(){
+            return ++currentId;
+        }
+    })();
+
     //handled onsuccess events
     var _OnSuccess = {
         ON_SUCCESS_ATTRIBUTE : 'programEditForm-onsuccess',
@@ -683,6 +701,18 @@ window.ProgramEditForm = (function(){
 
             e.preventDefault();
             $form.ajaxSubmit({
+                beforeSubmit: function(formData, jqForm, options) {
+                    var hasEditor = false;
+                    formData.forEach(function(entry){
+                        if(entry['type'] == 'textarea' && $(jqForm).find('[name="' + entry['name'] + '"]').is('.wysiwyg')) {
+                            entry['value'] = tinymce.activeEditor.getContent();
+                            hasEditor = true;
+                        }
+                    });
+                    if(hasEditor) {
+
+                    }
+                },
                 success: function (response) {
                     // @TODO: desynchronize
                     var response = JSON.parse(response);
@@ -763,6 +793,14 @@ window.ProgramEditForm = (function(){
 
         if(typeof(onSuccessHandler) != 'undefined')
             _OnSuccess.attachEventHandlerOnSuccess($form, onSuccessHandler);
+
+        initTinyMce();
+
+        $(form).find('textarea').each(function(){
+            var tinyMceId = 'tinymce_' + _yieldTinyMceId();
+            $(this).attr('id', tinyMceId);
+            tinymce.execCommand('mceAddEditor', true, tinyMceId);
+        });
     }
 
     return {
