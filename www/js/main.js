@@ -188,6 +188,7 @@ function demoBasic() {
     });
 }
 
+
 /**
  * Select file and open in overlay for editing
  *
@@ -774,7 +775,27 @@ window.ProgramEditForm = (function(){
 
             formatDateTime: 'YYYY-MM-DD HH:mm:ss'
         });
-    }
+    };
+
+    var _initButtonRemove = function(form) {
+        var $form = $(form);
+        $form.on('click', '.js-remove', function (event) {
+            event.preventDefault();
+            var href = $(this).attr('href');
+
+            if (window.confirm('Opravdu si přejete nenávratně smazat tento program?')) {
+                $.ajax({
+                    url: href,
+                    success: function (response) {
+                        if(response.result)
+                            ProgramEditGrid.reload()
+                        else
+                            window.alert('Nastala neznámá chyba');
+                    }
+                });
+            }
+        });
+    };
 
     /**
      *
@@ -791,6 +812,7 @@ window.ProgramEditForm = (function(){
         FormImageInput.init($form);
         $form.on('submit', _OnSubmit.submitted);
         _initPeriodpicker($form);
+        _initButtonRemove($form);
 
         if(typeof(onSuccessHandler) != 'undefined')
             _OnSuccess.attachEventHandlerOnSuccess($form, onSuccessHandler);

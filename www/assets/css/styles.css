@@ -433,10 +433,15 @@ a.btn{
     font-size: 14px;
 }
 
-a.btn-trans {
+.btn-trans {
     border: 1px black solid;
     background: none;
     color: black !important ;
+}
+
+.btn-red {
+    background-color: #ff0000;
+    color: white !important;
 }
 
 .btn:hover
