@@ -500,6 +500,7 @@ $(function () {
                     minutes: true,
                     seconds: false,
                     ampm: false,
+                    twelveHoursFormat: false,
                     steps: [1, 30, 2, 1]
                 },
                 cells: [1, 1],
