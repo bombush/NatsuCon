@@ -90,7 +90,15 @@ class ProgramEditFormControl extends BaseControl
             $attachments = $this->prepareAttachments($attachments);
             $this->template->programId = $this->programId;
 
-            $this->template->contentId = $formDefaults['contentId'];
+            $contentId = $formDefaults[ 'contentId' ];
+            if(empty($contentId))
+                throw new \Exception('Program without content ID');
+            $this->template->contentId = $contentId;
+
+            $permissionModel = $this->em->reflection( 'Permission' );
+            $user = $this->getPresenter()->getUser();
+            $rules = $permissionModel->getContentRules($user, $contentId);
+            $this->template->contentRules = $rules;
         }
 
         $this->template->attachments = empty($attachments) ? [] : $attachments;

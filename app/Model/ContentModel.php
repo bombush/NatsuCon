@@ -79,6 +79,13 @@ class ContentModel extends EntityModel {
      public function deleteComponents($contentId){
          $this->database->delete(self::$tableComponent)->where(array("contentId" => $contentId))->execute();
     }
-    
+
+    public function getContent($contentId) {
+        $instance = $this->reflection('Content');
+        $instance->setTable('content');
+
+        return $instance->getPrimary(intval($contentId));
+    }
+
     //put your code here
 }

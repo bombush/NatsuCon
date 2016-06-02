@@ -229,5 +229,23 @@ class PermissionModel extends EntityModel {
         return $this->database->getInsertId();
     }
 
+    public function getContentRules($user, $contentId)
+    {
+        $contentId = intval($contentId);
+
+        $contentModel = $this->reflection( 'Content' );
+        $content = $contentModel->getContent($contentId);
+        if(!$content)
+            throw new Exception('Content Id (' . $contentId . ') not found.');
+
+        $pm = $this->reflection( "Permission" ); // new instance because we'll be setting state
+        $userId = $user->loggedIn ? $user->id : 0;
+        $pm->setUserId( $userId );
+        $roleId = $userId ? $user->getIdentity()->roleId : 0;
+        $pm->setRoleId( $roleId );
+        $result = $pm->checkContent( $content );
+
+        return $pm->getRules();
+    }
 }
 ?>

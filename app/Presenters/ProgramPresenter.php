@@ -64,11 +64,10 @@ class ProgramPresenter extends BasePresenter {
     public function actionRemove()
     {
 
-          if(!($this->user->loggedIn && (in_array($this->user->identity->roleId, array(1,2,3))))){
+        if(!($this->user->loggedIn && (in_array($this->user->identity->roleId, array(1,2,3))))){
             $this->redirect('Sign:in');
             return;
         }
-
 
 
         $programId = $this->getParameter('program_id', NULL);
@@ -77,19 +76,28 @@ class ProgramPresenter extends BasePresenter {
              $data = $pm->getFormDefaults($programId);
              
              if(isset($data['contentId'])){
-                 $this->entityModel->setTable("content");
-                 $content = $this->entityModel->getPrimary($data['contentId']);
-                 $rules = $this->setPermission($content);
-                 
-                // dump($rules); exit;
+                 $pm = $this->entityModel->reflection( "Permission" );
+                 $rules = $pm->getContentRules( $this->getUser(), $data[ 'contentId' ] );
+
+                 //dump($rules); exit;
 
               
                   if(isset($rules) && $rules->deletable == 1){
                       $cm = $this->entityModel->reflection("content");
                       $cm->deleteContent($data['contentId']);
                       $cm->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $data['contentId'], 'column' => 'DELETE', 'value' => 'OK']);
-                      $this->flashMessage("Deleted!");
-                      $this->redirect("Program:default");
+
+                      if($this->isAjax()) {
+                          $response = [
+                              'result' => TRUE
+                          ];
+                          $this->sendJson($response);
+                          return;
+
+                      } else {
+                          $this->flashMessage( "Deleted!" );
+                          $this->redirect( "Program:default" );
+                      }
                   }
              }
             
@@ -98,18 +106,7 @@ class ProgramPresenter extends BasePresenter {
      
         //if()
     }
-    
-    
-     private function setPermission($content){
-        $pm = $this->entityModel->reflection("Permission");
-        $userId = $this->getUser()->loggedIn ? $this->getUser()->id : 0;
-        $pm->setUserId($userId);
-        $roleId = $userId ? $this->getUser()->getIdentity()->roleId : 0;
-        $pm->setRoleId($roleId);
-        $result = $pm->checkContent($content);
-        return $pm->getRules();
-     
-     }
+
 
     public function createComponentProgramGrid()
     {
