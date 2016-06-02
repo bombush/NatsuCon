@@ -70,13 +70,24 @@ class ProgramGridControl extends BaseControl
     {
         $gridModel = $this->model->getProgramsListForGrid();
         $gridModel->where("program.timeFrom >= '{$this->programStart->format('Y-m-d 00:00:00')}' AND program.timeFrom <= '{$this->programEnd->format('Y-m-d 23:59:59')}'");
+        
+        if($this->getParent()->getUser()->getIdentity()->roleId == 3){
+            $gridModel->where("content.userId = ?", $this->getParent()->getUser()->getId());
+        }else if($this->getParent()->getUser()->getIdentity()->roleId == 1 || $this->getParent()->getUser()->getIdentity()->roleId == 2){
+            $gridModel->where("1=1");  
+        }else{
+            $gridModel->where("0=1");
+        }
+        
+        
         $minMax = $this->model->getMaxMinTimeForGrid();
 
         $grid = new NatsuGrid\Grid();
 
         //$grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'id', 'program_id' );
         $grid->addColumn(\Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'contentTitle', 'Název');
-        $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programGenre', 'Druh programu' );
+        $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programType', 'Druh programu' );
+        $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programGenre', 'Sekce' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'roomTitle', 'Mistnost' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'author', 'Autor' );
 
@@ -86,7 +97,15 @@ class ProgramGridControl extends BaseControl
             ;
         });
         $grid->addFilterSpecific(
-            NatsuGrid\Grid::FILTER_TEXT, 'programGenre', 'Druh programu', function ( $value, $source ) {
+            NatsuGrid\Grid::FILTER_TEXT, 'programType', 'Druh programu', function ( $value, $source ) {
+            $source->where( 'programtype.title' )
+                   ->like( '%s', '%' . $value . '%' )
+            ;
+        }
+        );
+        
+        $grid->addFilterSpecific(
+            NatsuGrid\Grid::FILTER_TEXT, 'programGenre', 'Sekce', function ( $value, $source ) {
             $source->where( 'programgenre.title' )
                    ->like( '%s', '%' . $value . '%' )
             ;

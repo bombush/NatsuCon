@@ -255,6 +255,23 @@ class ProgramModel extends EntityModel {
 
         return $res;
     }
+    
+    
+    public function getGenresFluent()
+    {
+        $stm = $this->database->select('*')
+                ->from('programgenre');
+
+        return $stm;
+    }
+
+    public function getGenresPairs()
+    {
+        $res = $this->getGenresFluent()
+            ->fetchPairs('id', 'title');
+
+        return $res;
+    }
 
     private function typeIcon($typeId){
         $icon = "";

@@ -28,7 +28,7 @@ class ManagementPresenter  extends BasePresenter {
     
     public function startup() {
         parent::startup();
-        if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->identity->roleId == 2 ))){
+        if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->identity->roleId == 2 || $this->user->identity->roleId == 3))){
          throw new \Nette\Application\BadRequestException;   
         }
     }
@@ -84,6 +84,11 @@ class ManagementPresenter  extends BasePresenter {
         
      
 protected function createComponentPagesList($name){
+         if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->identity->roleId == 2))){
+         throw new \Nette\Application\BadRequestException;   
+        }   
+    
+    
          $dataSource = $this->entityModel->reflection("datasource");
          $dibiSource = $dataSource->setTable("content")->table(NULL);
          
@@ -124,6 +129,11 @@ protected function createComponentPagesList($name){
     }
     
     protected function createComponentUserList($name){
+          if(!($this->user->loggedIn && ($this->user->identity->roleId == 1  || $this->user->identity->roleId == 2))){
+         throw new \Nette\Application\BadRequestException;   
+        }      
+        
+        
          $dataSource = $this->entityModel->reflection("datasource");
          $dibiSource = $dataSource->userList();
          

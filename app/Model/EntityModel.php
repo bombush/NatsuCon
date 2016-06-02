@@ -62,6 +62,11 @@ class EntityModel extends \Nette\Object{
         //$context->table($this->table)->insert($values);
         //return $context->getInsertId();
     }
+    
+    public function log($userId, $data){
+        $data['userId'] = $userId; 
+        $this->database->query("INSERT INTO [statuslog]", $data);
+    }
 
     public function update($values){
           if(empty($this->table))

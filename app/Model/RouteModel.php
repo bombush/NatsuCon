@@ -17,11 +17,15 @@ class RouteModel extends EntityModel {
     //put your code here
     public $tableName = "route";
 
-    public function createRoute($contentId, $pageTitle){
+    public function createRoute($contentId, $pageTitle, $prefix = ''){
         $url = \Nette\Utils\Strings::webalize(substr($pageTitle, 0, 50));
+        if(!empty($prefix)){
+            $url = $prefix.$url;
+        }
         $route = $this->getRoute($contentId);
         if(!$route){
             $this->setTable($this->tableName);
+            
             $url = $this->getUnique($contentId, $url);
             $this->insert($this->newRoute($contentId, $url));
         }

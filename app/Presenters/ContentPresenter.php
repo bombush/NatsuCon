@@ -73,6 +73,12 @@ class ContentPresenter extends BasePresenter {
         $this->add("attachments", $this->attachments);
         $this->add("programs", $programs);
         $this->prepare();
+        
+        if(!$this->toRender['access']){
+            throw new \Nette\Application\BadRequestException;
+        }
+        
+        
     }
     
     public function handleDeleteAt($attId, $contentId){
@@ -85,6 +91,7 @@ class ContentPresenter extends BasePresenter {
             
               $model = $this->entityModel->reflection("content");  
              $model->deleteAttachment($attId);
+             $model->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $contentId, 'column' => 'DELETEATTACHMENT', 'value' => 'OK']);
              $this->flashMessage("Successfully deleted attachment!");
              $this->redirect("Content:attachments", $contentId);
         }
@@ -102,6 +109,7 @@ class ContentPresenter extends BasePresenter {
             
               $model = $this->entityModel->reflection("content");  
              $model->deleteComponent($compId);
+             $model->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $contentId, 'column' => 'DELETECOMPONENT', 'value' => 'OK']);
              $this->flashMessage("Successfully deleted component relation!");
              $this->redirect("Content:components", $contentId);
         }
@@ -119,6 +127,7 @@ class ContentPresenter extends BasePresenter {
             
               $model = $this->entityModel->reflection("content");  
              $model->deletePermission($permId);
+             $MODEL->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $contentId, 'column' => 'DELETEPERMISSION', 'value' => 'OK']);
              $this->flashMessage("Successfully deleted permission!");
              $this->redirect("Content:permissions", $contentId);
         }
@@ -134,6 +143,7 @@ class ContentPresenter extends BasePresenter {
        
         if(isset($rules) && $rules->deletable == 1){
             $model = $this->entityModel->reflection("content");
+            $model->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $contentId, 'column' => 'DELETEALL', 'value' => 'OK']);
             $model->deleteContent($contentId);
             $this->flashMessage("Deleted");
             $this->redirect("Homepage:");
@@ -519,14 +529,17 @@ class ContentPresenter extends BasePresenter {
        
        if($values->id){
            $this->entityModel->update($values);
+           $this->entityModel->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $values->id, 'column' => 'UPDATE', 'value' => 'OK']);
            if(!empty($routeUrl)){
             $rm = $this->entityModel->reflection("Route");
+            
   
             $rm->updateRoute($values->id, $routeUrl);
            }
            
        }else{
            $values->id = $this->entityModel->insert($values);
+           $model->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $values->id, 'column' => 'INSERT', 'value' => 'OK']);
            $rm = $this->entityModel->reflection("Route");
            $pageTitle = (empty ($values->pageTitle))? $values->title : $values->pageTitle;
            $rm->createRoute($values->id, $pageTitle);

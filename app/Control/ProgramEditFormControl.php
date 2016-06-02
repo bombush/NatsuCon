@@ -122,8 +122,9 @@ class ProgramEditFormControl extends BaseControl
         $form->addText( 'contentTitle', 'Název' )
             ->setRequired();
         $form->addSelect( 'typeId', 'Druh programu', $this->programModel->getTypesPairs() );
+        $form->addSelect('genreId', 'Sekce', $this->programModel->getGenresPairs());
         $form->addSelect( 'roomId', 'Místnost', $this->programModel->getRoomsPairs( '1,2,3,4,5' ) );
-        //$form->addSelect('genre', 'Sekce');
+      
         $form->addText( 'author', 'Autor' );
         $form->addTextArea( 'contentText', 'Anotace' );//anotace
 
@@ -347,16 +348,19 @@ class ProgramEditFormControl extends BaseControl
             $programValues = [
                 'id'       => $values[ 'id' ],
                 'typeId'   => $values[ 'typeId' ],
-                //'genreId'  => $values[ 'genreId' ],
+                'genreId'  => $values[ 'genreId' ],
                 'roomId'   => $values[ 'roomId' ],
                 'timeFrom' => $values[ 'timeFrom' ],
                 'timeTo'   => $values[ 'timeTo' ]
             ];
 
             $this->programModel->update( ArrayHash::from( $programValues ) );
+            $this->programModel->log($this->getParent()->getUser()->getId(), ['entity' => 'program', 'entityId' => $values['id'], 'column' => 'UPDATE', 'value' => 'OK']);
+             
 
             $contentId = $this->getFormDefaults()[ 'contentId' ];
             $contentModel = $this->em->reflection( 'Content' );
+           
             $contentValues = [
                 'id'   => (int)$contentId,
                 'text' => $values[ 'contentText' ],
@@ -365,6 +369,7 @@ class ProgramEditFormControl extends BaseControl
                 'author' => $values['author']
             ];
             $contentModel->update( ArrayHash::from( $contentValues ) );
+            $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'content', 'entityId' => $values['id'], 'column' => 'UPDATE', 'value' => 'OK']);
 
         } catch (\Exception $e) {
             $this->em->rollback();
@@ -389,25 +394,63 @@ class ProgramEditFormControl extends BaseControl
                 'text'      => $values[ 'contentText' ],
                 'pageTitle' => $values[ 'contentTitle' ],
                 'title'     => $values[ 'contentTitle' ],
-                'author'    => $values[ 'author' ]
+                'author'    => $values[ 'author' ],
+                'isDraft' => 1,
+                'sectionId' => $this->sectionId,
+                'userId' => $this->getParent()->getUser()->getId()
             ];
             $contentId = $contentModel->insertContent( ArrayHash::from( $contentValues ) );
+            $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'content', 'entityId' => $contentId, 'column' => 'INSERT', 'value' => 'OK']);
+            
+            $routeModel = $this->em->reflection('Route');
+            $routeModel->createRoute($contentId, $values[ 'contentTitle' ], 'program/'.$this->sectionId."/");
+            $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'route', 'entityId' => $contentId, 'column' => 'INSERT', 'value' => 'OK']);
+            
 
+            $permissionModel = $this->em->reflection('Permission');
+            $permissionModel->setTable("permission");
+            $permissionValues = [
+                'roleId' => \Natsu\Model\PermissionModel::FUHRER_ROLE,
+                'writable' => 1,
+                'deletable' => 1,
+                'contentId' => $contentId
+            ];
+            $permissionModel->insert($permissionValues);
+            
+            $permissionValues = [
+                'roleId' => \Natsu\Model\PermissionModel::EDITOR_ROLE,
+                'writable' => 1,
+                'deletable' => 0,
+                'contentId' => $contentId
+            ];
+            $permissionModel->insert($permissionValues);
+            
+            $permissionValues = [
+                'roleId' => \Natsu\Model\PermissionModel::SUPERVISOR_ROLE,
+                'writable' => 1,
+                'deletable' => 0,
+                'contentId' => $contentId
+            ];
+            $permissionModel->insert($permissionValues);
+            
 
             $programValues = [
                 'typeId'    => $values[ 'typeId' ],
-                //'genreId'  => $values[ 'genreId' ],
+                'genreId'  => $values[ 'genreId' ],
                 'roomId'    => $values[ 'roomId' ],
                 'timeFrom'  => $values[ 'timeFrom' ],
                 'timeTo'    => $values[ 'timeTo' ],
+                
                 'statusId' => 14,
                 'contentId' => $contentId,
                 'sectionId' => $this->sectionId
             ];
 
             $programId = $this->programModel->insert( $programValues );
+            $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'program', 'entityId' => $programId, 'column' => 'INSERT', 'value' => 'OK']);
         } catch (\Exception $e) {
             $this->em->rollback();
+            echo $e->getMessage(); exit;    
 
             return FALSE;
         }
