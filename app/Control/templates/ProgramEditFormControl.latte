@@ -89,6 +89,10 @@
         {input submit}
         {if isset($contentId)}
             <a class="btn btn-trans" href="{plink Content:view, id=>$contentId}" target="_blank"><span class="fa fa-eye"></span>&nbsp;Detail</a>
+            {if isset($contentRules) && $contentRules->deletable}
+                <a class="btn btn-red js-remove" href="{plink Program:remove, program_id=>$programId}" target="_blank"><span
+                        class="fa fa-times"></span>&nbsp;Smazat</a>
+            {/if}
         {/if}
     </div>
 {/form}
