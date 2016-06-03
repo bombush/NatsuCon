@@ -123,8 +123,8 @@ class PermissionModel extends EntityModel {
             if($this->userId == $content->userId){ $this->setRules($this->getAllRules());return true;}
 
             $this->loadRules($content->id);
-            return $this->performUserRules();
-
+            return $this->performUserRules(!$content->isDraft);
+            
         }else{
           //  print_r($content);
             if($content->isDraft) {
@@ -169,11 +169,12 @@ class PermissionModel extends EntityModel {
     }
     
     
-    public function performUserRules(){
+    public function performUserRules($public = true){
 
+       // dump($this->rules);
         if(!isset($this->rules)){
-            return true;
-        }else if($this->rules->forbidden == 1){
+            return $public;
+        }else if($this->rules->forbidden == 1 || $this->rules->writable == 0){
             return false;
         }else{
             return true;

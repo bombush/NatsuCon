@@ -214,7 +214,7 @@ class SignPresenter extends BasePresenter {
         $row = $this->userManager->identifyHash($id);
        // dump($row);
         if(empty($id) || $row === false){
-            throw new Nette\Application\BadRequestException;
+            throw new Nette\Application\ForbiddenRequestException;
         }
         
         //  print_r($this->code); exit;
@@ -228,7 +228,7 @@ class SignPresenter extends BasePresenter {
 
     public function renderMyaccount() {
         if(!$this->user->loggedIn){
-            throw new Nette\Application\BadRequestException;
+            throw new Nette\Application\ForbiddenRequestException;
         }
         
         $this->add("pageTitle", "Můj účet");

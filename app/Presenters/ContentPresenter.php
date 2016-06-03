@@ -75,7 +75,7 @@ class ContentPresenter extends BasePresenter {
         $this->prepare();
         
         if(!$this->toRender['access']){
-            throw new \Nette\Application\BadRequestException;
+            throw new \Nette\Application\ForbiddenRequestException;
         }
         
         
