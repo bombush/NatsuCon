@@ -539,7 +539,7 @@ class ContentPresenter extends BasePresenter {
            
        }else{
            $values->id = $this->entityModel->insert($values);
-           $model->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $values->id, 'column' => 'INSERT', 'value' => 'OK']);
+           $this->entityModel->log($this->getUser()->getId(), ['entity' => 'content', 'entityId' => $values->id, 'column' => 'INSERT', 'value' => 'OK']);
            $rm = $this->entityModel->reflection("Route");
            $pageTitle = (empty ($values->pageTitle))? $values->title : $values->pageTitle;
            $rm->createRoute($values->id, $pageTitle);
