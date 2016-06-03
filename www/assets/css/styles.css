@@ -977,6 +977,9 @@ Grid
 .natsu-grid .fixed-head {
     //position:fixed;
 }
+.natsu-grid td.datetime {
+    width: 60px;
+}
 
 /* -----------------------
 Wide styles
@@ -1210,7 +1213,7 @@ Wide styles
     border: 1px solid lightgrey;
 }
 .program-grid td.datetime {
-    width:100px;
+    width:60px;
 }
 .program-grid tr {
     cursor:pointer;

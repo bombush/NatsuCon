@@ -14,16 +14,16 @@
     <table class="js-results results">
     <thead class="fixed-head">
         {foreach $columns as $column}
-            <th data-order=""><a class="js-natsu-grid-sort" data-key="{$column->key}" data-order="ASC" href="#">{$column->label}</a></th>
+            <th data-order="" class="column-{$column->key}"><a class="js-natsu-grid-sort" data-key="{$column->key}" data-order="ASC" href="#">{$column->label}</a></th>
         {/foreach}
     </thead>
     {foreach $data as $row}
         <tr class="grid-row" data-id="{$row->id}">
             {foreach $columns as $column}
                 {if $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT }
-                    <td>{$row->{$column['key']}}</td>
+                    <td class="column-{$column->key}">{$row->{$column['key']}}</td>
                 {elseif $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME}
-                    <td class="datetime">{$row->{$column['key']}|date,'D G:i'}</td>
+                    <td class="datetime column-{$column->key}">{$row->{$column['key']}|date,'D G:i'}</td>
                 {/if}
             {/foreach}
         </tr>
