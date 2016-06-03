@@ -55,8 +55,12 @@ class ProgramEditFormFactory extends \Nette\Object
         $sectionId = empty($this->sectionId) ? $this->context->getParameters()[ 'sectionId' ] : $this->sectionId;
         //$from
         $form = new ProgramEditFormControl($sectionId);
+
         $form->setDefaultTimeFrom( $this->context->getParameters()[ 'programStart' ] );
-        $form->setDefaultTimeTo( $this->context->getParameters()[ 'programStart' ] );
+        $startPlusOneHour = clone $this->context->getParameters()[ 'programStart' ];
+        $startPlusOneHour->add(\DateInterval::createFromDateString('1 hour'));
+        $form->setDefaultTimeTo( $startPlusOneHour);
+
         $form->setProgramId($this->programId);
         $form->setEm($programModel, $this->em);
 
