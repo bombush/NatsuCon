@@ -106,6 +106,12 @@ class PermissionModel extends EntityModel {
         
     }
 
+    /**
+     * Check content visibility/readability
+     * @param $content
+     *
+     * @return bool
+     */
     public function checkContent($content){
      //  var_dump($content); exit;
         if($content == false){
@@ -118,13 +124,14 @@ class PermissionModel extends EntityModel {
             return true;
         }
         
-        
+        // TRUE if not forbidden
         if($this->userId){
             if($this->userId == $content->userId){ $this->setRules($this->getAllRules());return true;}
 
             $this->loadRules($content->id);
             return $this->performUserRules(!$content->isDraft);
-            
+
+            // non-draft visible to all if time availability ok
         }else{
           //  print_r($content);
             if($content->isDraft) {
@@ -167,8 +174,16 @@ class PermissionModel extends EntityModel {
          }
          $this->setRules($rules);
     }
-    
-    
+
+    /**
+     * Check if is writable (false if unwritable or forbidden)
+     *
+     * IF not writable by user, is never readable
+     *
+     * @param bool|TRUE $public
+     *
+     * @return bool
+     */
     public function performUserRules($public = true){
 
        // dump($this->rules);
