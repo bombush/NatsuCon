@@ -732,7 +732,8 @@ window.ProgramEditForm = (function(){
     var _initPeriodpicker = function(form){
         var $form = $(form);
 
-        $form.find('input.js-period-start').periodpicker({
+        var $periodStartInput = $form.find('input.js-period-start');
+        $periodStartInput.periodpicker({
             norange: true,
             timepicker: true,
             showTimepickerInputs: true,
@@ -754,7 +755,8 @@ window.ProgramEditForm = (function(){
             formatDateTime: 'YYYY-MM-DD HH:mm:ss'
         });
 
-        $form.find('input.js-period-end').periodpicker({
+        var $periodEndInput = form.find('input.js-period-end');
+        var periodpickerSettingsEnd = {
             norange: true,
             timepicker: true,
             showTimepickerInputs: true,
@@ -774,7 +776,24 @@ window.ProgramEditForm = (function(){
             yearsLine: false,
 
             formatDateTime: 'YYYY-MM-DD HH:mm:ss'
-        });
+        };
+        $periodEndInput.periodpicker(periodpickerSettingsEnd);
+/*  DOES NOT WORK
+        $periodStartInput.on('change', function(){
+            var startVal = $(this).val();
+            var endVal =
+                moment(startVal, 'YYYY-MM-DD HH:mm:ss')
+                .add(1, 'hour')
+                .format('YYYY-MM-DD HH:mm:ss');
+            debugger;
+
+            $periodEndInput.val(endVal);
+            $periodEndInput.attr('value', endVal);
+            $periodEndInput.attr('data-timeto', endVal);
+            $periodEndInput.data('timeto', endVal);
+            form.find('input.js-period-end').periodpicker('change');
+            $periodEndInput.periodpicker(periodpickerSettingsEnd);
+        });*/
     };
 
     var _initButtonRemove = function(form) {
