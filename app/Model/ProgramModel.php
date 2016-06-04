@@ -107,7 +107,7 @@ class ProgramModel extends EntityModel {
             *
         ")
         ->from("program")
-        ->leftJoin("program p2", "ON 1=1 AND p2.id != program.id")
+        ->join("program p2", "ON 1=1 AND p2.id != program.id")
             ->and( "p2.timeFrom <= program.timeTo")
             ->and( "p2.timeTo >= program.timeFrom")
             ->and( "p2.roomId = program.roomId");
