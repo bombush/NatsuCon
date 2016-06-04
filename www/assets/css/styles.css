@@ -429,6 +429,9 @@ Single styles
 	border-radius: .2em;
 	text-decoration: none;
 }
+.btn a {
+    color: #fff;
+}
 a.btn{
     font-size: 14px;
 }

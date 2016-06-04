@@ -371,7 +371,16 @@ $(function () {
                         .append($editTd);
                     $editTr
                         .insertAfter($programTr)
-                        .slideDown(2000);
+                        .slideDown(2000, function(){
+                            var programTrY = $programTr.offset().top;
+                            var programTrHeight = $programTr.height();
+                            var clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                            var scrollBottom = $(window).scrollTop() + clientHeight;
+
+                            var scrollHeightDiff = scrollBottom - (programTrY + programTrHeight)
+                            if(scrollHeightDiff < 0)
+                                window.scrollBy(Math.abs(scrollHeightDiff), 0);
+                        });
 
                     function formSuccess() {
                         var promise = reloadWithModifiers();
@@ -401,6 +410,28 @@ $(function () {
             var loadUrl = $(this).attr('href');
             var finishedPromise = OverlayManager.openProgramEditForm(loadUrl);
             finishedPromise.always(ProgramEditGrid.reload);
+        });
+
+        $wrap.on('click', '.js-publish-section', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var requesturl = $(this).attr('href');
+            var confirm = window.confirm('Opravdu chcete zveřejnit všechen program?');
+
+            if(!confirm)
+                return;
+
+            var request = $.ajax({
+                method : 'GET',
+                url : requesturl
+            });
+            request.done(function(res){
+                if(res.status == true)
+                    alert('OK');
+                else
+                    alert('Fail');
+            });
         });
 
         var $grid = $('.program-grid');

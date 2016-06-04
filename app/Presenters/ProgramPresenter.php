@@ -4,6 +4,7 @@ namespace Natsu\Presenters;
 
 use Grido\Grid;
 use Natsu\Control\ProgramGridControl;
+use Natsu\Model\PermissionModel;
 use Natsu\Model\ProgramModel;
 use Natsu\Forms\ProgramEditFormFactory;
 
@@ -25,7 +26,7 @@ class ProgramPresenter extends BasePresenter {
 
     public function actionDefault()
     {
-          if(!($this->user->loggedIn && (in_array($this->user->identity->roleId, array(1,2,3))))){
+          if(!$this->canUserManageProgram()){
             $this->redirect( 'Sign:in' );
 
             return;
@@ -48,7 +49,7 @@ class ProgramPresenter extends BasePresenter {
     public function actionEdit()
     {
 
-        if(!($this->user->loggedIn && (in_array($this->user->identity->roleId, array(1,2,3))))){
+        if ( !$this->canUserManageProgram() ){
             $this->redirect('Sign:in');
             return;
         }
@@ -64,7 +65,8 @@ class ProgramPresenter extends BasePresenter {
     public function actionRemove()
     {
 
-        if(!($this->user->loggedIn && (in_array($this->user->identity->roleId, array(1,2,3))))){
+        if( !$this->canUserManageProgram())
+        {
             $this->redirect('Sign:in');
             return;
         }
@@ -107,6 +109,28 @@ class ProgramPresenter extends BasePresenter {
         //if()
     }
 
+    public function actionPublishSection()
+    {
+        if ( !$this->canUserManageProgram() ) {
+            $this->redirect( 'Sign:in' );
+
+            return;
+        }
+
+        $sectionId = $this->context->getParameters()['sectionId'];
+        $programModel = $this->entityModel->reflection('Program');
+
+        $programModel->publishAllInSection($sectionId);
+
+        if($this->isAjax()) {
+            $this->sendJson([
+                                'status' => true
+                            ]);
+        } else {
+            echo 'OK'; exit;
+        }
+    }
+
 
     public function createComponentProgramGrid()
     {
@@ -121,6 +145,14 @@ class ProgramPresenter extends BasePresenter {
     public function createComponentProgramEditForm()
     {
         return $this->programEditComponent->create();
+    }
+
+    protected function canUserManageProgram()
+    {
+        return
+        ( $this->user->loggedIn &&
+            ( in_array( $this->user->identity->roleId, [ PermissionModel::ADMIN_ROLE, PermissionModel::FUHRER_ROLE, PermissionModel::SUPERVISOR_ROLE ] ) )
+        );
     }
 }
 ?>

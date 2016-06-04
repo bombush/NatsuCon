@@ -87,5 +87,15 @@ class ContentModel extends EntityModel {
         return $instance->getPrimary(intval($contentId));
     }
 
-    //put your code here
+    public function publishIds(array $contentIds) {
+        if(empty($contentIds))
+            return;
+
+        $sql = '
+            UPDATE `' . static::$tableContent . '`
+            SET `isDraft` = 0
+            WHERE `id` IN (%i)';
+
+        return $this->database->query($sql, $contentIds);
+    }
 }

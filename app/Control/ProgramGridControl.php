@@ -62,6 +62,7 @@ class ProgramGridControl extends BaseControl
 
     public function render() {
         $this->template->setFile( __DIR__ . "/templates/ProgramGridControl.latte" );
+        $this->template->sectionId = $this->sectionId;
 
         $this->template->render();
     }

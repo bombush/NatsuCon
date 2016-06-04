@@ -286,5 +286,26 @@ class ProgramModel extends EntityModel {
         }
         return $icon;
     }
-    
+
+    public function publishAllInSection($sectionId)
+    {
+        $sectionId = intval($sectionId);
+        $programs = $this->getPrograms($sectionId);
+
+        if(count($programs) == 0)
+            return;
+
+        $contentIds = array_reduce(
+            $programs,
+            function($carry, $program){
+                $carry[] = intval($program['contentId']);
+
+                return $carry;
+            },
+            []
+        );
+
+        $contentModel = $this->reflection("Content");
+        return $contentModel->publishIds($contentIds);
+    }
 }
