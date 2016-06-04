@@ -111,7 +111,7 @@ class ProgramPresenter extends BasePresenter {
 
     public function actionPublishSection()
     {
-        if ( !$this->canUserManageProgram() ) {
+        if ( !$this->canUserPublishProgram() ) {
             $this->redirect( 'Sign:in' );
 
             return;
@@ -139,6 +139,7 @@ class ProgramPresenter extends BasePresenter {
         $programGrid->setProgramStart($this->context->getParameters()['programStart']);
         $programGrid->setProgramEnd( $this->context->getParameters()[ 'programEnd' ]);
         $programGrid->setSectionId( $this->context->getParameters()[ 'sectionId' ]);
+        $programGrid->setCanUserPublish($this->canUserPublishProgram());
         return $programGrid;
     }
 
@@ -153,6 +154,14 @@ class ProgramPresenter extends BasePresenter {
         ( $this->user->loggedIn &&
             ( in_array( $this->user->identity->roleId, [ PermissionModel::ADMIN_ROLE, PermissionModel::FUHRER_ROLE, PermissionModel::SUPERVISOR_ROLE ] ) )
         );
+    }
+
+    protected function canUserPublishProgram()
+    {
+        return
+            ( $this->user->loggedIn &&
+                ( in_array( $this->user->identity->roleId, [ PermissionModel::ADMIN_ROLE, PermissionModel::FUHRER_ROLE ] ) )
+            );
     }
 }
 ?>

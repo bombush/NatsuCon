@@ -17,6 +17,7 @@ class ProgramGridControl extends BaseControl
     protected $sectionId;
     protected $programStart;
     protected $programEnd;
+    protected $canUserPublish = false;
 
     public function __construct(ProgramModel $model) {
         $this->model = $model;
@@ -58,11 +59,17 @@ class ProgramGridControl extends BaseControl
         return $this;
     }
 
+    public function setCanUserPublish( $canUserPublish)
+    {
+        $this->canUserPublish = $canUserPublish;
 
+        return $this;
+    }
 
     public function render() {
         $this->template->setFile( __DIR__ . "/templates/ProgramGridControl.latte" );
         $this->template->sectionId = $this->sectionId;
+        $this->template->canUserPublish = $this->canUserPublish;
 
         $this->template->render();
     }
