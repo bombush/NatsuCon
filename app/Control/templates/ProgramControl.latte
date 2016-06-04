@@ -34,7 +34,7 @@
                       {/if}
                       {if isset($map[$actualRoom][$actualSlot]) && count($map[$actualRoom][$actualSlot]) > 1}
                          <td class="pr-slot conflict" rowspan="1">
-                          <strong>!!!Konflikt!!!</strong>
+                          <strong>!!!Konflikt!!!</strong><br>
                          {foreach $map[$actualRoom][$actualSlot] as $programId}
                               {var $errorProgram = $programs[$programId]}
                               <a href="{if !empty($errorProgram->url)}{$baseUrl}/{$errorProgram->url}{else}{$basePath}/content/view/{$errorProgram->contentId}{/if}"
@@ -48,7 +48,7 @@
                          </td>
                       {elseif isset($ttRoom[$actualSlot]) && count($ttRoom[$actualSlot]) > 1}
                           <td class="pr-slot conflict .js-overlay-programEdit" data-overlay-load-url="{plink Program:edit program_id=>$program->id}" {if $program->length > 1} rowspan="{$program->length}"{/if}>
-                            <strong>!!!Konflikt!!!</strong>
+                            <strong>!!!Konflikt!!!</strong><br>
                           {foreach $ttRoom[$actualSlot] as $program}
                              <a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}"
                                 class="js-overlay-conflict"

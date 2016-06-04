@@ -898,7 +898,7 @@ a.btn{
     color: #FFFFFF;
 }
 .conflict a:hover {
-    color: #ff0000;
+    color: #ff0000 !important;
 }
 .conflict a:visited {
     color: #FFFFFF;

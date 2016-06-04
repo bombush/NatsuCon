@@ -31,7 +31,7 @@
                       {/if}
                       {if isset($map[$actualRoom][$actualSlot]) && count($map[$actualRoom][$actualSlot]) > 1}
                          <td class="pr-slot conflict" rowspan="1">
-                          <strong>!!!Konflikt!!!</strong>    
+                          <strong>!!!Konflikt!!!</strong><br>
                          {foreach $map[$actualRoom][$actualSlot] as $programId}
                               {var $errorProgram = $programs[$programId]}
                               {$errorProgram->title}[{$errorProgram->id}]<br/>
@@ -40,7 +40,7 @@
                          </td>
                       {elseif isset($ttRoom[$actualSlot]) && count($ttRoom[$actualSlot]) > 1}
                           <td class="pr-slot conflict"{if $program->length > 1} rowspan="{$program->length}"{/if}>
-                            <strong>!!!Konflikt!!!</strong>
+                            <strong>!!!Konflikt!!!</strong><br>
                           {foreach $ttRoom[$actualSlot] as $program}
                              {$program->title} [{$program->id}]<br/> 
                            {/foreach}   
