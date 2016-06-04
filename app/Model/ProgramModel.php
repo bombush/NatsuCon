@@ -107,11 +107,22 @@ class ProgramModel extends EntityModel {
             *
         ")
         ->from("program")
-        ->leftJoin("program p2", "ON program.id = p2.id")
-        ->where("p2.timeStart < program.timeEnd")
-        ->where("p2.timeEnd > program.timeStart");
+        ->leftJoin("program p2", "ON 1=1 AND p2.id != program.id")
+            ->and( "p2.timeFrom <= program.timeTo")
+            ->and( "p2.timeTo >= program.timeFrom")
+            ->and( "p2.roomId = program.roomId");
 
         return $stm;
+    }
+
+    public function getCollisionsForId($programId) {
+        $fluent = $this->getCollisionsFluent();
+        $fluent->leftJoin('content p2Content', 'ON p2.contentId = p2Content.id');
+
+        $fluent->where('program.id = %i', $programId );
+
+        $result = $fluent->fetchAll();
+        return $result;
     }
 
     public function getMaxMinTimeForGrid() {

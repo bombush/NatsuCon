@@ -117,6 +117,9 @@ class ProgramEditFormControl extends BaseControl
         $this->template->defaultTimeFrom = $this->timeFrom;
         $this->template->defaultTimeTo = $this->timeTo;
 
+        $collisions = $this->programModel->getCollisionsForId($this->programId);
+        $this->template->collisions = $collisions;
+
         $this->template->setFile(__DIR__ . '/templates/ProgramEditFormControl.latte');
         $this->template->render();
     }

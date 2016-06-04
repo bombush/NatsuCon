@@ -77,6 +77,15 @@
                 {label author}{/label}
                 {input author}
             </div>
+
+            {if count($collisions) > 0}
+                <div class="collisions">
+                    <header>Konflikty</header>
+                    {foreach $collisions as $collision}
+                        {$collision->title} ({$collision->timeFrom|date:'H:i'} - {$collision->timeTo|date:'H:i'})<br>
+                    {/foreach}
+                </div>
+            {/if}
         </div>
         <div class="annotation">
                 {label contentText}{/label}
