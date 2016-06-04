@@ -809,22 +809,32 @@ window.ProgramEditForm = (function(){
             formatDateTime: 'YYYY-MM-DD HH:mm:ss'
         };
         $periodEndInput.periodpicker(periodpickerSettingsEnd);
-/*  DOES NOT WORK
-        $periodStartInput.on('change', function(){
-            var startVal = $(this).val();
-            var endVal =
-                moment(startVal, 'YYYY-MM-DD HH:mm:ss')
-                .add(1, 'hour')
-                .format('YYYY-MM-DD HH:mm:ss');
-            debugger;
 
-            $periodEndInput.val(endVal);
-            $periodEndInput.attr('value', endVal);
-            $periodEndInput.attr('data-timeto', endVal);
-            $periodEndInput.data('timeto', endVal);
-            form.find('input.js-period-end').periodpicker('change');
-            $periodEndInput.periodpicker(periodpickerSettingsEnd);
-        });*/
+        $periodStartInput.on('change', function(){
+            function movePeriodEndInput(){
+                var startVal = $this.val();
+                var endVal =
+                    moment(startVal, 'YYYY-MM-DD HH:mm:ss')
+                        .add(1, 'hour')
+                        .format('YYYY-MM-DD HH:mm:ss');
+
+                $periodEndInput.periodpicker('destroy');
+                var $periodEndInputClone = $periodEndInput.clone();
+                $periodEndInputClone.val(endVal);
+                $periodEndInputClone.attr('value', endVal);
+                $periodEndInputClone.attr('data-timeto', endVal);
+                $periodEndInputClone.data('timeto', endVal)
+
+                $periodEndInput.replaceWith($periodEndInputClone);
+
+                $periodEndInputClone.periodpicker(periodpickerSettingsEnd);
+
+                $periodEndInput = $periodEndInputClone;
+            }
+
+            var $this = $(this);
+            movePeriodEndInput();
+        });
     };
 
     var _initButtonRemove = function(form) {
