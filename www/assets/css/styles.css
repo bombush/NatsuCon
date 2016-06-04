@@ -1205,6 +1205,9 @@ Wide styles
 .program-grid .btn a:visited {
     color: white;
 }
+.program-grid .btn-publish {
+    float: right;
+}
 .program-grid .pair {
     display:inline-block;
     margin: 4px;
