@@ -96,7 +96,7 @@ class ProgramGridControl extends BaseControl
         $grid->addColumn(\Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'contentTitle', 'Název');
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programType', 'Druh programu' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programGenre', 'Sekce' );
-        $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'roomTitle', 'Mistnost' );
+        $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'roomTitle', 'Místnost' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'author', 'Autor' );
 
         $grid->addFilterSpecific( NatsuGrid\Grid::FILTER_TEXT, 'contentTitle', 'Autor', function( $value, $source) {

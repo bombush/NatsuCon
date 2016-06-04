@@ -342,6 +342,14 @@ $(function () {
         // expand grid row and load program edit form
         $wrap.on('click', 'tr.grid-row', function () {
                 var $programTr = $(this);
+                var programId = $programTr.data('id');
+                var loadUrl = $wrap.data('load-url');
+
+                var editFinishedPromise = OverlayManager.openProgramEditForm(loadUrl, {program_id : programId });
+                editFinishedPromise.always(reloadWithModifiers);
+
+                /*
+                var $programTr = $(this);
 
                 var $next = $programTr.next();
                 if($next.is('.js-program-form-row')) {
@@ -383,6 +391,7 @@ $(function () {
                         });
 
                     function formSuccess() {
+                        $editTr.slideUp();
                         var promise = reloadWithModifiers();
                         promise.done(function () {
                             /*$(html, body).animate({
@@ -390,10 +399,10 @@ $(function () {
                                 //scrollTop: $programTr
                             });
                             $programTr;*/
-                        });
-                    }
-                    ProgramEditForm.init($form, formSuccess);
-                });
+                        //});
+                   // }
+                   // ProgramEditForm.init($form, formSuccess);
+                //});
 
 
             }
@@ -919,10 +928,11 @@ window.OverlayManager = new function(){
         $.magnificPopup.close();
     };
 
-    var _openProgramEditForm = function(loadUrl) {
+    var _openProgramEditForm = function(loadUrl, data) {
         var req = $.ajax({
             method: 'GET',
             url: loadUrl,
+            data: (typeof(data) == 'undefined' ? {} : data)
         });
 
         var formDeferred = $.Deferred();
