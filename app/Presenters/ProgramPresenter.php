@@ -160,7 +160,7 @@ class ProgramPresenter extends BasePresenter {
     {
         return
             ( $this->user->loggedIn &&
-                ( in_array( $this->user->identity->roleId, [ PermissionModel::ADMIN_ROLE, PermissionModel::FUHRER_ROLE ] ) )
+                ( in_array( $this->user->identity->roleId, [ PermissionModel::FUHRER_ROLE ] ) )
             );
     }
 }
