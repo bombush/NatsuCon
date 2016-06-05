@@ -32,6 +32,11 @@ tracy:
 services:
 	- Natsu\Model\UserManager
 	router: Natsu\Router\RouterFactory::createRouter
+	nette.latteFactory:
+		setup:
+		- addFilter(translate, @Natsu\Helpers\TranslateFilter)
+	- Natsu\Helpers\TranslateFilter
+	
 
 
 	#models

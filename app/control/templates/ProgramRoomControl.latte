@@ -17,7 +17,7 @@
        {foreach $slots as $id => $slot}
            {if $id == 0 || ($slot+7200) % (3600*24) == 0}
                <tr>
-                   <td class="normal-color text-center day-headline" colspan="{count($rooms)+1}"><strong>{$slot|date:'l'} {$slot|date:'d.m.Y'}</strong></td>
+                   <td class="normal-color text-center day-headline" colspan="{count($rooms)+1}"><strong>{$slot|date:'l'|translate} {$slot|date:'d.m.Y'}</strong></td>
                </tr>    
            {/if}    
            <tr data-id="{$slot}"> 

@@ -186,10 +186,10 @@ class PermissionModel extends EntityModel {
      */
     public function performUserRules($public = true){
 
-       // dump($this->rules);
+       // dump($this->rules); dump($public); exit;
         if(!isset($this->rules)){
             return $public;
-        }else if($this->rules->forbidden == 1 || $this->rules->writable == 0){
+        }else if($this->rules->forbidden == 1 || (!$public && $this->rules->writable == 0)){
             return false;
         }else{
             return true;
