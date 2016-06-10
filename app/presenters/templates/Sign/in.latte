@@ -1,0 +1,18 @@
+{block content}
+{if !$user->loggedIn}
+<h1 n:block=title>Sign in</h1>
+<div>
+    <div class="div-left">
+{control signInForm}
+    </div>
+    <div class="div-right">
+        <a href="{$basePath}/sign/google">
+            <img src="{$basePath}/assets/img/google_login.png" alt="Google"/>
+        </a>
+    </div>    
+</div>
+{else}
+    <p id="logged-in" n:if="$user->loggedIn">Signed in as {$user->identity->nickname}. <a n:href="Sign:out">Sign out</a></p>
+{/if}
+
+{* or use {include '../components/form.latte', form => signInForm} *}

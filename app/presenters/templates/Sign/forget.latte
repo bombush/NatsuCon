@@ -1,0 +1,8 @@
+{block content}
+{if !$user->loggedIn}
+    <h2>Zapomenuté heslo</h2>
+
+{control forgetForm}
+
+{/if}
+{/block}

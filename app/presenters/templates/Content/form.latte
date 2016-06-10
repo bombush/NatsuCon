@@ -1,0 +1,46 @@
+{block content}
+
+    {if isset($content) && $content->id}
+        <h2>{$content->title}[{$content->id}]</h2>
+    {else}
+        <h2>Nový obsah</h2>
+        
+    {/if}
+    
+    {if $user->loggedIn}
+    <div class="admin-navi">
+        {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 ))}<span><a class="fa fa-list" href="{link Management:pages}"></a></span>{/if}
+        {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->id == $content->userId))}
+
+            
+            <span><a class="fa fa-file-photo-o" href="{link Content:attachments $content->id}"></a></span>   
+        {/if}    
+            
+            {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->id == $content->userId ||(isset($rules) && $rules->writable ==1) ))}
+            <span><a class="fa fa-eye" href="{link Content:view $content->id}"></a></span>
+            {/if}
+            
+            {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->id == $content->userId ||(isset($rules) && $rules->deletable ==1) ))}
+            <span><a class="fa fa-remove" href="{link Content:delete $content->id}"></a></span>
+            {/if}
+        {/if}
+         {if isset($content) && ($user->loggedIn && ($user->identity->roleId == 1))}
+            <span><a class="fa fa-asterisk" href="{link Content:components $content->id}"></a></span>   
+            <span><a class="fa fa-lock" href="{link Content:permissions $content->id}"></a></span>   
+         {/if}
+    </div>
+
+    {if (!isset($content) && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId ==3 )) || isset($rules) && $rules->writable ==1}
+    {control contentForm}
+    {elseif (isset($content))}
+        <div class="nav sub-nav">
+    <ul>
+        <li><a href="{link Content:view $content->id}">&lt;&lt; Zpět na stránku </a></li>
+    </ul>    
+</div>   
+    
+
+    {/if}
+    
+ 
+{/block}
