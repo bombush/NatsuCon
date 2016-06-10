@@ -240,6 +240,20 @@ Layout styles
      
 }
 
+.menu-restricted{
+    background-color: red;
+}
+
+.nav-bar-fixed li{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.nav li.menu-restricted {
+   padding-top: 0;
+    padding-bottom: 0;
+}
+
 .div-right {
       margin:0.25em;
       margin-bottom: 1em;

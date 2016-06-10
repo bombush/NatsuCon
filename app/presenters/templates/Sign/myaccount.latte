@@ -1,9 +1,0 @@
-{block content}
-{if $user->loggedIn}
-<h2>{$user->identity->nickname}-&gt;Účet</h2>
-{control myAccountForm}
-<h2>{$user->identity->nickname}-&gt;Změna hesla</h2>
-{control newPassForm}
-
-{/if}
-{/block}
