@@ -33,32 +33,41 @@
                           {var $ttRoom = null}   
                       {/if}
                       {if isset($map[$actualRoom][$actualSlot]) && count($map[$actualRoom][$actualSlot]) > 1}
-                         <td class="pr-slot conflict" rowspan="1">
-                          <strong>!!!Konflikt!!!</strong><br>
-                         {foreach $map[$actualRoom][$actualSlot] as $programId}
-                              {var $errorProgram = $programs[$programId]}
-                              <a href="{if !empty($errorProgram->url)}{$baseUrl}/{$errorProgram->url}{else}{$basePath}/content/view/{$errorProgram->contentId}{/if}"
-                                 class="js-overlay-programEdit"
-                                 data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$programId}"
-                                 data-overlay-reload-selector=".program-table">
-                                  {$errorProgram->title}[{$errorProgram->id}]
-                              </a><br/>
-                              
-                           {/foreach}   
-                         </td>
+                          {* if permissions ok, show conflict, otherwise show empty *}
+                         {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId == 3)}
+                             <td class="pr-slot conflict" rowspan="1">
+                              <strong>!!!Konflikt!!!</strong><br>
+                             {foreach $map[$actualRoom][$actualSlot] as $programId}
+                                  {var $errorProgram = $programs[$programId]}
+                                  <a href="{if !empty($errorProgram->url)}{$baseUrl}/{$errorProgram->url}{else}{$basePath}/content/view/{$errorProgram->contentId}{/if}"
+                                     class="js-overlay-programEdit"
+                                     data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$programId}"
+                                     data-overlay-reload-selector=".program-table">
+                                      {$errorProgram->title}[{$errorProgram->id}]
+                                  </a><br/>
+
+                               {/foreach}
+                             </td>
+                         {else}
+                             <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                         {/if}
                       {elseif isset($ttRoom[$actualSlot]) && count($ttRoom[$actualSlot]) > 1}
-                          <td class="pr-slot conflict" >
-                            <strong>!!!Konflikt!!!</strong><br>
-                          {foreach $ttRoom[$actualSlot] as $program}
-                             <a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}"
-                                class="js-overlay-programEdit"
-                                data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$program->id}"
-                                data-overlay-reload-selector=".program-table">
-                                 {$program->title} [{$program->id}]
-                             </a>
-                              <br/>
-                           {/foreach}   
-                          </td>
+                        {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId == 3)}
+                              <td class="pr-slot conflict" >
+                                <strong>!!!Konflikt!!!</strong><br>
+                              {foreach $ttRoom[$actualSlot] as $program}
+                                 <a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}"
+                                    class="js-overlay-programEdit"
+                                    data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$program->id}"
+                                    data-overlay-reload-selector=".program-table">
+                                     {$program->title} [{$program->id}]
+                                 </a>
+                                  <br/>
+                               {/foreach}
+                              </td>
+                        {else}
+                            <td class="pr-slot empty-slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        {/if}
                       {elseif isset($ttRoom[$actualSlot])}
                            {var $program = $ttRoom[$actualSlot][0]}
                            <td class="pr-slot"{if $program->length > 1} rowspan="{$program->length}"{/if}>
@@ -70,7 +79,7 @@
                                         <strong>{$program->title} </strong>
                                     </a>
                                     <span class="fa {$program->typeIcon}" title="{$program->programType}" ></span>
-                                   {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2)}
+                                   {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId == 3)}
                                        <a href="javascript:void(0);"
                                           class="js-overlay-programEdit fa fa-edit program-edit-btn"
                                           data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$program->id}"
