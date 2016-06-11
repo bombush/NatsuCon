@@ -857,7 +857,7 @@ window.ProgramEditForm = (function(){
                     url: href,
                     success: function (response) {
                         if(response.result)
-                            ProgramEditGrid.reload()
+                            _OnSuccess.callOnSuccessHandlers($form, response);
                         else
                             window.alert('Nastala neznámá chyba');
                     }
