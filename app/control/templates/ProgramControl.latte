@@ -39,7 +39,7 @@
                               {var $errorProgram = $programs[$programId]}
                               <a href="{if !empty($errorProgram->url)}{$baseUrl}/{$errorProgram->url}{else}{$basePath}/content/view/{$errorProgram->contentId}{/if}"
                                  class="js-overlay-programEdit"
-                                 data-overlay-load-url="{plink Program:edit program_id=>$programId}"
+                                 data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$programId}"
                                  data-overlay-reload-selector=".program-table">
                                   {$errorProgram->title}[{$errorProgram->id}]
                               </a><br/>
@@ -52,7 +52,7 @@
                           {foreach $ttRoom[$actualSlot] as $program}
                              <a href="{if !empty($program->url)}{$baseUrl}/{$program->url}{else}{$basePath}/content/view/{$program->contentId}{/if}"
                                 class="js-overlay-programEdit"
-                                data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
+                                data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$program->id}"
                                 data-overlay-reload-selector=".program-table">
                                  {$program->title} [{$program->id}]
                              </a>
@@ -73,7 +73,7 @@
                                    {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2)}
                                        <a href="javascript:void(0);"
                                           class="js-overlay-programEdit fa fa-edit program-edit-btn"
-                                          data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
+                                          data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$program->id}"
                                           data-overlay-reload-selector=".program-table"></a>
                                    {/if}
                                 </p>

@@ -13,7 +13,7 @@
                     {if $user->loggedIn && ($user->identity->roleId == 1 || $user->identity->roleId == 2 || $user->identity->roleId == 1 || $user->identity->roleId == 3)}
                         <a href="javascript:void(0);"
                           class="js-overlay-programEdit fa fa-edit program-edit-btn"
-                          data-overlay-load-url="{plink Program:edit program_id=>$program->id}"
+                          data-overlay-load-url="{plink ProgramAdmin:edit program_id=>$program->id}"
                           data-overlay-reload-selector=".main"></a>
                     {/if}
                 </div>

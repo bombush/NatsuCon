@@ -8,7 +8,7 @@ use Natsu\Model\PermissionModel;
 use Natsu\Model\ProgramModel;
 use Natsu\Forms\ProgramEditFormFactory;
 
-class ProgramPresenter extends BasePresenter {
+class ProgramAdminPresenter extends BasePresenter {
 
     /**
      * @inject
