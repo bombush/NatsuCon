@@ -557,12 +557,12 @@ a.btn{
     background-color: #4284B0;
     color: white;
     text-align: center;
-     border: 0.05em solid white;
+     border: 0.2em solid white;
 }
 
 .pr-slot{
     width:25%;
-    border: 0.05em solid gray;
+    border: 0.3em solid gray;
 }
 
 
@@ -610,12 +610,12 @@ a.btn{
 
 .empty-slot{
     background-color: #4284B0;
-    border: 0.05em solid #4284B0;
+    border: 0.2em solid #4284B0;
     
 }
 
 .day-headline{
- border: 0.05em solid white !important;   
+ border: 0.2em solid white !important;   
 }
 
 .program-table{
@@ -637,6 +637,19 @@ a.btn{
 .type-container {
     text-align: center;
     width: 100%;
+}
+
+.type-container > a {
+    display: inline-block;
+}
+
+.room-container > .right{
+text-align:center;
+}
+
+
+.room-container > .right > a {
+    display: inline-block;
 }
 
 .room-program {
@@ -673,7 +686,8 @@ a.btn{
     width: 20em;
     color: #4284BA;
     background-repeat: no-repeat;
-    background-position: 50% 25%;  
+    background-position: center center;
+    background-size:cover;  
 }
 
 .room-container .left {

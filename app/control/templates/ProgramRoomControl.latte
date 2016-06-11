@@ -1,4 +1,4 @@
-{* Latte template *}
+﻿{* Latte template *}
 
 {block content}
 
@@ -91,7 +91,7 @@
                        {var $program = $ttRoom[$actualSlot][0]}  
                        {if $program->image}
                        <a href="{$basePath}/{$program->url}">
-                       <div class="room-program" {if $program->image} style="background-image: url('{$basePath}/{$program->image->listFile}')"{/if}>
+                       <div class="room-program" {if $program->image} style="background-image: url('{$program->image->listFile|noescape}')"{/if}>
                          
                            <div class="program-room-title">{$program->title|truncate:45}</div>
                            <div class="program-room-author">{$program->author|truncate:45}</div>
