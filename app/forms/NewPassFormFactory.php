@@ -76,6 +76,9 @@ class NewPassFormFactory {
             $values->requesthash= ""; 
             $values->password = md5($values->password);
             $this->userManager->update($values);
+            
+            $form->getPresenter()->flashMessage("Heslo změměno.Přihlašte se.");
+            $form->getPresenter()->redirect("Sign:in");
         }
 }
 ?>

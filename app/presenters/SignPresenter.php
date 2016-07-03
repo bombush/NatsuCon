@@ -155,7 +155,7 @@ class SignPresenter extends BasePresenter {
 
     public function actionGoogle() {
         $client_id = '889446373278-48us44fdiupdpadch01o1hvrpeu5nffn.apps.googleusercontent.com';
-        $client_secret = 'xJssYZ7os_QnLOVYYJiRMke1';
+        $client_secret = '3h9o0PG-ZPbmgBVGoLomBcHM';
         $redirect_uri = 'http://www.natsucon.cz/sign/google';
         
         @session_start();
@@ -165,6 +165,8 @@ class SignPresenter extends BasePresenter {
         $client->setClientSecret($client_secret);
         $client->setRedirectUri($redirect_uri);
         $client->addScope("email");
+       // $client->setAccessType("offline");
+      //  $client->setApprovalPrompt("force");
       //  $client->addScope("profile");
         
        
@@ -201,9 +203,21 @@ class SignPresenter extends BasePresenter {
         if (isset($authUrl)) {
             $this->redirectUrl($authUrl);
         } else {
+            try{
             $user = $service->userinfo->get();
+            }catch(\Exception $e){
+                $this->flashMessage("Službu nelze v tuto chvíli použít.".$e->getMessage());
+                unset($_SESSION['access_token']);
+                $this->redirect("Sign:in");
+            }
             $email = $user->getEmail();
+            try{
             $this->user->login($email, "**********GoogleApproved*************");
+            unset($_SESSION['access_token']);
+            }catch(\Exception $e){
+                $this->flashMessage($e->getMessage());
+                $this->redirect("Sign:in");
+            }
             $this->flashMessage("Logged via Google");
             $this->redirect("Homepage:");
         }
