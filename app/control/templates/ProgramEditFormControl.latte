@@ -31,7 +31,8 @@
 
             {foreach $attachments['HEADIMAGE'] as $image}
                 {if $image['_data'] && $image['_data']->originalFile}
-                    <a href="javascript:void(0);" data-size="{$headImageFullSize}" data-action="remove" data-mime="HEADIMAGE" data-attachment-id="{$image['id']}" class="image thumb js-image"> <img src="{$baseUri}{$image['_data']->originalFile}"
+                    <a href="javascript:void(0);" data-size="{$headImageFullSize}" data-action="remove" data-mime="HEADIMAGE" data-attachment-id="{$image['id']}" class="image addimage thumb js-image"
+                       style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"> <img src="{$baseUri}{$image['_data']->originalFile}"
                                                                                      alt=""
                                                                                                                                                                                  style="width:{$headImageThumbWidth}px; height:{$headImageThumbHeight}px"/> </a>
                 {/if}
