@@ -582,10 +582,10 @@ window.FormImageInput = new function(){
     var _createMetaInputs = function(newInput, triggerInput, filename) {
         var metaArrayName = $(newInput).attr('name') + '_meta';
 
-        var $mimeInput = $('<input type="text" name="' + metaArrayName + '[mime]">');
+        var $mimeInput = $('<input type="hidden" name="' + metaArrayName + '[mime]">');
         $mimeInput = $mimeInput.val($(triggerInput).data('mime'));
 
-        var $filenameInput = $('<input type="text" name="' + metaArrayName + '[filename]">');
+        var $filenameInput = $('<input type="hidden" name="' + metaArrayName + '[filename]">');
         $filenameInput.val(filename);
 
         return [$mimeInput[0], $filenameInput[0]];
@@ -610,12 +610,21 @@ window.FormImageInput = new function(){
 
     var _addAction = function(form, action, value)
     {
-        var actionInput = $('<input type="text" name="attachmentActions[' + action + '][]" value="' + value + '">');
+        var actionInput = $('<input type="hidden" name="attachmentActions[' + action + '][]" value="' + value + '">');
         $(form).append(actionInput);
         return actionInput;
     }
 
-    var _addBase64 = function(form, triggerInput, resultObject, filename) {
+    var _removeAction = function($form, action, value)
+    {
+        var $actionInput = $('input[name="attachmentActions[' + action + '][]"][value="' + value + '"]');
+        if($actionInput.length == 0)
+            throw new Error('Action input ' + action + ' with value ' + value + ' not found.');
+
+        $actionInput.remove();
+    }
+
+    var _addHiddenInputs = function(form, triggerInput, resultObject, filename) {
         var $form = $(form);
         var $triggerInput = $(triggerInput);
 
@@ -633,7 +642,18 @@ window.FormImageInput = new function(){
         var metaInputs = _createMetaInputs($newInput, $triggerInput, filename);
         metaInputs.forEach(_addToForm.bind(null, $form));
 
-        return $newInput;
+        var outInputs = {
+            base64Input : $newInput,
+            thumbPrototypeInput : $thumbPrototypeInput,
+            metaInputs : metaInputs
+        };
+        outInputs.removeAll = function(){
+            $($thumbPrototypeInput).remove();
+            $(outInputs.base64Input).remove();
+            $(outInputs.metaInputs).each(function(){$(this).remove();});
+        };
+
+        return outInputs;
     }
 
     function _init(form) {
@@ -650,15 +670,19 @@ window.FormImageInput = new function(){
 
                 imagePromise.done(function (resultObject, filename) {
                     var thumbPrototype = resultObject.cropped;
-                    var newInput = _addBase64($form, $triggerInput, resultObject, filename);
+                    var hiddenInputs = _addHiddenInputs($form, $triggerInput, resultObject, filename);
+                    var newInput = hiddenInputs.base64Input;
 
                     $newImageInput = $triggerInput.clone();
                     $newImageInput.find('img').remove();
                     $newImageInput.append(_base64ToImg(thumbPrototype));
                     $newImageInput.insertBefore($triggerInput);
 
-                    $newImageInput.attr('data-action', 'none');
-                    $newImageInput.data('action', 'none');
+                    $newImageInput.attr('data-action', 'remove');
+                    $newImageInput.data('action', 'remove');
+                    $newImageInput.attr('data-attachment-id', 0);
+                    $newImageInput.data('attachment-id', 0);
+                    $newImageInput.data('hiddenInputs', hiddenInputs);
 
                     if($triggerInput.data('mime') == 'HEADIMAGE') {
                         $triggerInput.remove();
@@ -668,15 +692,20 @@ window.FormImageInput = new function(){
                 });
 
             } else if (action == 'remove') {
+                if(0 != $triggerInput.data('attachment-id'))
+                    _addAction(form, 'remove', $triggerInput.data('attachment-id'));
+                else if($triggerInput.data('hiddenInputs')) {
+                    var hiddenInputs = $triggerInput.data('hiddenInputs');
+                    _removeAction(form, 'add', $(hiddenInputs.base64Input).attr('name'));
+                    $triggerInput.data('hiddenInputs').removeAll();
+                }
+
                 if ($triggerInput.data('mime') != 'HEADIMAGE')
                     $(this).remove();
                 else {
                     $(this).find('img').remove();
-                    $(this).data('action','add');
+                    $(this).data('action', 'add');
                 }
-
-                if(0 != $triggerInput.data('attachment-id'))
-                    _addAction(form, 'remove', $triggerInput.data('attachment-id'));
 
             } else if(action == 'edit') {
                 $sizes = $triggerInput.data('size').split('x');
@@ -684,7 +713,8 @@ window.FormImageInput = new function(){
 
                 imagePromise.done(function (resultObject) {
                     var thumbPrototype = resultObject.cropped;
-                    var newInput = _addBase64($form, $triggerInput, resultObject);
+                    var hiddenInputs = _addHiddenInputs($form, $triggerInput, resultObject);
+                    var newInput = hiddenInputs.base64Input;
                     $triggerInput.find('img').remove();
                     $triggerInput.append(_base64ToImg(thumbPrototype));
                     _addAction(form, 'edit', $triggerInput.data('attachment-id') + ":" + $(newInput).attr('name'));
