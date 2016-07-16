@@ -678,6 +678,9 @@ text-align:center;
     border-top-style: solid;
     border-top-width: 0.15em;
     color: #05365F;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .room-program {

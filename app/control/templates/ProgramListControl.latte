@@ -20,8 +20,8 @@
             <p class="headline"></p>
             <div class="program-section">
             <div class="left">
-            <p class="list-title">{$program->contentTitle}</p>
-            <p class="list-author">{$program->author}</p>
+                <div class="program-room-title">{$program->contentTitle|truncate:45}</div>
+                <div class="program-room-author">{$program->author|truncate:45}</div>
             </div>
             
             <div  {if $program->image} class="right with-image" style="background-image: url('{$basePath}/{$program->image->listFile}')" {else} class="right" {/if}>
