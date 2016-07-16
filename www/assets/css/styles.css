@@ -667,7 +667,11 @@ text-align:center;
      background-color:#4284B0;
      color: white;
      padding: 0.4em;
- 
+}
+
+.program-room-icon .program-genre {
+    font-size: 0.9em;
+    margin-left: 2px;
 }
 
 .program-room-author {
@@ -1078,6 +1082,10 @@ Wide styles
     margin-left: 2px;
 }
 
+.program-room-icon .program-genre {
+    font-size: 0.9em;
+    margin-left: 2px;
+}
 
 .program-table a {
     text-decoration: none;
