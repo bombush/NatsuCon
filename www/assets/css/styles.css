@@ -631,7 +631,9 @@ a.btn{
     font-size: 0.9em;
     padding: 0.25em;
     font-weight: bold;
-    
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .type-container {
