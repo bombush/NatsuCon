@@ -294,25 +294,25 @@ a>img:hover {
 PROGRAM BACKGROUND
 */
 .program-type-1{
-    background: transparent url("../img/type1.jpg") no-repeat scroll 0 -0.8em;
+    background: transparent url("../img/type1.jpg");
 }
 .program-type-2{
-    background: transparent url("../img/type2.jpg") no-repeat scroll 0 -0.8em;
+    background: transparent url("../img/type2.jpg");
 }
 
 .program-type-3{
-    background: transparent url("../img/type3.jpg") no-repeat scroll 0 -0.8em;
+    background: transparent url("../img/type3.jpg");
 }
 .program-type-4{
-    background: transparent url("../img/type4.jpg") no-repeat scroll 0 -0.8em;
+    background: transparent url("../img/type4.jpg");
 }
 
 .program-type-5{
-    background: transparent url("../img/type5.jpg") no-repeat scroll 0 -0.8em;
+    background: transparent url("../img/type5.jpg");
 }
 
 .program-type-6{
-    background: transparent url("../img/type6.jpg") no-repeat scroll 0 -0.8em;
+    background: transparent url("../img/type6.jpg");
 }
 
 .program-table tbody tr {
@@ -672,6 +672,7 @@ text-align:center;
 .program-room-icon .program-genre {
     font-size: 0.9em;
     margin-left: 2px;
+    display: inline-block;
 }
 
 .program-room-author {
@@ -1080,11 +1081,13 @@ Wide styles
 .program-room-icon .program-genre {
     font-size: 0.9em;
     margin-left: 2px;
+    display: inline-block;
 }
 
 .program-room-icon .program-genre {
     font-size: 0.9em;
     margin-left: 2px;
+    display: inline-block;
 }
 
 .program-table a {
