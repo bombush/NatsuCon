@@ -11,17 +11,20 @@
 
                        <a href="{$basePath}/{$program->url}">
                        <div class="room-program  {if !$program->image}program-type-{$program->typeId}{/if}" {if $program->image} style="background-image: url('{$program->image->listFile|noescape}')"{/if}>
-                         
+
                            <div class="program-room-title">{$program->contentTitle|truncate:35}</div>
                           <div class="program-room-author">{$program->author|truncate:45}</div>
                            <div class="program-room-icon">
-                               <span class="fa {$program->typeIcon}"></span>{if !($program->type != 'General' && $program->type != 'NatsuCon') && $program->programType != $program->programGenre}<span>{$program->programGenre}</span>{/if}
-                               
+                               <span class="fa {$program->typeIcon}"></span>
+                               {if ($program->programGenre != 'General') && ($program->programGenre != 'NatsuCon') && ($program->programType != $program->programGenre)}
+                                   <span class="program-genre">{$program->programGenre}</span>
+                               {/if}
+
                            </div>
                        </div>
                         </a>
 
-    
-    
+
+
  {/foreach} 
 </div>
