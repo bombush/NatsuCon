@@ -9,7 +9,7 @@
 <div class="type-container clearfix">
 {foreach $programs as $program}
 
-                       <a href="{$basePath}/{$program->url}">
+                       <a href="{$basePath}/{$program->url}" title="{$program->contentTitle}">
                        <div class="room-program  {if !$program->image}program-type-{$program->typeId}{/if}" {if $program->image} style="background-image: url('{$program->image->listFile|noescape}')"{/if}>
 
                            <div class="program-room-title">{$program->contentTitle|truncate:45}</div>

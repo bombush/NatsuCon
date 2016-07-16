@@ -90,7 +90,7 @@
                       {if isset($ttRoom[$actualSlot])}
                        {var $program = $ttRoom[$actualSlot][0]}  
                        {if $program->image}
-                       <a href="{$basePath}/{$program->url}">
+                       <a href="{$basePath}/{$program->url}" title="{$program->contentTitle}">
                        <div class="room-program" {if $program->image} style="background-image: url('{$program->image->listFile|noescape}')"{/if}>
                          
                            <div class="program-room-title">{$program->title|truncate:45}</div>
