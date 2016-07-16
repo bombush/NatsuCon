@@ -130,6 +130,15 @@ class ProgramAdminPresenter extends BasePresenter {
             echo 'OK'; exit;
         }
     }
+    
+    public function actionText($id){
+        $em = $this->entityModel->reflection("program");
+        $programs = $em->getProgramsList(2016,$id);
+       // dump($programs);
+        $this->add('programs', $programs);
+        $this->prepare();
+        
+    }
 
 
     public function createComponentProgramGrid()

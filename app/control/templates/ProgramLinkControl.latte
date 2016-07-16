@@ -16,7 +16,11 @@
 {/ifset}  
 {ifset $linkWorkshops}
     <li><a href="{$basePath}/{$sectionId}/{$linkWorkshops}">Workshopy</a></li>
-{/ifset}  
+{/ifset} 
+
+{ifset $linkDoprovod}
+    <li><a href="{$basePath}/{$sectionId}/{$linkDoprovod}">Doprovodný program</a></li>
+{/ifset} 
 
 {ifset $linkEdo}
     <li><a href="{$basePath}/{$sectionId}/{$linkEdo}">Edo</a></li>
