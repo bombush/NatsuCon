@@ -15,7 +15,7 @@
                            <div class="program-room-title">{$program->contentTitle|truncate:35}</div>
                           <div class="program-room-author">{$program->author|truncate:45}</div>
                            <div class="program-room-icon">
-                               <span class="fa {$program->typeIcon}"></span>{if $program->programGenre != 'NatsuCon' && $program->programType != $program->programGenre}<span>{$program->programGenre}</span>{/if}
+                               <span class="fa {$program->typeIcon}"></span>{if !($program->type != 'General' && $program->type != 'NatsuCon') && $program->programType != $program->programGenre}<span>{$program->programGenre}</span>{/if}
                                
                            </div>
                        </div>

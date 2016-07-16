@@ -10,7 +10,7 @@
 {foreach $programs as $program}
 
                        <a href="{$basePath}/{$program->url}">
-                       <div class="room-program  {if !$program->image}program-type-{$program->typeId}{/if}" {if $program->image} style="background-image: url('{$basePath}/{$program->image->listFile}')"{/if}>
+                       <div class="room-program  {if !$program->image}program-type-{$program->typeId}{/if}" {if $program->image} style="background-image: url('{$basePath}{$program->image->listFile|noescape}')"{/if}>
                          
                            <div class="program-room-title">{$program->contentTitle|truncate:35}</div>
                           <div class="program-room-author">{$program->author|truncate:45}</div>

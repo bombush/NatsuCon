@@ -422,7 +422,7 @@ class ContentPresenter extends BasePresenter {
             case 3: $control->setLinkScreenings('promitani'); break;
             case 1: $control->setLinkLectures('prednasky'); break;
             case 4: $control->setLinkWorkshops('workshopy'); break;
-            case 2: case 5: case 7:  $control->setLinkWorkshops('doprovodny-program'); break;
+            case 2: case 5: case 6: case 7:  $control->setLinkDoprovod('doprovodny-program'); break;
         }
         
         switch($program->roomId){

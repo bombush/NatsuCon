@@ -81,7 +81,7 @@ class ProgramModel extends EntityModel {
      * @return \DibiFluent
      */
     public function getProgramsListFluent() {
-        $stm = $this->database->select( "program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType, programgenre.title AS programGenre, content.title as contentTitle, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
+        $stm = $this->database->select( "program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType,content.text ,programgenre.title AS programGenre, content.title as contentTitle, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
                   ->from( "program" )
                   ->leftJoin( "content", "ON program.contentId = content.id" )
                   ->leftJoin( "route", "ON content.id = route.contentId" )
@@ -142,6 +142,7 @@ class ProgramModel extends EntityModel {
           
           if(isset($typeId)){
               $stm->where("program.typeId = $typeId");
+             // echo "program.typeId = $typeId";
           }
           
            if(isset($roomId)){
@@ -164,6 +165,8 @@ class ProgramModel extends EntityModel {
           
           $stm->groupBy("content.id,attachment.id");
           $stm->orderBy($orderBy);
+          
+          //$stm->
           
            $programs = $stm->fetchAll();
            foreach($programs as $key => $program){

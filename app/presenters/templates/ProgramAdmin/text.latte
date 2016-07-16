@@ -1,0 +1,16 @@
+{foreach $programs as $program}
+    <div>
+        <p> {*if ($program->programGenre != 'NatsuCon' && $program->programGenre != '' && $program->programGenre != 'Promítání')}
+            {$program->programGenre|noescape}:
+        {/if*}{$program->contentTitle|noescape}&nbsp;&nbsp;&nbsp;&nbsp;[{$program->author|noescape}]   
+       
+        </p>
+        
+        <p>{$program->text|noescape|striptags}</p>
+        <p>&nbsp;</p>
+    </div>    
+        
+        
+    
+    
+{/foreach}    

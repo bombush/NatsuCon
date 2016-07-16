@@ -18,6 +18,7 @@ class ProgramLinkControl extends BaseControl {
     private $sectionId;
     private $linkScreenings;
     private $linkWorkshops;
+    private $linkDoprovod;
     private $linkTimeTable;
     private $linkCustom;
     private $linkEdo;
@@ -39,6 +40,10 @@ class ProgramLinkControl extends BaseControl {
 
     public function setLinkWorkshops($linkWorkshops) {
         $this->linkWorkshops = $linkWorkshops;
+    }
+    
+    public function setLinkDoprovod($linkDoprovod) {
+        $this->linkDoprovod = $linkDoprovod;
     }
 
     public function setLinkTimeTable($linkTimeTable) {
