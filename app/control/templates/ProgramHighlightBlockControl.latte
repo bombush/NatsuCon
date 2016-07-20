@@ -1,0 +1,5 @@
+{foreach $highlightPrograms as $program}
+    {if $program->image instanceof \Custom\Content\ImageAttachment}
+        <img src="{$program->image->listFile}">
+    {/if}
+{/foreach}
