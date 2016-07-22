@@ -1,5 +1,17 @@
+<div class="program-highlight-block clearfix">
 {foreach $highlightPrograms as $program}
-    {if $program->image instanceof \Custom\Content\ImageAttachment}
-        <img src="{$program->image->listFile}">
-    {/if}
+    <div class="program-wrap">
+        {if $program->image instanceof \Custom\Content\ImageAttachment}
+            <img class="program-img" src="{$program->image->listFile}">
+        {/if}
+        <div class="program-info">
+            <div class="left-tag program-title">
+            {$program->contentTitle}
+            </div>
+            <div class="left-tag program-schedule">
+                Edo 12:00
+            </div>
+        </div>
+    </div>
 {/foreach}
+</div>

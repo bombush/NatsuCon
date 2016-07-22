@@ -232,6 +232,60 @@ Layout styles
     overflow:hidden;
 }
 
+/**
+* Program highlight block component
+**/
+.program-highlight-block {
+    margin: 1em;
+}
+
+.program-highlight-block .program-wrap {
+    display: inline-block;
+    width: 30%;
+    float: left;
+    height: auto;
+    position:relative;
+
+    margin: 0 0.5em;
+}
+
+.program-highlight-block .program-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.program-highlight-block .program-info {
+    position: absolute;
+    bottom: 0px;
+    //background-color: rgba(50, 50, 50, 0.5);
+    color: white;
+}
+
+.program-highlight-block .program-info .left-tag {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.67);
+    width: auto;
+    color: #FFFFFF;
+    font-weight: normal;
+    padding: 0.2em;
+    padding-right: 2em;
+    margin-bottom: 0.2em;
+    float:left;
+    clear:both;
+}
+
+.program-highlight-block .program-info .program-title {
+    background-color: #4284B0;
+    font-size: 1.2em;
+}
+
+.program-highlight-block .program-info .program-schedule {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 1em;
+}
+
+
 .div-left{
     width:50%;
     margin:0.25em;
