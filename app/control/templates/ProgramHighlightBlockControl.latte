@@ -1,17 +1,17 @@
 <div class="program-highlight-block clearfix">
 {foreach $highlightPrograms as $program}
-    <div class="program-wrap">
-        {if $program->image instanceof \Custom\Content\ImageAttachment}
-            <img class="program-img" src="{$program->image->listFile}">
-        {/if}
-        <div class="program-info">
-            <div class="left-tag program-title">
-            {$program->contentTitle}
+        <a href="{plink Content:view, id=>$program->contentId}" class="program-wrap" style="opacity:1">
+            {if $program->image instanceof \Custom\Content\ImageAttachment}
+                <img class="program-img" src="{$program->image->listFile}">
+            {/if}
+            <div class="program-info">
+                <div class="left-tag program-title">
+                {$program->contentTitle}
+                </div>
+                <div class="left-tag program-schedule">
+                    {$program->startTs|date:'l'|translate} {$program->startTs|date:'H:i'}
+                </div>
             </div>
-            <div class="left-tag program-schedule">
-                Edo 12:00
-            </div>
-        </div>
-    </div>
+        </a>
 {/foreach}
 </div>

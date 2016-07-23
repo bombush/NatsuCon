@@ -996,6 +996,21 @@ window.OverlayManager = new function(){
     };
 };
 
+window.Animation = {};
+window.Animation.randomFadeIn = function(elements){
+    $(elements).each(function () {
+        var element = this;
+        var timeout = Math.random() * 1000 + 1000;
+        var tweenTime = Math.random() * 2;
+        window.setTimeout(
+            function () {
+                TweenLite.to(element, tweenTime, {opacity: '1'});
+            },
+            timeout
+        );
+    });
+}
+
 // onload
 $(function(){
     $(document)
@@ -1018,5 +1033,7 @@ $(function(){
                     }
                 });
             }
-        )
+        );
+
+    //Animation.randomFadeIn($('.program-highlight-block .program-wrap'));
 });

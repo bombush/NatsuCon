@@ -169,13 +169,39 @@ class ProgramModel extends EntityModel {
           //$stm->
           
            $programs = $stm->fetchAll();
-           foreach($programs as $key => $program){
-            $programs[$key]->typeIcon = $this->typeIcon($program->typeId);
-            $programs[$key]->image = $this->getImage($program->imageUrl);
-        }
+           $programs = $this->injectImagesToRows($programs);
+
         return $programs;
         
         
+    }
+
+    public function getRandomProgramsList($count, $sectionId)
+    {
+        if ( !is_int( $count ) )
+            throw new \InvalidArgumentException( 'Integer argument required. Passed in: ' . $count );
+
+        $stm = $this->getProgramsListFluent();
+
+        $stm->orderBy('RAND()')
+            ->limit($count);
+
+        if ( isset( $sectionId ) ) {
+            $stm->where( "program.sectionId = $sectionId" );
+        }
+
+        $programs = $this->injectImagesToRows($stm->fetchAll());
+        return $programs;
+    }
+
+    private function injectImagesToRows($programs)
+    {
+        foreach ( $programs as $key => $program ) {
+            $programs[ $key ]->typeIcon = $this->typeIcon( $program->typeId );
+            $programs[ $key ]->image = $this->getImage( $program->imageUrl );
+        }
+
+        return $programs;
     }
     
     private function getImage($url){

@@ -241,12 +241,19 @@ Layout styles
 
 .program-highlight-block .program-wrap {
     display: inline-block;
-    width: 30%;
-    float: left;
+    width: 31%;
+    float: none;
     height: auto;
     position:relative;
+    margin: 0 0.5%;
+}
 
-    margin: 0 0.5em;
+.program-highlight-block .program-wrap + .program-wrap {
+   // margin-left: 1em;
+ }
+
+.program-highlight-block .program-wrap img {
+    border:none;
 }
 
 .program-highlight-block .program-img {
@@ -1093,6 +1100,14 @@ Wide styles
 
 @media (max-width: 44em)
 {
+
+    .program-highlight-block .program-wrap {
+        display: inline-block;
+        width: 250px;
+        float: none;
+        height: auto;
+        position: relative;
+    }
     
     .program-title {
         font-size: 1.2em;
@@ -1209,8 +1224,7 @@ Wide styles
 
 @media (max-width: 22em)
 {
-    .program-table {font-size: 60%;} 
-    
+    .program-table {font-size: 60%;}
 }
 
 @media (min-width: 44em)
