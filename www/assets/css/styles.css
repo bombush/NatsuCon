@@ -248,6 +248,12 @@ Layout styles
     margin: 0 0.5%;
 }
 
+.program-highlight-block .program-wrap:hover {
+    //opacity: 0.8;
+    -webkit-filter: contrast(120%) brightness(103%);
+    filter: contrast(120%) brightness(103%);
+}
+
 .program-highlight-block .program-wrap + .program-wrap {
    // margin-left: 1em;
  }
