@@ -25,6 +25,8 @@ class ProgramHighlightFacade extends Facade
      * Get all programs with types, fill result array with required types
      * and add (or pop off) elements to get the desired $count
      *
+     * Skip if no image!
+     *
      * @param $count desired number of randomized programs
      *
      * @return array
@@ -42,6 +44,9 @@ class ProgramHighlightFacade extends Facade
 
 
         foreach($programsWithTypes as $program) {
+            if(!$program->image) //skip if no image
+                continue;
+
             if(count($resultRequired[$program->typeId]) == 0 && in_array( $program->typeId, $requiredTypes ))
                 $resultRequired[$program->typeId][] = $program;
 
