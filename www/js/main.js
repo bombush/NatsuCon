@@ -1011,6 +1011,10 @@ window.Animation.randomFadeIn = function(elements){
     });
 }
 
+$('.m-expander').click(function(){
+    $($(this).data('expand')).slideToggle();
+});
+
 // onload
 $(function(){
     $(document)

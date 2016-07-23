@@ -1106,6 +1106,9 @@ Wide styles
 
 @media (max-width: 44em)
 {
+    .m-expander {
+        cursor: pointer;
+    }
 
     .program-highlight-block .program-wrap {
         display: inline-block;
