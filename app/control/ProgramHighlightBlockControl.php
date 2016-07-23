@@ -18,6 +18,10 @@ class ProgramHighlightBlockControl extends BaseControl
 
     protected $countDisplayed = 6;
 
+    private $notIn = null;
+
+    private $hidePrograms = FALSE;
+
     public function __construct( ProgramHighlightFacade $facade, $sectionId, IContainer $parent = NULL, $name = NULL ) {
         parent::__construct( $parent, $name );
 
@@ -32,12 +36,20 @@ class ProgramHighlightBlockControl extends BaseControl
         $this->countDisplayed = $number;
     }
 
+    public function handleLoadMore()
+    {
+        $notIn = $_GET['notIn'];
+        $this->notIn = json_decode($notIn, JSON_OBJECT_AS_ARRAY);
+        $this->hidePrograms = TRUE;
+    }
+
     public function render()
     {
         $this->template->setFile( __DIR__ . '/templates/ProgramHighlightBlockControl.latte');
-        $programs = $this->facade->getRandomizedPrograms(6, $this->sectionId);
+        $programs = $this->facade->getRandomizedPrograms(6, $this->sectionId, $this->notIn);
 
         $this->template->highlightPrograms = $programs;
+        $this->template->hidePrograms = $this->hidePrograms;
 
         return $this->template->render();
     }

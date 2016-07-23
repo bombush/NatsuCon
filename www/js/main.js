@@ -996,6 +996,78 @@ window.OverlayManager = new function(){
     };
 };
 
+window.ProgramHighlightBlockControl = new function(){
+    var _notIn = [];
+
+    var _init = function(){
+        var $block = $('.program-highlight-block');
+        var btnMore = $block.find('.js-btn-more');
+
+        btnMore.click(function(){
+            var $programs = $block.find('.program-wrap');
+            var ajaxUrl = $(this).data('moreurl');
+
+            var req = $.ajax({
+                url: ajaxUrl,
+                data: { notIn : JSON.stringify(_notIn) }
+            });
+
+            req.done(function(response){
+                var $unfadedPrograms = $programs;
+                $responsePrograms = $(response).find('.program-wrap');
+
+
+                if($responsePrograms.length == 0) {
+                    _notIn = [];
+                    btnMore.click();
+                    return;
+                }
+
+                $programs.each(function () {
+                    var programId = $(this).data('programid');
+                    if (programId)
+                        _notIn.push(parseInt(programId));
+                });
+
+
+                $responsePrograms.each(function(){
+                    var fadeOutElement = [].pop.call($unfadedPrograms);
+                    var fadeInElement = this;
+
+                    var timeout = 0;//Math.random() * 1000 + 1000;
+                    var tweenTime = Math.random() * 1;
+                    window.setTimeout(
+                        function () {
+                            TweenLite.to(
+                                fadeOutElement,
+                                tweenTime,
+                                {
+                                    opacity: '0',
+                                    onComplete: function () {
+                                        $(fadeOutElement).replaceWith($(fadeInElement));
+                                        TweenLite.to(
+                                            fadeInElement,
+                                            Math.random() * 1,
+                                            {
+                                                opacity: '1'
+                                            }
+                                        );
+                                    }
+                                });
+                        },
+                        timeout
+                    );
+                });
+            });
+            //Animation.randomFadeIn($('.program-highlight-block .program-wrap'));
+        });
+    }
+
+    return {
+        init : _init
+    }
+}
+
 window.Animation = {};
 window.Animation.randomFadeIn = function(elements){
     $(elements).each(function () {
@@ -1038,6 +1110,8 @@ $(function(){
                 });
             }
         );
+
+    ProgramHighlightBlockControl.init();
 
     //Animation.randomFadeIn($('.program-highlight-block .program-wrap'));
 });

@@ -31,7 +31,7 @@ class ProgramHighlightFacade extends Facade
      *
      * @return array
      */
-    public function getRandomizedPrograms($count, $sectionId)
+    public function getRandomizedPrograms($count, $sectionId, $notIn = null)
     {
         $requiredTypes = [1,2,3,4]; // Prednaska, soutez, promitani, workshop
 
@@ -44,7 +44,7 @@ class ProgramHighlightFacade extends Facade
 
 
         foreach($programsWithTypes as $program) {
-            if(!$program->image) //skip if no image
+            if(!$program->image || (is_array($notIn) && in_array($program->id, $notIn))) //skip if no image or notin
                 continue;
 
             if(count($resultRequired[$program->typeId]) == 0 && in_array( $program->typeId, $requiredTypes ))

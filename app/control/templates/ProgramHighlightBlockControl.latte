@@ -1,6 +1,10 @@
-<div class="program-highlight-block clearfix m-expandable">
+<div class="program-highlight-block clearfix m-expandable" >
 {foreach $highlightPrograms as $program}
-        <a href="{plink Content:view, id=>$program->contentId}" class="program-wrap" style="opacity:1">
+        <a href="{plink Content:view, id=>$program->contentId}"
+           class="program-wrap"
+           data-programid="{$program->id}"
+            {if isset($hidePrograms) && $hidePrograms}style="opacity:0"{/if}
+        >
             {if $program->image instanceof \Custom\Content\ImageAttachment}
                 <img class="program-img" src="{$program->image->listFile}">
             {/if}
@@ -14,4 +18,5 @@
             </div>
         </a>
 {/foreach}
+    <a class="js-btn-more" data-moreurl="{link loadMore}">Zobrazit více</a>
 </div>
