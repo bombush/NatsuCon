@@ -176,15 +176,17 @@ class ProgramModel extends EntityModel {
         
     }
 
-    public function getRandomProgramsList($count, $sectionId)
+    public function getRandomProgramsList($count = null, $sectionId)
     {
-        if ( !is_int( $count ) )
+        if ( !is_int( $count ) && !is_null($count) )
             throw new \InvalidArgumentException( 'Integer argument required. Passed in: ' . $count );
 
         $stm = $this->getProgramsListFluent();
 
-        $stm->orderBy('RAND()')
-            ->limit($count);
+        $stm->orderBy('RAND()');
+
+        if($count)
+            $stm->limit($count);
 
         if ( isset( $sectionId ) ) {
             $stm->where( "program.sectionId = $sectionId" );

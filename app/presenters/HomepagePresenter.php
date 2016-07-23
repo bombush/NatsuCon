@@ -42,8 +42,9 @@ class HomepagePresenter extends BasePresenter
     {
         $sectionId = $this->context->getParameters()['sectionId'];
         $programModel = $this->entityModel->reflection('Program');
+        $highlightFacade = new Model\Facade\ProgramHighlightFacade( $this->entityModel, $programModel);
 
-        $control = new ProgramHighlightBlockControl($programModel, $sectionId);
+        $control = new ProgramHighlightBlockControl($highlightFacade, $sectionId);
         return $control;
     }
 }
