@@ -1248,6 +1248,7 @@ Wide styles
     .nav-bar-fixed {
         padding: 0.5em 0em;
         position: fixed;
+        z-index: 100;
     }
 	.content { padding: 3em 2em; max-width: 65em; margin: auto; }
         
