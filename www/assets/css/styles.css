@@ -298,6 +298,16 @@ Layout styles
     font-size: 1em;
 }
 
+.program-highlight-block .btn-more {
+    font-size: 1.5em;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: underline;
+    display: block;
+    margin-top: 5px;
+    color: #4169E1;
+}
+
 
 .div-left{
     width:50%;
@@ -1110,6 +1120,12 @@ Wide styles
         cursor: pointer;
     }
 
+    .program-highlight-block {
+        width: 250px;
+        margin: auto;
+        display: block;
+    }
+
     .program-highlight-block .program-wrap {
         display: inline-block;
         width: 250px;
@@ -1117,7 +1133,11 @@ Wide styles
         height: auto;
         position: relative;
     }
-    
+
+    .program-highlight-block .btn-more {
+        display: none;
+    }
+
     .program-title {
         font-size: 1.2em;
         padding: 0.25em;
