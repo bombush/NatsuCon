@@ -1083,7 +1083,7 @@ window.ProgramHighlightBlockControl = new function(){
         var $block = $('.program-highlight-block');
         var btnMore = $block.find('.js-btn-more');
 
-        btnMore.click(function () {
+        btnMore.on('click', function () {
             var $programs = $block.find('.program-wrap');
             var ajaxUrl = $(this).data('moreurl');
 
