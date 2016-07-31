@@ -16,8 +16,8 @@
                            <div class="program-room-author">{if $program->author==""}-{else}{$program->author|truncate:45}{/if}</div>
                            <div class="program-room-icon">
                                <span class="fa {$program->typeIcon}"></span>
-                               {if ($program->genre != 'General') && ($program->genre != 'NatsuCon') && ($program->programType != $program->genre)}
-                                   <span class="tag-text program-genre">{$program->genre}</span>
+                               {if ($program->programGenre != 'General') && ($program->programGenre != 'NatsuCon') && ($program->programType != $program->programGenre)}
+                                   <span class="tag-text program-genre">{$program->programGenre}</span>
                                {/if}
                                <span class="tag-text program-schedule">
                                    <span class="fa fa-clock-o"></span>
