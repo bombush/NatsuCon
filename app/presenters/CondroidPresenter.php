@@ -23,9 +23,10 @@ class CondroidPresenter extends BasePresenter
         $connector = new NatsuConnector($this->entityModel->reflection('Program'), $sectionId);
         $exporter = new CondroidExport($connector);
 
-        $xml = $exporter->run();
+        $xml = $exporter->run($countPrograms);
 
         header( 'Content-type: text/xml' );
+        header( 'X-Programme-Count: ' . $countPrograms );
         echo $xml;
         exit;
     }

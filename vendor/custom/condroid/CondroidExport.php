@@ -19,9 +19,11 @@ class CondroidExport
         $this->dataSource = $dataSource;
     }
 
-    public function run()
+    public function run(&$count)
     {
         $programme = $this->dataSource->fetchForCondroid();
+        $count = count($programme);
+
         $xml = $this->createXml($programme);
 
         return $xml;

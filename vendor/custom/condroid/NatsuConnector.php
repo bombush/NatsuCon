@@ -27,7 +27,7 @@ class NatsuConnector implements ICondroidExportable
      */
     public function fetchForCondroid()
     {
-        $programs = $this->model->getProgramsList($this->sectionId);
+        $programs = $this->model->getProgramsList($this->sectionId, NULL, NULL, NULL, NULL, $orderBy = "content.id");
 
         $exports = [];
 
@@ -37,16 +37,16 @@ class NatsuConnector implements ICondroidExportable
         {
             $condroidProgramme = new ProgrammeCondroid();
             $condroidProgramme->pid = $program->id;
-            $condroidProgramme->author = $program->author;
-            $condroidProgramme->title = $program->contentTitle;
+            $condroidProgramme->author = htmlspecialchars($program->author);
+            $condroidProgramme->title = htmlspecialchars($program->contentTitle);
 
             $condroidProgramme->type = $helper->fromType($program->typeId);
 
-            $condroidProgramme->programLine = $program->programGenre;
+            $condroidProgramme->programLine = htmlspecialchars($program->programGenre);
             $condroidProgramme->location = $program->roomTitle;
             $condroidProgramme->startTime = new \DateTime($program->timeFrom);
             $condroidProgramme->endTime = new \DateTime($program->timeTo);
-            $condroidProgramme->annotation = strip_tags($program->text);
+            $condroidProgramme->annotation = htmlspecialchars(strip_tags($program->text));
 
             $exports[] = $condroidProgramme;
         }
