@@ -19,7 +19,7 @@
                                {if ($program->genre != 'General') && ($program->programGenre != 'NatsuCon') && ($program->programType != $program->programGenre)}
                                    <span class="program-genre">{$program->programGenre}</span>
                                {/if}
-                               <span><strong>{$program->timeFrom|date:'D'|translate}    {$program->timeFrom|date:'G:i'}</strong></span>
+                               <span>{$program->timeFrom|date:'D'|translate}    {$program->timeFrom|date:'G:i'}</span>
                                
                            </div>
                                 
