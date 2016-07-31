@@ -1084,6 +1084,8 @@ window.ProgramHighlightBlockControl = new function(){
         var btnMore = $block.find('.js-btn-more');
 
         btnMore.on('click', function () {
+            ga('send', 'event', 'programmeHighlight', 'more');
+
             var $programs = $block.find('.program-wrap');
             var ajaxUrl = $(this).data('moreurl');
 
