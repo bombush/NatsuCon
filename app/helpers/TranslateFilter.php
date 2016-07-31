@@ -14,7 +14,7 @@ class TranslateFilter extends Object {
         switch($text){
              case "Fri": return "Pá"; break;
              case "Sat": return "So"; break;
-             case "Sun": return "Neděle"; break;
+             case "Sun": return "Ne"; break;
              case "Friday": return "Pátek"; break;
              case "Saturday": return "Sobota"; break;
              case "Sunday": return "Neděle"; break;
