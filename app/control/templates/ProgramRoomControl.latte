@@ -90,13 +90,14 @@
                       {if isset($ttRoom[$actualSlot])}
                        {var $program = $ttRoom[$actualSlot][0]}  
                        {if $program->image}
-                       <a href="{$basePath}/{$program->url}" title="{$program->contentTitle}">
+                       <a href="{$basePath}/{$program->url}" title="{$program->title}">
                        <div class="room-program" {if $program->image} style="background-image: url('{$program->image->listFile|noescape}')"{/if}>
                          
                            <div class="program-room-title">{$program->title|truncate:45}</div>
                            <div class="program-room-author">{if $program->author == ""}-{else}{$program->author|truncate:45}{/if}</div>
                            <div class="program-room-icon">
                                <span class="fa {$program->typeIcon}"/>
+
                                {if (($program->programGenre != 'General') && ($program->programGenre != 'NatsuCon')) && ($program->programType != $program->programGenre)}
                                    <span class="program-genre">{$program->programGenre}</span>
                                {/if}

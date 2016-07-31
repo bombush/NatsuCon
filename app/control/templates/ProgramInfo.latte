@@ -22,6 +22,7 @@
              <div class="program-time-place">
                  
                  <div class="div-left"><span class="fa {$program->typeIcon}"></span>&nbsp; <strong>{$program->type}</strong> {if !empty($program->genre) && ($program->genre != $program->type) && (($program->genre != 'General') && ($program->genre != 'NatsuCon'))}({$program->genre}){/if}</div>
+
                  <div class="div-right">
                      {foreach $programs as $slot}
                      <div><span class="fa fa-clock-o"></span> <strong> {$slot->roomTitle} - {$slot->timeFrom|date:'D'|translate}    {$slot->timeFrom|date:'G:i'} - {$slot->timeTo|date:'G:i'} {if $slot->reprise} (repríza){/if}</strong></div>
