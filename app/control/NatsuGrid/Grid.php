@@ -30,6 +30,8 @@ class Grid extends Control
     protected $filterState = [];
     protected $sortState = [];
 
+    protected $rowCssClassCallback = null;
+
 
     public function setDataSource(\DibiFluent $dataSource)
     {
@@ -114,9 +116,10 @@ class Grid extends Control
         }
     }
 
-    public function addColumn($type, $name, $label) {
+    public function addColumn($type, $name, $label, callable $cssClassCallback = null) {
         $this->columns[] = ArrayHash::from([
-            'type' => $type, 'key' => $name, 'label' => $label
+            'type' => $type, 'key' => $name, 'label' => $label,
+            'cssClassCallback' => $cssClassCallback
                                            ]);
     }
 
@@ -139,6 +142,8 @@ class Grid extends Control
         }
         $this->template->filterValues = $filterValues;
 
+        $this->template->cssClassCallback = $this->rowCssClassCallback;
+
         $this->template->render();
     }
 
@@ -154,6 +159,16 @@ class Grid extends Control
     public function setFilterDefault($filterName, $value)
     {
         $this->filterDefaults[$filterName] = $value;
+    }
+
+    public function setRowCssClassCallback( callable $callback)
+    {
+        $this->rowCssClassCallback = $callback;
+    }
+
+    public function setColumnClassCallback(callable $callback, $column)
+    {
+
     }
 }
 

@@ -1,0 +1,24 @@
+<div class="program-highlight-block clearfix m-expandable" >
+{foreach $highlightPrograms as $program}
+        <a href="{plink Content:view, id=>$program->contentId}"
+           class="program-wrap"
+           data-programid="{$program->id}"
+            {if isset($hidePrograms) && $hidePrograms}style="opacity:0"{/if}
+        >
+            {if $program->image instanceof \Custom\Content\ImageAttachment}
+                <img class="program-img" src="{$program->image->listFile}">
+            {/if}
+            <div class="program-info">
+                <div class="left-tag program-title">
+                {$program->contentTitle}
+                </div>
+                <div class="left-tag program-schedule">
+                    {$program->startTs|date:'l'|translate} {$program->startTs|date:'H:i'}
+                </div>
+            </div>
+        </a>
+{/foreach}
+    {if $this->displayShowMoreButton}
+        <a href="javascript:void(0);" class="js-btn-more btn-more link" data-moreurl="{link loadMore}">Zobrazit více</a>
+    {/if}
+</div>

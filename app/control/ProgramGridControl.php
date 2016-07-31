@@ -93,7 +93,14 @@ class ProgramGridControl extends BaseControl
         $grid = new NatsuGrid\Grid();
 
         //$grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'id', 'program_id' );
-        $grid->addColumn(\Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'contentTitle', 'Název');
+        $grid->addColumn(
+            \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT,
+            'contentTitle',
+            'Název',
+            function($data){
+                if($data['isSticky'])
+                    return 'sticky';
+            });
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programType', 'Druh programu' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'programGenre', 'Sekce' );
         $grid->addColumn( \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT, 'roomTitle', 'Místnost' );

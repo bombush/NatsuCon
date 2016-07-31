@@ -996,6 +996,177 @@ window.OverlayManager = new function(){
     };
 };
 
+window.ProgramHighlightBlockControl = new function(){
+    var _debug = false;
+
+    var _notIn = [];
+
+    var _excludeDisplayed = function($block){
+        $block.find('.program-wrap').each(function () {
+            var dataId = $(this).data('programid');
+            if(dataId = parseInt(dataId))
+                _notIn.push(dataId);
+        });
+    };
+
+    var _getImageTweenTime = function() {
+        return Math.random() * 1;
+    };
+
+    var _getImageAnimationTimeout = function(){
+        return 0;
+    };
+
+    var _fadeOut = function(fadeOutElement) {
+        var deferred = $.Deferred();
+
+        TweenLite.to(
+            fadeOutElement,
+            _getImageTweenTime(),
+            {
+                opacity: '0',
+                onComplete: function(){
+                    deferred.resolve();
+                }
+            });
+
+        return deferred.promise();
+    };
+
+    var _fadeIn = function(fadeInElement) {
+        var deferred = $.Deferred();
+
+            TweenLite.to(
+                fadeInElement,
+                _getImageTweenTime(),
+                {
+                    opacity: '1'
+                }
+            );
+
+        return deferred.promise();
+    };
+
+    /* attempt at functional
+    var _fade = function(element) {
+        var deferred = $.Deferred();
+
+        var tweenTime = _getImageTweenTime();
+        var animateWithOptions = TweenLite.to.bind(null, element, tweenTime);
+
+        return {
+            'in': function () {
+                animateWithOptions(
+                    {
+                        opacity: '1',
+                        onComplete : function(){ deferred.resolve(); }
+                    }
+                );
+
+                return deferred.promise();
+            },
+            'out': function () {
+                animateWithOptions(
+                    {
+                        opacity: '0',
+                        onComplete: function () {
+                            deferred.resolve();
+                        }
+                    }
+                );
+                return deferred.promise();
+            }
+        };
+    }*/
+
+    var _bindClick = function(){
+        var $block = $('.program-highlight-block');
+        var btnMore = $block.find('.js-btn-more');
+
+        btnMore.on('click', function () {
+            var $programs = $block.find('.program-wrap');
+            var ajaxUrl = $(this).data('moreurl');
+
+            _excludeDisplayed($block);
+
+            var req = $.ajax({
+                url: ajaxUrl,
+                data: {notIn: JSON.stringify(_notIn)}
+            });
+
+            if (_debug)
+                console.log('NotIn request: ' + _notIn.join(','));
+
+            req.done(function (response) {
+                var $unfadedPrograms = $programs;
+                var $responsePrograms = $(response).find('.program-wrap');
+
+
+                if ($responsePrograms.length == 0) {
+                    _notIn = []; //rest notin
+
+                    if (_debug)
+                        console.log('NotIn reset');
+
+                    btnMore.click();
+                    return;
+                }
+
+                if (_debug) {
+                    var unfadedProgramIds = [].map.call($unfadedPrograms, function (program) {
+                        return $(program).data('programid');
+                    });
+                    var responseProgramIds = [].map.call($responsePrograms, function (program) {
+                        return $(program).data('programid');
+                    });
+                    console.log('Currently displayed IDs: ' + unfadedProgramIds.join(','));
+                    console.log('Response IDs: ' + responseProgramIds.join(','));
+                }
+
+                $responsePrograms.each(function () {
+                    var fadeOutElement = [].pop.call($unfadedPrograms); //pop from jQuery object
+                    var fadeInElement = this;
+
+                    _fadeOut(fadeOutElement)
+                        .done(
+                            function () {
+                                $(fadeOutElement).replaceWith($(fadeInElement));
+                                _fadeIn(fadeInElement);
+                            }
+                        );
+                });
+            });
+        });
+    }
+
+    var _init = function(){
+        _bindClick();
+    }
+
+    return {
+        init : _init
+    }
+}
+
+window.Animation = {};
+window.Animation.randomFadeIn = function(elements){
+    $(elements).each(function () {
+        var element = this;
+        var timeout = Math.random() * 1000 + 1000;
+        var tweenTime = Math.random() * 2;
+        window.setTimeout(
+            function () {
+                TweenLite.to(element, tweenTime, {opacity: '1'});
+            },
+            timeout
+        );
+    });
+}
+
+$('.m-expander').click(function(){
+    $($(this).data('expand')).slideToggle();
+});
+
 // onload
 $(function(){
     $(document)
@@ -1018,5 +1189,7 @@ $(function(){
                     }
                 });
             }
-        )
+        );
+
+    ProgramHighlightBlockControl.init(); // we should defer this
 });

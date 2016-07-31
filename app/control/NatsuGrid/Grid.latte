@@ -21,7 +21,8 @@
         <tr class="grid-row" data-id="{$row->id}">
             {foreach $columns as $column}
                 {if $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_TEXT }
-                    <td class="column-{$column->key}">{$row->{$column['key']}}</td>
+                    {dump $column}
+                    <td class="column-{$column->key} {if $column->cssClassCallback}{$column->cssClassCallback->__invoke($row)}{/if}">{$row->{$column['key']}}</td>
                 {elseif $column['type'] == \Natsu\Control\NatsuGrid\Grid::COLUMN_DATETIME}
                     <td class="datetime column-{$column->key}">{$row->{$column['key']}|date,'D G:i'}</td>
                 {/if}
