@@ -96,6 +96,7 @@ class ProgramHighlightFacade extends Facade
         $stm->orderBy( 'RAND()' );
         $stm->where( 'attachment.id IS NOT NULL' );
         $stm->where( 'content.isSticky = 1' );
+        $stm->groupBy('program.id');
 
         if ( $count )
             $stm->limit( $count );
