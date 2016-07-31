@@ -81,7 +81,7 @@ class ProgramModel extends EntityModel {
      * @return \DibiFluent
      */
     public function getProgramsListFluent() {
-        $stm = $this->database->select( "program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType,content.text ,programgenre.title AS programGenre, content.title as contentTitle, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
+        $stm = $this->database->select( "program.*, attachment.url AS imageUrl, room.title AS roomTitle, programtype.title AS programType,content.text ,programgenre.title AS programGenre, content.isSticky as isSticky, content.title as contentTitle, content.author, route.url, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
                   ->from( "program" )
                   ->leftJoin( "content", "ON program.contentId = content.id" )
                   ->leftJoin( "route", "ON content.id = route.contentId" )
@@ -164,7 +164,9 @@ class ProgramModel extends EntityModel {
           }
           
           $stm->groupBy("content.id,attachment.id");
-          $stm->orderBy($orderBy);
+
+          if($orderBy)
+            $stm->orderBy($orderBy);
           
           //$stm->
           
@@ -176,27 +178,7 @@ class ProgramModel extends EntityModel {
         
     }
 
-    public function getRandomProgramsList($count = null, $sectionId)
-    {
-        if ( !is_int( $count ) && !is_null($count) )
-            throw new \InvalidArgumentException( 'Integer argument required. Passed in: ' . $count );
-
-        $stm = $this->getProgramsListFluent();
-
-        $stm->orderBy('RAND()');
-
-        if($count)
-            $stm->limit($count);
-
-        if ( isset( $sectionId ) ) {
-            $stm->where( "program.sectionId = $sectionId" );
-        }
-
-        $programs = $this->injectImagesToRows($stm->fetchAll());
-        return $programs;
-    }
-
-    private function injectImagesToRows($programs)
+    public function injectImagesToRows($programs)
     {
         foreach ( $programs as $key => $program ) {
             $programs[ $key ]->typeIcon = $this->typeIcon( $program->typeId );
@@ -247,7 +229,7 @@ class ProgramModel extends EntityModel {
      * @return array
      */
     public function getFormDefaults($programId) {
-        $stm = $this->database->select( "program.id as programId, content.title as contentTitle, content.id AS contentId, content.text AS contentText, room.id AS roomId, programgenre.id AS genreId, programtype.id AS typeId, content.author, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
+        $stm = $this->database->select( "program.id as programId, content.title as contentTitle, content.id AS contentId, content.isSticky as isSticky, content.text AS contentText, room.id AS roomId, programgenre.id AS genreId, programtype.id AS typeId, content.author, UNIX_TIMESTAMP(program.timeFrom) AS startTs" )
                                 ->select("program.timeFrom, program.timeTo")
                                 ->select("attachment.url AS attachmentUrl, attachment.id AS attachmentId, attachment.mime AS attachmentMime")
                                 ->from( "program" )

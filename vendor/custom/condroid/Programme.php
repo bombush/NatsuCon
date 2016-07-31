@@ -25,8 +25,39 @@ class Programme {
    public $timeTo = NULL;
    public $length = 0;
    public $reprise = 0;
-   
-   public function createContent($xml){
+
+    /**
+     * Programme types map.
+     * Left-side is condroid code,
+     * right side is application-specific
+     *
+     * @var array
+     */
+    protected $types = [
+        'F' => 3,
+        'C' => 6,
+        'G' => 7,
+        'P' => 1,
+        'Q' => 2,
+        'W' => 4
+    ];
+
+    /**
+     * Locations map.
+     * Left-side is Condroid string,
+     * right-side is application-specific
+     *
+     * @var array
+     */
+    protected $locations = [
+        'Edo'       => 1,
+        'Nara'      => 2,
+        'Meidži'    => 3,
+        'Workshopy' => 4,
+        'Ostatní'   => 5
+    ];
+
+    public function createContent($xml){
        $content = array();
        $content['userId'] = 1;
        $content['sectionId'] = 2015;
@@ -54,38 +85,32 @@ class Programme {
    
    public function toType($type){
        $type = trim($type);
-       $types = array
-               (
-                    'F' => 3,
-                    'C' => 6,
-                    'G' => 7,
-                    'P' => 1,
-                    'Q' => 2,
-                    'W' => 4
-               );
-       
+       $types = $this->types;
+
        return $types[$type];
        
    }
-   
-   
-   public function toLocation($location){
+
+    public function fromType($type) {
+        $types = array_flip($this->types);
+        return $types[ $type ];
+    }
+
+    public function toLocation($location){
        $location = trim($location);
-       $locations = array
-               (
-                    'Edo' => 1,
-                    'Nara' => 2,
-                    'Meidži' => 3,
-                    'Workshopy' => 4,
-                    'Ostatní' => 5
-               );
+       $locations = $this->locations;
        
        return isset($locations[$location]) ? $locations[$location] : 5;
-       
-       
    }
-   
-   
 
-   
+    /**
+     * @param $location
+     *
+     * @return mixed
+     */
+   public function fromLocation($location) {
+       $locations = array_flip($this->locations);
+
+       return $locations[$location];
+   }
 }

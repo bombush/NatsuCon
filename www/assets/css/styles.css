@@ -752,6 +752,22 @@ text-align:center;
     display: inline-block;
 }
 
+.program-room-icon .tag-text {
+    font-size: 0.9em;
+}
+
+.program-room-icon span+span {
+    pargin-left:2px;
+}
+
+.program-room-icon .program-schedule {
+    float: right;
+}
+
+.program-room-icon .program-schedule .fa {
+    padding: 0 5px 0 0;
+}
+
 .program-room-author {
     background-color:rgba(255, 255, 255, 0.7);
     font-size: 0.9em;
@@ -1368,6 +1384,9 @@ Wide styles
 .program-grid td.datetime {
     width:60px;
 }
+.program-grid td.sticky {
+    font-weight: bold;
+}
 .program-grid tr {
     cursor:pointer;
 }
@@ -1403,6 +1422,11 @@ Wide styles
     height: 20px;
     border-radius: 5px;
     border: 1px solid lightgrey;
+}
+
+.program-edit-form .pair input[type="checkbox"] {
+    width: 20px;
+    height: 20px
 }
 
 .program-edit-form .pair {

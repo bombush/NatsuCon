@@ -50,6 +50,7 @@ class ProgramHighlightBlockControl extends BaseControl
 
         $this->template->highlightPrograms = $programs;
         $this->template->hidePrograms = $this->hidePrograms;
+        $this->template->displayShowMoreButton = TRUE;
 
         return $this->template->render();
     }

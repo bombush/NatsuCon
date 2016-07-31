@@ -17,9 +17,12 @@
                            <div class="program-room-icon">
                                <span class="fa {$program->typeIcon}"></span>
                                {if ($program->genre != 'General') && ($program->genre != 'NatsuCon') && ($program->programType != $program->genre)}
-                                   <span class="program-genre">{$program->genre}</span>
+                                   <span class="tag-text program-genre">{$program->genre}</span>
                                {/if}
-
+                               <span class="tag-text program-schedule">
+                                   <span class="fa fa-clock-o"></span>
+                                   {$program->roomTitle} - {$program->timeFrom|date:'D'|translate}    {$program->timeFrom|date:'G:i'}
+                               </span>
                            </div>
                        </div>
                         </a>

@@ -18,5 +18,7 @@
             </div>
         </a>
 {/foreach}
-    <a href="javascript:void(0);" class="js-btn-more btn-more link" data-moreurl="{link loadMore}">Zobrazit více</a>
+    {if $this->displayShowMoreButton}
+        <a href="javascript:void(0);" class="js-btn-more btn-more link" data-moreurl="{link loadMore}">Zobrazit více</a>
+    {/if}
 </div>

@@ -35,7 +35,7 @@ class ProgramHighlightFacade extends Facade
     {
         $requiredTypes = [1,2,3,4]; // Prednaska, soutez, promitani, workshop
 
-        $programsWithTypes = $this->programModel->getRandomProgramsList(null, $sectionId);
+        $programsWithTypes = $this->getRandomProgramsListWithImages( null, $sectionId);
 
         $resultRequired = [];
         $resultRest = [];
@@ -76,5 +76,36 @@ class ProgramHighlightFacade extends Facade
         shuffle($result);
 
         return $result;
+    }
+
+    /**
+     * Get random list of stickied programs with images
+     *
+     * @param null $count
+     * @param      $sectionId
+     *
+     * @return mixed
+     */
+    public function getRandomProgramsListWithImages( $count = NULL, $sectionId )
+    {
+        if ( !is_int( $count ) && !is_null( $count ) )
+            throw new \InvalidArgumentException( 'Integer argument required. Passed in: ' . $count );
+
+        $stm = $this->programModel->getProgramsListFluent();
+
+        $stm->orderBy( 'RAND()' );
+        $stm->where( 'attachment.id IS NOT NULL' );
+        $stm->where( 'content.isSticky = 1' );
+
+        if ( $count )
+            $stm->limit( $count );
+
+        if ( isset( $sectionId ) ) {
+            $stm->where( "program.sectionId = $sectionId" );
+        }
+
+        $programs = $this->programModel->injectImagesToRows( $stm->fetchAll() );
+
+        return $programs;
     }
 }

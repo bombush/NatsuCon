@@ -19,6 +19,7 @@ use Nette\Application\UI\Form;
 use Nette\NotImplementedException;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Callback;
+use Tracy\Debugger;
 
 class ProgramEditFormControl extends BaseControl
 {
@@ -139,6 +140,8 @@ class ProgramEditFormControl extends BaseControl
         $form->addSelect( 'roomId', 'Místnost', $this->programModel->getRoomsPairs( '1,2,3,4,5' ) );
 
         $form->addText( 'author', 'Autor' );
+        $form->addCheckbox('isSticky', 'Zobrazit na Homepage')
+            ->setDefaultValue(FALSE);
         $form->addTextArea( 'contentText', 'Anotace' )
             ->setAttribute('class','wysiwyg');//anotace
 
@@ -382,13 +385,15 @@ class ProgramEditFormControl extends BaseControl
                 'text' => $values[ 'contentText' ],
                 'pageTitle' => $values['contentTitle'],
                 'title' => $values[ 'contentTitle' ],
-                'author' => $values['author']
+                'author' => $values['author'],
+                'isSticky' => (int)$values[ 'isSticky' ]
             ];
             $contentModel->update( ArrayHash::from( $contentValues ) );
             $contentModel->log($this->getParent()->getUser()->getId(), ['entity' => 'content', 'entityId' => $values['id'], 'column' => 'UPDATE', 'value' => 'OK']);
 
         } catch (\Exception $e) {
             $this->em->rollback();
+            Debugger::log($e, Debugger::EXCEPTION);
 
             return FALSE;
         }
@@ -411,7 +416,7 @@ class ProgramEditFormControl extends BaseControl
                 'sectionId' => $this->sectionId,
                 'isDraft' => $values['isDraft'],
                 'isNews' => 0,
-                'isSticky' => 0,
+                'isSticky' => (int)$values['isSticky'],
 
                 'text'      => $values[ 'contentText' ],
                 'pageTitle' => $values[ 'contentTitle' ],
