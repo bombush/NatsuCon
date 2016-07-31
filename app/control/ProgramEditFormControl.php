@@ -140,7 +140,7 @@ class ProgramEditFormControl extends BaseControl
         $form->addSelect( 'roomId', 'Místnost', $this->programModel->getRoomsPairs( '1,2,3,4,5' ) );
 
         $form->addText( 'author', 'Autor' );
-        $form->addCheckbox('isSticky', 'Zobrazit na Homepage')
+        $form->addCheckbox('isSticky', 'Zobrazit na Homepage (pokud má obrázek)')
             ->setDefaultValue(FALSE);
         $form->addTextArea( 'contentText', 'Anotace' )
             ->setAttribute('class','wysiwyg');//anotace
