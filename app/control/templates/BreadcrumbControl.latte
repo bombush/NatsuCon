@@ -1,8 +1,14 @@
 {block content}
     <ul class="breadcrumbs">
-        <li><a href="{$basePath}">NatsuCon</a></li>
+        {if !isset($sectionId)}
+            <li><a href="{$baseUri}">NatsuCon</a></li>
         {if $content && $content->sectionId > 1}
             <li>{$content->sectionId}</li>
+        {/if}
+        {else}
+        <li><a href="{$baseUri}">NatsuCon</a></li>
+        <li>{$sectionId}</li>
+        <li><a href="{$baseUri}/{$sectionId}/program">Program</a></li>
         {/if}
         {if $content}
         <li class="active">{$content->title}</li>

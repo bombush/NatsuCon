@@ -395,6 +395,8 @@ class ContentPresenter extends BasePresenter {
 
      public function createComponentBreadCrumbs(){
         $bc = new \Natsu\Control\BreadcrumbControl();
+        $bc->setComponents($this->controls);
+        //$bm->setSectionId($this->sectionId);
         $bc->setContent($this->toRender['content']);
         return $bc;
     }

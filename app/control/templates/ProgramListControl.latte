@@ -15,13 +15,13 @@
             
             <div class="list-info">
             <p class="list-time ">
-                    <span class="left">{$program->programType} {if $program->programGenre != 'NatsuCon' && $program->programType != $program->programGenre}({$program->programGenre}){/if}</span>
+                    <span class="left">{$program->programType} {if ($program->programGenre != 'NatsuCon' && $program->programGenre != 'General') && $program->programType != $program->programGenre}({$program->programGenre}){/if}</span>
                     <span class="right">{$program->timeFrom|date:'d/m G:i'} {$program->roomTitle}</span></p>
             <p class="headline"></p>
             <div class="program-section">
             <div class="left">
                 <div class="program-room-title">{$program->contentTitle|truncate:45}</div>
-                <div class="program-room-author">{$program->author|truncate:45}</div>
+                <div class="program-room-author">{if $program->author == ""}-{else}{$program->author|truncate:45}{/if}</div>
             </div>
             
             <div  {if $program->image} class="right with-image" style="background-image: url('{$basePath}/{$program->image->listFile}')" {else} class="right" {/if}>

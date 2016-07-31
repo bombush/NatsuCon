@@ -163,7 +163,7 @@ class ProgramModel extends EntityModel {
               $stm->where("statusId = $statusId");
           }
           
-          $stm->groupBy("content.id,attachment.id");
+          $stm->groupBy("content.id");
           $stm->orderBy($orderBy);
           
           //$stm->
